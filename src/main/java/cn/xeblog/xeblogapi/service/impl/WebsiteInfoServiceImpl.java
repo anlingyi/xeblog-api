@@ -20,11 +20,11 @@ public class WebsiteInfoServiceImpl implements WebsiteInfoService {
 
     @Override
     public WebsiteInfoDTO getWebsiteInfo() throws Exception {
-        return WebsiteInfoDTO.toWebsiteInfoDTO(websiteInfoMapper.getWebsiteInfo());
+        return WebsiteInfoDTO.toWebsiteInfoDTO(this.websiteInfoMapper.getWebsiteInfo());
     }
 
     @Override
     public boolean updateWebsite(UpdateWebsiteInfo updateWebsiteInfo) throws Exception {
-        return 1 == websiteInfoMapper.updateWebsite(updateWebsiteInfo);
+        return 1 == this.websiteInfoMapper.updateWebsite(updateWebsiteInfo);
     }
 }

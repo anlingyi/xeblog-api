@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xeblog.xeblogapi.dao.MenuMapper">
+
+    <select id="listMenu" resultType="Menu">
+        SELECT m.id, m.name, m.url
+          FROM menu m ORDER BY ISNULL(m.order_id), m.order_id, m.id DESC
+    </select>
+
+    <insert id="addMenu">
+        INSERT INTO menu (name, url, order_id)
+          VALUES (#{add.name}, #{add.url}, #{add.orderId})
+    </insert>
+
+    <update id="updateMenu">
+        UPDATE menu m SET m.name = #{ud.name}, m.url = #{ud.url}, m.order_id = #{ud.orderId}
+          WHERE m.id = #{ud.id}
+    </update>
+
+    <delete id="deleteMenu">
+        DELETE FROM menu WHERE id = #{id}
+    </delete>
+
+</mapper>

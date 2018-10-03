@@ -34,7 +34,7 @@ public class AdminWebsiteInfoController {
     @ApiOperation(value = "网站信息更新", notes = "更新网站标题、副标题、版权信息")
     @PostMapping
     public Response updateWebsiteInfo(UpdateWebsiteInfo updateWebsiteInfo) throws Exception {
-        return websiteInfoService.updateWebsite(updateWebsiteInfo) ? new Response(Code.SUCCESS) :
+        return this.websiteInfoService.updateWebsite(updateWebsiteInfo) ? new Response(Code.SUCCESS) :
                 new Response(Code.FAILED);
     }
 

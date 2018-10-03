@@ -1,6 +1,6 @@
 package cn.xeblog.xeblogapi.controller;
 
-import cn.xeblog.xeblogapi.service.WebsiteInfoService;
+import cn.xeblog.xeblogapi.service.MenuService;
 import cn.xeblog.xeblogapi.util.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,29 +11,28 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * 网站信息
+ * 菜单
  *
  * @author yanpanyi
  * @date 2018/10/3
  */
-@Api(tags = "网站信息")
+@Api(tags = "菜单")
 @RestController
-@RequestMapping("/api/website_info")
-public class WebsiteInfoController {
+@RequestMapping("/api/menu")
+public class MenuController {
 
     @Resource
-    private WebsiteInfoService websiteInfoService;
+    private MenuService menuService;
 
     /**
-     * 获取网站信息
+     * 菜单列表
      *
      * @return
      * @throws Exception
      */
-    @ApiOperation(value = "获取网站信息")
+    @ApiOperation(value = "获取菜单列表")
     @GetMapping
-    public Response getWebsiteInfo() throws Exception {
-        return new Response(this.websiteInfoService.getWebsiteInfo());
+    public Response listMenu() throws Exception {
+        return new Response(this.menuService.listMenu());
     }
-
 }
