@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xeblog.xeblogapi.dao.AdminUserMapper">
+
+    <select id="getAdminUser" resultType="AdminUser">
+        SELECT u.name, u.avatar, u.github_url AS githubUrl, u.signature
+          FROM admin_user u
+    </select>
+
+</mapper>

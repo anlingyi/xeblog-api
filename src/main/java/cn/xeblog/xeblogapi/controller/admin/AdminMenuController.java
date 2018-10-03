@@ -64,6 +64,11 @@ public class AdminMenuController {
     @ApiOperation(value = "删除菜单")
     @DeleteMapping
     public Response deleteMenu(Integer id) throws Exception {
+        if (null == id || 1 < id) {
+            // 非法参数
+            return new Response(Code.INVALID_PARAMETERS);
+        }
+
         return this.menuService.deleteMenu(id) ? new Response(Code.SUCCESS) :
                 new Response(Code.FAILED);
     }
