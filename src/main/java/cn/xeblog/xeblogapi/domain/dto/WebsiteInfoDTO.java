@@ -12,13 +12,23 @@ public class WebsiteInfoDTO {
 
     private String title;
     private String copyright;
+    private String subtitle;
 
     public WebsiteInfoDTO() {
     }
 
-    public WebsiteInfoDTO(String title, String copyright) {
+    public WebsiteInfoDTO(String title, String copyright, String subtitle) {
         this.title = title;
         this.copyright = copyright;
+        this.subtitle = subtitle;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public String getTitle() {

@@ -13,6 +13,15 @@ public class WebsiteInfo {
     private String copyright;
     private Date createTime;
     private Date updateTime;
+    private String subtitle;
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
 
     public String getTitle() {
         return title;
