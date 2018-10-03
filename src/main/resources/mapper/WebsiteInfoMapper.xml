@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xeblog.xeblogapi.dao.WebsiteInfoMapper">
+
+    <select id="getWebsiteInfo" resultType="WebsiteInfo">
+      SELECT w.title, w.copyright
+        FROM website_info w
+    </select>
+
+    <update id="updateWebsite">
+      UPDATE website_info w SET w.title = #{info.title}, w.copyright = #{info.copyright}
+    </update>
+
+</mapper>

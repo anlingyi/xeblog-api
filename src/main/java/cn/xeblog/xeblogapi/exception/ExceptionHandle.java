@@ -1,0 +1,32 @@
+package cn.xeblog.xeblogapi.exception;
+
+import cn.xeblog.xeblogapi.enums.Code;
+import cn.xeblog.xeblogapi.util.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+/**
+ * @author yanpanyi
+ */
+@ControllerAdvice
+public class ExceptionHandle {
+    private final static Logger LOGGER = LoggerFactory.getLogger(ExceptionHandle.class);
+
+    @ExceptionHandler(value = Exception.class)
+    @ResponseBody
+    public Response handle(Exception e) {
+        LOGGER.error("error：", e);
+        return new Response(Code.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = CustomException.class)
+    @ResponseBody
+    public Response invalidParameterErrorHandler(CustomException e) {
+        return new Response(e.getErrorCode());
+    }
+
+
+}
