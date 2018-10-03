@@ -1,5 +1,6 @@
 package cn.xeblog.xeblogapi.controller;
 
+import cn.xeblog.xeblogapi.domain.request.Pagination;
 import cn.xeblog.xeblogapi.service.ArticleService;
 import cn.xeblog.xeblogapi.util.Response;
 import com.alibaba.fastjson.JSONObject;
@@ -38,5 +39,17 @@ public class ArticleController {
         jsonObject.put("articleCount", this.articleService.getCount());
 
         return new Response(jsonObject);
+    }
+
+    /**
+     * 文章列表
+     *
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "获取文章列表")
+    @GetMapping()
+    public Response listArticle(Pagination pagination) throws Exception {
+        return new Response(this.articleService.listArticle(pagination));
     }
 }

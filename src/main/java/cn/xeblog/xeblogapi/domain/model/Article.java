@@ -23,6 +23,24 @@ public class Article {
     private String author;
     private Date createTime;
     private Date updateTime;
+    private String brief;
+    private String categoryName;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
 
     public Integer getId() {
         return id;

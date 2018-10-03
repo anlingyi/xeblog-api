@@ -1,6 +1,7 @@
 package cn.xeblog.xeblogapi.domain.dto;
 
 import cn.xeblog.xeblogapi.domain.model.Link;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 链接
@@ -9,8 +10,11 @@ import cn.xeblog.xeblogapi.domain.model.Link;
  */
 public class LinkDTO {
 
+    @ApiModelProperty("链接名称")
     private String name;
+    @ApiModelProperty("链接地址")
     private String url;
+    @ApiModelProperty("链接简介")
     private String brief;
 
     public LinkDTO() {

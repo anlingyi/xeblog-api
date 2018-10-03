@@ -10,4 +10,12 @@
           FROM article WHERE is_private = 0 AND is_draft = 0
     </select>
 
+    <select id="listArticle" resultType="article">
+        SELECT a.id, a.title, a.cover, a.brief, c.name AS categoryName, a.tag, a.pageviews, a.author,
+          a.create_time AS createTime
+          FROM article a
+          LEFT JOIN category c ON c.id = a.category_id
+          WHERE a.is_private = 0 AND a.is_draft = 0
+    </select>
+
 </mapper>
