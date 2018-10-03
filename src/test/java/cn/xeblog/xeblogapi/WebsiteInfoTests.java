@@ -24,7 +24,8 @@ public class WebsiteInfoTests {
 
     @Test
     public void update() throws Exception {
-        Assert.assertTrue(websiteInfoService.updateWebsite(new UpdateWebsiteInfo("test", "123")));
+        Assert.assertTrue(websiteInfoService.updateWebsite(new UpdateWebsiteInfo("title", "copyright",
+                "subtitle")));
     }
 
 }

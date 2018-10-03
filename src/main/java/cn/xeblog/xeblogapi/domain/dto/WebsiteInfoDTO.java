@@ -63,6 +63,7 @@ public class WebsiteInfoDTO {
         WebsiteInfoDTO websiteInfoDTO = new WebsiteInfoDTO();
         websiteInfoDTO.setTitle(websiteInfo.getTitle());
         websiteInfoDTO.setCopyright(websiteInfo.getCopyright());
+        websiteInfoDTO.setSubtitle(websiteInfo.getSubtitle());
 
         return websiteInfoDTO;
     }

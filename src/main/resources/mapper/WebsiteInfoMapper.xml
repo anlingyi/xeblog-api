@@ -6,12 +6,12 @@
 <mapper namespace="cn.xeblog.xeblogapi.dao.WebsiteInfoMapper">
 
     <select id="getWebsiteInfo" resultType="WebsiteInfo">
-      SELECT w.title, w.copyright
+      SELECT w.title, w.copyright, w.subtitle
         FROM website_info w
     </select>
 
     <update id="updateWebsite">
-      UPDATE website_info w SET w.title = #{info.title}, w.copyright = #{info.copyright}
+      UPDATE website_info w SET w.title = #{info.title}, w.copyright = #{info.copyright}, w.subtitle = #{info.subtitle}
     </update>
 
 </mapper>

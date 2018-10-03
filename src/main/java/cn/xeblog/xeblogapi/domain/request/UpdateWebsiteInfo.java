@@ -13,13 +13,24 @@ public class UpdateWebsiteInfo {
     private String title;
     @ApiModelProperty("网站版权")
     private String copyright;
+    @ApiModelProperty("网站副标题")
+    private String subtitle;
 
     public UpdateWebsiteInfo() {
     }
 
-    public UpdateWebsiteInfo(String title, String copyright) {
+    public UpdateWebsiteInfo(String title, String copyright, String subtitle) {
         this.title = title;
         this.copyright = copyright;
+        this.subtitle = subtitle;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     public String getTitle() {
