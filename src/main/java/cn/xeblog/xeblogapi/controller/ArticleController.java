@@ -1,12 +1,15 @@
 package cn.xeblog.xeblogapi.controller;
 
 import cn.xeblog.xeblogapi.domain.request.Pagination;
+import cn.xeblog.xeblogapi.enums.Code;
 import cn.xeblog.xeblogapi.service.ArticleService;
+import cn.xeblog.xeblogapi.util.CheckUtils;
 import cn.xeblog.xeblogapi.util.Response;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,6 +47,7 @@ public class ArticleController {
     /**
      * 文章列表
      *
+     * @param pagination
      * @return
      * @throws Exception
      */
@@ -51,5 +55,26 @@ public class ArticleController {
     @GetMapping()
     public Response listArticle(Pagination pagination) throws Exception {
         return new Response(this.articleService.listArticle(pagination));
+    }
+
+    /**
+     * 文章列表
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "获取文章详情")
+    @GetMapping("/{id}")
+    public Response listArticle(@PathVariable("id") Integer id) throws Exception {
+        if (CheckUtils.checkId(id)) {
+            // 非法参数
+            return new Response(Code.INVALID_PARAMETERS);
+        }
+
+        // 增加浏览量
+        this.articleService.addPageviews(id);
+
+        return new Response(this.articleService.getArticleDetails(id));
     }
 }

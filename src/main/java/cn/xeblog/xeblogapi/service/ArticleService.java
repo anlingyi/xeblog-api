@@ -2,6 +2,7 @@ package cn.xeblog.xeblogapi.service;
 
 import cn.xeblog.xeblogapi.domain.bo.PageList;
 import cn.xeblog.xeblogapi.domain.dto.ArticleDTO;
+import cn.xeblog.xeblogapi.domain.dto.ArticleDetailsDTO;
 import cn.xeblog.xeblogapi.domain.request.Pagination;
 
 import java.util.List;
@@ -27,4 +28,22 @@ public interface ArticleService {
      * @throws Exception
      */
     PageList listArticle(Pagination pagination) throws Exception;
+
+    /**
+     * 获取文章详情
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    ArticleDetailsDTO getArticleDetails(Integer id) throws Exception;
+
+    /**
+     * 增加浏览量
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    boolean addPageviews(Integer id) throws Exception;
 }

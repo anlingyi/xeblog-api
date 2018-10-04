@@ -3,6 +3,7 @@ package cn.xeblog.xeblogapi.service.impl;
 import cn.xeblog.xeblogapi.dao.ArticleMapper;
 import cn.xeblog.xeblogapi.domain.bo.PageList;
 import cn.xeblog.xeblogapi.domain.dto.ArticleDTO;
+import cn.xeblog.xeblogapi.domain.dto.ArticleDetailsDTO;
 import cn.xeblog.xeblogapi.domain.model.Article;
 import cn.xeblog.xeblogapi.domain.request.Pagination;
 import cn.xeblog.xeblogapi.service.ArticleService;
@@ -46,5 +47,15 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         return new PageList(articleDTOList, pageInfo.getPageNum(), pageInfo.getPages());
+    }
+
+    @Override
+    public ArticleDetailsDTO getArticleDetails(Integer id) throws Exception {
+        return ArticleDetailsDTO.toArticleDetailsDTO(this.articleMapper.getArticleById(id));
+    }
+
+    @Override
+    public boolean addPageviews(Integer id) throws Exception {
+        return 1 == this.articleMapper.addPageviews(id);
     }
 }

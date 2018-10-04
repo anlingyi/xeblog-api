@@ -3,6 +3,7 @@ package cn.xeblog.xeblogapi.controller.admin;
 import cn.xeblog.xeblogapi.domain.request.AddOrUpdateMenu;
 import cn.xeblog.xeblogapi.enums.Code;
 import cn.xeblog.xeblogapi.service.MenuService;
+import cn.xeblog.xeblogapi.util.CheckUtils;
 import cn.xeblog.xeblogapi.util.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -64,7 +65,7 @@ public class AdminMenuController {
     @ApiOperation(value = "删除菜单")
     @DeleteMapping
     public Response deleteMenu(Integer id) throws Exception {
-        if (null == id || 1 < id) {
+        if (CheckUtils.checkId(id)) {
             // 非法参数
             return new Response(Code.INVALID_PARAMETERS);
         }

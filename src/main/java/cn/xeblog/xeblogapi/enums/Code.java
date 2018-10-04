@@ -9,6 +9,10 @@ package cn.xeblog.xeblogapi.enums;
 public enum Code implements ErrorCode {
 
     /**
+     * 标签已存在
+     */
+    TAG_ALREADY_EXISTS(1001, "Tag Already Exists"),
+    /**
      * 处理成功
      */
     SUCCESS(200, "Success"),

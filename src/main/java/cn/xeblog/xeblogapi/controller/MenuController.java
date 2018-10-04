@@ -35,4 +35,5 @@ public class MenuController {
     public Response listMenu() throws Exception {
         return new Response(this.menuService.listMenu());
     }
+
 }

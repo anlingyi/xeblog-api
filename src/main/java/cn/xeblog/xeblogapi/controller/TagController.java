@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  */
 @Api(tags = "标签")
 @RestController
-@RequestMapping("/api/tag")
+@RequestMapping("/api/tags")
 public class TagController {
 
     @Resource
@@ -38,5 +38,17 @@ public class TagController {
         jsonObject.put("tagCount", this.tagService.getCount());
 
         return new Response(jsonObject);
+    }
+
+    /**
+     * 获取标签列表
+     *
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "获取标签列表")
+    @GetMapping()
+    public Response listTag() throws Exception {
+        return new Response(this.tagService.listTag());
     }
 }

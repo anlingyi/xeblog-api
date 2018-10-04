@@ -10,4 +10,21 @@
           FROM tag
     </select>
 
+    <select id="listTag" resultType="tag">
+        SELECT id, name
+          FROM tag
+    </select>
+
+    <insert id="addTag">
+        INSERT INTO tag (name) VALUES (#{name})
+    </insert>
+
+    <delete id="deleteTagById">
+        DELETE FROM tag WHERE id = #{id}
+    </delete>
+
+    <select id="getTagIdByName" resultType="integer">
+        SELECT id FROM tag WHERE name = #{name}
+    </select>
+
 </mapper>
