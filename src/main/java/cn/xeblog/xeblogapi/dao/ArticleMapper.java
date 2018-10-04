@@ -43,4 +43,5 @@ public interface ArticleMapper {
      * @throws Exception
      */
     Integer addPageviews(Integer id) throws Exception;
+
 }

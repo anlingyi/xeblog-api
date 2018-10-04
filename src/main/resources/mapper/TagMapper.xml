@@ -11,8 +11,9 @@
     </select>
 
     <select id="listTag" resultType="tag">
-        SELECT id, name
-          FROM tag
+        SELECT t.id, t.name, (SELECT COUNT(a.id) FROM article a WHERE FIND_IN_SET(t.name, a.tag)
+		  AND a.is_private = 0 AND a.is_draft = 0) AS articleCount
+          FROM tag t
     </select>
 
     <insert id="addTag">

@@ -58,4 +58,5 @@ public class ArticleServiceImpl implements ArticleService {
     public boolean addPageviews(Integer id) throws Exception {
         return 1 == this.articleMapper.addPageviews(id);
     }
+
 }

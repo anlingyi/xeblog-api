@@ -46,4 +46,5 @@ public interface ArticleService {
      * @throws Exception
      */
     boolean addPageviews(Integer id) throws Exception;
+
 }

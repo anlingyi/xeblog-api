@@ -13,6 +13,15 @@ public class Tag {
     private String name;
     private Date createTime;
     private Date updateTime;
+    private Integer articleCount;
+
+    public Integer getArticleCount() {
+        return articleCount;
+    }
+
+    public void setArticleCount(Integer articleCount) {
+        this.articleCount = articleCount;
+    }
 
     public Integer getId() {
         return id;
