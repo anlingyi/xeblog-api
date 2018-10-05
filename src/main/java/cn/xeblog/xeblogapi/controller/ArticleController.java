@@ -1,6 +1,7 @@
 package cn.xeblog.xeblogapi.controller;
 
 import cn.xeblog.xeblogapi.domain.request.Pagination;
+import cn.xeblog.xeblogapi.domain.request.QueryArticle;
 import cn.xeblog.xeblogapi.enums.Code;
 import cn.xeblog.xeblogapi.service.ArticleService;
 import cn.xeblog.xeblogapi.util.CheckUtils;
@@ -47,14 +48,14 @@ public class ArticleController {
     /**
      * 文章列表
      *
-     * @param pagination
+     * @param queryArticle
      * @return
      * @throws Exception
      */
     @ApiOperation(value = "获取文章列表")
     @GetMapping()
-    public Response listArticle(Pagination pagination) throws Exception {
-        return new Response(this.articleService.listArticle(pagination));
+    public Response listArticle(QueryArticle queryArticle) throws Exception {
+        return new Response(this.articleService.listArticle(queryArticle));
     }
 
     /**

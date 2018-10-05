@@ -19,15 +19,25 @@ public class UserInfoDTO {
     private String signature;
     @ApiModelProperty("github地址")
     private String githubUrl;
+    @ApiModelProperty("文章数")
+    private Integer articleCount;
+    @ApiModelProperty("标签数")
+    private Integer tagCount;
 
-    public UserInfoDTO() {
+    public Integer getArticleCount() {
+        return articleCount;
     }
 
-    public UserInfoDTO(String avatar, String name, String signature, String githubUrl) {
-        this.avatar = avatar;
-        this.name = name;
-        this.signature = signature;
-        this.githubUrl = githubUrl;
+    public void setArticleCount(Integer articleCount) {
+        this.articleCount = articleCount;
+    }
+
+    public Integer getTagCount() {
+        return tagCount;
+    }
+
+    public void setTagCount(Integer tagCount) {
+        this.tagCount = tagCount;
     }
 
     public String getAvatar() {
@@ -69,6 +79,8 @@ public class UserInfoDTO {
                 ", name='" + name + '\'' +
                 ", signature='" + signature + '\'' +
                 ", githubUrl='" + githubUrl + '\'' +
+                ", articleCount=" + articleCount +
+                ", tagCount=" + tagCount +
                 '}';
     }
 

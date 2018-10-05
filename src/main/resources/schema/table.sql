@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `website_info`;
 CREATE TABLE `website_info` (
   `title` varchar(256) DEFAULT NULL COMMENT '网站标题',
   `subtitle` varchar(256) DEFAULT NULL COMMENT '网站副标题',
-  `copyright` varchar(256) DEFAULT NULL COMMENT '网站版权',
+  `copyright` text DEFAULT NULL COMMENT '网站版权',
   `create_time` datetime NOT NULL DEFAULT now() COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT now() ON UPDATE now() COMMENT '更新时间'
 ) ENGINE=InnoDB CHARSET=utf8;

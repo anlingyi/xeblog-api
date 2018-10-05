@@ -1,6 +1,8 @@
 package cn.xeblog.xeblogapi.dao;
 
 import cn.xeblog.xeblogapi.domain.model.Article;
+import cn.xeblog.xeblogapi.domain.request.QueryArticle;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,10 +23,11 @@ public interface ArticleMapper {
     /**
      * 文章列表
      *
+     * @param queryArticle
      * @return
      * @throws Exception
      */
-    List<Article> listArticle() throws Exception;
+    List<Article> listArticle(@Param("query") QueryArticle queryArticle) throws Exception;
 
     /**
      * 通过id获取文章信息

@@ -12,10 +12,17 @@
 
     <select id="listArticle" resultType="article">
         SELECT a.id, a.title, a.cover, a.brief, c.name AS categoryName, a.tag, a.pageviews, a.author,
-          a.create_time AS createTime
-          FROM article a
-          LEFT JOIN category c ON c.id = a.category_id
-          WHERE a.is_private = 0 AND a.is_draft = 0
+        a.create_time AS createTime
+        FROM article a
+        LEFT JOIN category c ON c.id = a.category_id
+        WHERE a.is_private = 0 AND a.is_draft = 0
+        <if test="null != query.query">
+            AND a.title LIKE CONCAT('%', #{query.query}, '%')
+        </if>
+        <if test="null != query.tag and '' != query.tag">
+            AND FIND_IN_SET(#{query.tag}, a.tag)
+        </if>
+        ORDER BY a.is_top DESC, a.id DESC
     </select>
 
     <select id="getArticleById" resultType="article">

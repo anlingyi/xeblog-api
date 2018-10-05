@@ -4,6 +4,7 @@ import cn.xeblog.xeblogapi.domain.bo.PageList;
 import cn.xeblog.xeblogapi.domain.dto.ArticleDTO;
 import cn.xeblog.xeblogapi.domain.dto.ArticleDetailsDTO;
 import cn.xeblog.xeblogapi.domain.request.Pagination;
+import cn.xeblog.xeblogapi.domain.request.QueryArticle;
 
 import java.util.List;
 
@@ -24,10 +25,11 @@ public interface ArticleService {
     /**
      * 文章列表
      *
+     * @param queryArticle
      * @return
      * @throws Exception
      */
-    PageList listArticle(Pagination pagination) throws Exception;
+    PageList listArticle(QueryArticle queryArticle) throws Exception;
 
     /**
      * 获取文章详情

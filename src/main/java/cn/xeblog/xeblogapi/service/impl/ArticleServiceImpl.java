@@ -6,6 +6,7 @@ import cn.xeblog.xeblogapi.domain.dto.ArticleDTO;
 import cn.xeblog.xeblogapi.domain.dto.ArticleDetailsDTO;
 import cn.xeblog.xeblogapi.domain.model.Article;
 import cn.xeblog.xeblogapi.domain.request.Pagination;
+import cn.xeblog.xeblogapi.domain.request.QueryArticle;
 import cn.xeblog.xeblogapi.service.ArticleService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -31,9 +32,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public PageList listArticle(Pagination pagination) throws Exception {
-        PageHelper.startPage(pagination.getPageIndex(), pagination.getPageSize());
-        List<Article> articleList = this.articleMapper.listArticle();
+    public PageList listArticle(QueryArticle queryArticle) throws Exception {
+        PageHelper.startPage(queryArticle.getPageIndex(), queryArticle.getPageSize());
+        List<Article> articleList = this.articleMapper.listArticle(queryArticle);
 
         if (articleList.isEmpty()) {
             return null;
