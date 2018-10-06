@@ -133,6 +133,7 @@ public class ArticleDetailsDTO {
         articleDetailsDTO.setPageviews(article.getPageviews());
         articleDetailsDTO.setAuthor(article.getAuthor());
         articleDetailsDTO.setCreateTime(DateFormatUtils.format(article.getCreateTime(), "yyyy-MM-dd"));
+        articleDetailsDTO.setCategoryName(article.getCategoryName());
 
         return articleDetailsDTO;
     }

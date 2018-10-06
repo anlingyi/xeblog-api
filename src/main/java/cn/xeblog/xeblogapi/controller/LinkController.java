@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  */
 @Api(tags = "链接")
 @RestController
-@RequestMapping("/api/link")
+@RequestMapping("/api/links")
 public class LinkController {
 
     @Resource

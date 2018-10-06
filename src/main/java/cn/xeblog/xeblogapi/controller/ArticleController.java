@@ -1,6 +1,5 @@
 package cn.xeblog.xeblogapi.controller;
 
-import cn.xeblog.xeblogapi.domain.request.Pagination;
 import cn.xeblog.xeblogapi.domain.request.QueryArticle;
 import cn.xeblog.xeblogapi.enums.Code;
 import cn.xeblog.xeblogapi.service.ArticleService;
@@ -24,7 +23,7 @@ import javax.annotation.Resource;
  */
 @Api(tags = "文章")
 @RestController
-@RequestMapping("/api/article")
+@RequestMapping("/api/articles")
 public class ArticleController {
 
     @Resource
