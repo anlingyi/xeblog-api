@@ -83,7 +83,7 @@ CREATE TABLE `article` (
   `author` varchar(50) NOT NULL COMMENT '作者',
   `brief` varchar(256) DEFAULT NULL COMMENT '简述',
   `create_time` datetime NOT NULL DEFAULT now() COMMENT '创建时间',
-  `update_time` datetime NOT NULL DEFAULT now() ON UPDATE now() COMMENT '更新时间',
+  `update_time` datetime NOT NULL DEFAULT now() COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB CHARSET=utf8;
 

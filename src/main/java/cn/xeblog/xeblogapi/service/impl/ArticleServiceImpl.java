@@ -1,11 +1,12 @@
 package cn.xeblog.xeblogapi.service.impl;
 
 import cn.xeblog.xeblogapi.dao.ArticleMapper;
+import cn.xeblog.xeblogapi.domain.bo.ArticleDetailsBO;
 import cn.xeblog.xeblogapi.domain.bo.PageList;
 import cn.xeblog.xeblogapi.domain.dto.ArticleDTO;
 import cn.xeblog.xeblogapi.domain.dto.ArticleDetailsDTO;
+import cn.xeblog.xeblogapi.domain.dto.ArticleNavDTO;
 import cn.xeblog.xeblogapi.domain.model.Article;
-import cn.xeblog.xeblogapi.domain.request.Pagination;
 import cn.xeblog.xeblogapi.domain.request.QueryArticle;
 import cn.xeblog.xeblogapi.service.ArticleService;
 import com.github.pagehelper.PageHelper;
@@ -51,8 +52,15 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public ArticleDetailsDTO getArticleDetails(Integer id) throws Exception {
-        return ArticleDetailsDTO.toArticleDetailsDTO(this.articleMapper.getArticleById(id));
+    public ArticleDetailsBO getArticleDetails(Integer id) throws Exception {
+        // 文章详情
+        ArticleDetailsDTO articleDetailsDTO = ArticleDetailsDTO.toArticleDetailsDTO(this.articleMapper.getArticleById(id));
+        // 上一篇
+        ArticleNavDTO previous = ArticleNavDTO.toArticleNavDTO(this.articleMapper.getArticleBeforeById(id));
+        // 下一篇
+        ArticleNavDTO next = ArticleNavDTO.toArticleNavDTO(this.articleMapper.getArticleAfterById(id));
+
+        return new ArticleDetailsBO(articleDetailsDTO, previous, next);
     }
 
     @Override

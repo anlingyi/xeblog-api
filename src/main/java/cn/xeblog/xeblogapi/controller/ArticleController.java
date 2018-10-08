@@ -58,7 +58,7 @@ public class ArticleController {
     }
 
     /**
-     * 文章列表
+     * 获取文章详情
      *
      * @param id
      * @return
@@ -66,7 +66,7 @@ public class ArticleController {
      */
     @ApiOperation(value = "获取文章详情")
     @GetMapping("/{id}")
-    public Response listArticle(@PathVariable("id") Integer id) throws Exception {
+    public Response getArticleDetails(@PathVariable("id") Integer id) throws Exception {
         if (CheckUtils.checkId(id)) {
             // 非法参数
             return new Response(Code.INVALID_PARAMETERS);

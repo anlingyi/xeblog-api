@@ -47,4 +47,22 @@ public interface ArticleMapper {
      */
     Integer addPageviews(Integer id) throws Exception;
 
+    /**
+     * 获取该id之前的一篇文章
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    Article getArticleBeforeById(Integer id) throws Exception;
+
+    /**
+     * 获取该id之后的一篇文章
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    Article getArticleAfterById(Integer id) throws Exception;
+
 }

@@ -16,7 +16,7 @@
         FROM article a
         LEFT JOIN category c ON c.id = a.category_id
         WHERE a.is_private = 0 AND a.is_draft = 0
-        <if test="null != query.query">
+        <if test="null != query.query and '' != query.query">
             AND a.title LIKE CONCAT('%', #{query.query}, '%')
         </if>
         <if test="null != query.tag and '' != query.tag">
@@ -36,5 +36,19 @@
     <update id="addPageviews">
         UPDATE article a SET a.pageviews = a.pageviews + 1 WHERE a.id = #{id} AND a.is_private = 0 AND a.is_draft = 0
     </update>
+
+    <select id="getArticleBeforeById" resultType="article">
+        SELECT a.id, a.title
+          FROM article a
+          WHERE a.id &lt; #{id} AND a.is_private = 0 AND a.is_draft = 0
+          ORDER BY a.id DESC LIMIT 0,1
+    </select>
+
+    <select id="getArticleAfterById" resultType="article">
+          SELECT a.id, a.title
+          FROM article a
+          WHERE a.id > #{id} AND a.is_private = 0 AND a.is_draft = 0
+          ORDER BY a.id LIMIT 0,1
+    </select>
 
 </mapper>

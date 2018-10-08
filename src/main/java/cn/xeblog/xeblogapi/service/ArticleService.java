@@ -1,12 +1,8 @@
 package cn.xeblog.xeblogapi.service;
 
+import cn.xeblog.xeblogapi.domain.bo.ArticleDetailsBO;
 import cn.xeblog.xeblogapi.domain.bo.PageList;
-import cn.xeblog.xeblogapi.domain.dto.ArticleDTO;
-import cn.xeblog.xeblogapi.domain.dto.ArticleDetailsDTO;
-import cn.xeblog.xeblogapi.domain.request.Pagination;
 import cn.xeblog.xeblogapi.domain.request.QueryArticle;
-
-import java.util.List;
 
 /**
  * @author yanpanyi
@@ -38,7 +34,7 @@ public interface ArticleService {
      * @return
      * @throws Exception
      */
-    ArticleDetailsDTO getArticleDetails(Integer id) throws Exception;
+    ArticleDetailsBO getArticleDetails(Integer id) throws Exception;
 
     /**
      * 增加浏览量
