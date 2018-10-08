@@ -48,6 +48,7 @@ CREATE TABLE `menu` (
   `name` varchar(50) NOT NULL COMMENT '名称',
   `url` varchar(256) NOT NULL COMMENT '链接地址',
   `order_id` int(10) DEFAULT 0 COMMENT '排序',
+  `icon` varchar(256) DEFAULT NULL COMMENT '图标css',
   `create_time` datetime NOT NULL DEFAULT now() COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT now() ON UPDATE now() COMMENT '更新时间',
   PRIMARY KEY (`id`)

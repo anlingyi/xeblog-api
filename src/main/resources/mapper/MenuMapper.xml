@@ -6,7 +6,7 @@
 <mapper namespace="cn.xeblog.xeblogapi.dao.MenuMapper">
 
     <select id="listMenu" resultType="Menu">
-        SELECT m.id, m.name, m.url
+        SELECT m.id, m.name, m.url, m.icon
           FROM menu m ORDER BY ISNULL(m.order_id), m.order_id, m.id DESC
     </select>
 

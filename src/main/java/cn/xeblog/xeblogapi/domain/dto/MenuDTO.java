@@ -17,14 +17,25 @@ public class MenuDTO {
     private String name;
     @ApiModelProperty("菜单地址")
     private String url;
+    @ApiModelProperty("图标")
+    private String icon;
 
     public MenuDTO() {
     }
 
-    public MenuDTO(Integer id, String name, String url) {
+    public MenuDTO(Integer id, String name, String url, String icon) {
         this.id = id;
         this.name = name;
         this.url = url;
+        this.icon = icon;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public Integer getId() {
@@ -57,6 +68,7 @@ public class MenuDTO {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
+                ", icon='" + icon + '\'' +
                 '}';
     }
 
@@ -69,6 +81,7 @@ public class MenuDTO {
         menuDTO.setId(menu.getId());
         menuDTO.setName(menu.getName());
         menuDTO.setUrl(menu.getUrl());
+        menuDTO.setIcon(menu.getIcon());
 
         return menuDTO;
     }
