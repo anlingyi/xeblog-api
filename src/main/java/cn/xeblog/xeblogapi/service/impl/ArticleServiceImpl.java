@@ -55,10 +55,28 @@ public class ArticleServiceImpl implements ArticleService {
     public ArticleDetailsBO getArticleDetails(Integer id) throws Exception {
         // 文章详情
         ArticleDetailsDTO articleDetailsDTO = ArticleDetailsDTO.toArticleDetailsDTO(this.articleMapper.getArticleById(id));
+
+        List<Article> articleList = articleMapper.listTitileAndId();
         // 上一篇
-        ArticleNavDTO previous = ArticleNavDTO.toArticleNavDTO(this.articleMapper.getArticleBeforeById(id));
+        ArticleNavDTO previous = null;
         // 下一篇
-        ArticleNavDTO next = ArticleNavDTO.toArticleNavDTO(this.articleMapper.getArticleAfterById(id));
+        ArticleNavDTO next = null;
+        int len = articleList.size();
+
+        for (int i = 0; i < len; i++) {
+            if (id.equals(articleList.get(i).getId())) {
+                if (i > 0) {
+                    // 获取上一篇文章
+                    previous = ArticleNavDTO.toArticleNavDTO(articleList.get(i - 1));
+                }
+                if (i < len - 1) {
+                    // 获取下一篇文章
+                    next = ArticleNavDTO.toArticleNavDTO(articleList.get(i + 1));
+                }
+
+                break;
+            }
+        }
 
         return new ArticleDetailsBO(articleDetailsDTO, previous, next);
     }

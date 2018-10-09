@@ -4,7 +4,6 @@ package cn.xeblog.xeblogapi.domain.dto;
 import cn.xeblog.xeblogapi.domain.model.Article;
 import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.apache.commons.lang3.time.DateUtils;
 
 /**
  * 文章信息
@@ -31,6 +30,16 @@ public class ArticleDTO {
     private String createTime;
     @ApiModelProperty("文章简述")
     private String brief;
+    @ApiModelProperty("置顶")
+    private Boolean top;
+
+    public Boolean getTop() {
+        return top;
+    }
+
+    public void setTop(Boolean top) {
+        this.top = top;
+    }
 
     public String getBrief() {
         return brief;
@@ -114,7 +123,9 @@ public class ArticleDTO {
                 ", tag='" + tag + '\'' +
                 ", pageviews=" + pageviews +
                 ", author='" + author + '\'' +
-                ", createTime=" + createTime +
+                ", createTime='" + createTime + '\'' +
+                ", brief='" + brief + '\'' +
+                ", top=" + top +
                 '}';
     }
 
@@ -133,6 +144,7 @@ public class ArticleDTO {
         articleDTO.setPageviews(article.getPageviews());
         articleDTO.setAuthor(article.getAuthor());
         articleDTO.setCreateTime(DateFormatUtils.format(article.getCreateTime(), "yyyy-MM-dd"));
+        articleDTO.setTop(article.getIsTop() == 1);
 
         return articleDTO;
     }

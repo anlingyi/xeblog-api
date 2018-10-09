@@ -12,7 +12,7 @@
 
     <select id="listArticle" resultType="article">
         SELECT a.id, a.title, a.cover, a.brief, c.name AS categoryName, a.tag, a.pageviews, a.author,
-        a.create_time AS createTime
+        a.create_time AS createTime, a.is_top AS isTop
         FROM article a
         LEFT JOIN category c ON c.id = a.category_id
         WHERE a.is_private = 0 AND a.is_draft = 0
@@ -37,18 +37,11 @@
         UPDATE article a SET a.pageviews = a.pageviews + 1 WHERE a.id = #{id} AND a.is_private = 0 AND a.is_draft = 0
     </update>
 
-    <select id="getArticleBeforeById" resultType="article">
+    <select id="listTitileAndId" resultType="article">
         SELECT a.id, a.title
           FROM article a
-          WHERE a.id &lt; #{id} AND a.is_private = 0 AND a.is_draft = 0
-          ORDER BY a.id DESC LIMIT 0,1
-    </select>
-
-    <select id="getArticleAfterById" resultType="article">
-          SELECT a.id, a.title
-          FROM article a
-          WHERE a.id > #{id} AND a.is_private = 0 AND a.is_draft = 0
-          ORDER BY a.id LIMIT 0,1
+          WHERE a.is_private = 0 AND a.is_draft = 0
+          ORDER BY a.is_top DESC, a.id DESC
     </select>
 
 </mapper>
