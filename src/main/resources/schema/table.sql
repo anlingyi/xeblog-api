@@ -72,7 +72,7 @@ DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(50) NOT NULL COMMENT '文章标题',
-  `content` text NOT NULL COMMENT '文章内容',
+  `content` longtext NOT NULL COMMENT '文章内容',
   `cover` varchar(256) DEFAULT NULL COMMENT '文章封面',
   `is_top` int(1) DEFAULT 0 COMMENT '是否置顶,0否|1是',
   `is_private` int(1) DEFAULT 0 COMMENT '是否私有,0否|1是',
