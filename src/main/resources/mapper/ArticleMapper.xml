@@ -12,10 +12,13 @@
 
     <select id="listArticle" resultType="article">
         SELECT a.id, a.title, a.cover, a.brief, c.name AS categoryName, a.tag, a.pageviews, a.author,
-        a.create_time AS createTime, a.is_top AS isTop
+        a.create_time AS createTime, a.is_top AS isTop, a.category_id AS categoryId
         FROM article a
         LEFT JOIN category c ON c.id = a.category_id
         WHERE a.is_private = 0 AND a.is_draft = 0
+        <if test="null != query.categoryId and '' != query.categoryId">
+            AND a.category_id = #{query.categoryId}
+        </if>
         <if test="null != query.query and '' != query.query">
             AND a.title LIKE CONCAT('%', #{query.query}, '%')
         </if>

@@ -32,6 +32,16 @@ public class ArticleDTO {
     private String brief;
     @ApiModelProperty("置顶")
     private Boolean top;
+    @ApiModelProperty("文章类目id")
+    private Integer categoryId;
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public Boolean getTop() {
         return top;
@@ -126,6 +136,7 @@ public class ArticleDTO {
                 ", createTime='" + createTime + '\'' +
                 ", brief='" + brief + '\'' +
                 ", top=" + top +
+                ", categoryId='" + categoryId + '\'' +
                 '}';
     }
 
@@ -145,6 +156,7 @@ public class ArticleDTO {
         articleDTO.setAuthor(article.getAuthor());
         articleDTO.setCreateTime(DateFormatUtils.format(article.getCreateTime(), "yyyy-MM-dd"));
         articleDTO.setTop(article.getIsTop() == 1);
+        articleDTO.setCategoryId(article.getCategoryId());
 
         return articleDTO;
     }

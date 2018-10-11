@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xeblog.xeblogapi.dao.CategoryMapper">
+
+    <select id="listCategory" resultType="Category">
+        SELECT c.id, c.name, (SELECT COUNT(a.id) FROM article a WHERE a.category_id = c.id AND a.is_private = 0
+          AND a.is_draft = 0) AS articleCount
+          FROM category c ORDER BY c.id
+    </select>
+
+</mapper>

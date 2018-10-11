@@ -14,6 +14,16 @@ public class QueryArticle extends Pagination {
     private String query;
     @ApiModelProperty("标签")
     private String tag;
+    @ApiModelProperty("类目id")
+    private Integer categoryId;
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public String getQuery() {
         return query;
@@ -36,6 +46,7 @@ public class QueryArticle extends Pagination {
         return "QueryArticle{" +
                 "query='" + query + '\'' +
                 ", tag='" + tag + '\'' +
+                ", categoryId=" + categoryId +
                 '}';
     }
 }

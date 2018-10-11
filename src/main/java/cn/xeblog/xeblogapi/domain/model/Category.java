@@ -13,6 +13,8 @@ public class Category {
     private String name;
     private Date createTime;
     private Date updateTime;
+    private Integer articleCount;
+
 
     public Integer getId() {
         return id;
@@ -44,5 +46,13 @@ public class Category {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getArticleCount() {
+        return articleCount;
+    }
+
+    public void setArticleCount(Integer articleCount) {
+        this.articleCount = articleCount;
     }
 }
