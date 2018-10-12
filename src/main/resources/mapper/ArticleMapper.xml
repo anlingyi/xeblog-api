@@ -20,7 +20,9 @@
             AND a.category_id = #{query.categoryId}
         </if>
         <if test="null != query.query and '' != query.query">
-            AND a.title LIKE CONCAT('%', #{query.query}, '%')
+            AND (a.title LIKE CONCAT('%', #{query.query}, '%')
+            OR a.content LIKE CONCAT('%', #{query.query}, '%')
+            OR FIND_IN_SET(#{query.query}, a.tag))
         </if>
         <if test="null != query.tag and '' != query.tag">
             AND FIND_IN_SET(#{query.tag}, a.tag)

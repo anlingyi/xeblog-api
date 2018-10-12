@@ -78,7 +78,7 @@ CREATE TABLE `article` (
   `is_private` int(1) DEFAULT 0 COMMENT '是否私有,0否|1是',
   `is_draft` int(1) DEFAULT 0 COMMENT '是否草稿,0否|1是',
   `category_id` int(11) NOT NULL COMMENT '类目id',
-  `tag` varchar(50) DEFAULT NULL COMMENT '标签',
+  `tag` varchar(500) DEFAULT NULL COMMENT '标签',
   `pageviews` int(11) NOT NULL DEFAULT 0 COMMENT '浏览量',
   `author` varchar(50) NOT NULL COMMENT '作者',
   `brief` varchar(256) DEFAULT NULL COMMENT '简述',
