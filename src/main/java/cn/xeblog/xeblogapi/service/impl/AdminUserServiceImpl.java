@@ -4,6 +4,7 @@ import cn.xeblog.xeblogapi.dao.AdminUserMapper;
 import cn.xeblog.xeblogapi.domain.dto.UserInfoDTO;
 import cn.xeblog.xeblogapi.service.AdminUserService;
 import cn.xeblog.xeblogapi.service.ArticleService;
+import cn.xeblog.xeblogapi.service.CategoryService;
 import cn.xeblog.xeblogapi.service.TagService;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,8 @@ public class AdminUserServiceImpl implements AdminUserService {
     private ArticleService articleService;
     @Resource
     private TagService tagService;
+    @Resource
+    private CategoryService categoryService;
 
     @Override
     public UserInfoDTO getUserInfo() throws Exception {
@@ -35,6 +38,8 @@ public class AdminUserServiceImpl implements AdminUserService {
         userInfoDTO.setArticleCount(this.articleService.getCount());
         // 获取标签数
         userInfoDTO.setTagCount(this.tagService.getCount());
+        // 获取分类数
+        userInfoDTO.setCategoryCount(this.categoryService.getCategoryCount());
 
         return userInfoDTO;
     }

@@ -23,6 +23,16 @@ public class UserInfoDTO {
     private Integer articleCount;
     @ApiModelProperty("标签数")
     private Integer tagCount;
+    @ApiModelProperty("分类数")
+    private Integer categoryCount;
+
+    public Integer getCategoryCount() {
+        return categoryCount;
+    }
+
+    public void setCategoryCount(Integer categoryCount) {
+        this.categoryCount = categoryCount;
+    }
 
     public Integer getArticleCount() {
         return articleCount;
@@ -81,6 +91,7 @@ public class UserInfoDTO {
                 ", githubUrl='" + githubUrl + '\'' +
                 ", articleCount=" + articleCount +
                 ", tagCount=" + tagCount +
+                ", categoryCount=" + categoryCount +
                 '}';
     }
 

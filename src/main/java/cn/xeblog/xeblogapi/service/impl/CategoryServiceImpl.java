@@ -34,4 +34,9 @@ public class CategoryServiceImpl implements CategoryService {
 
         return categoryDTOList;
     }
+
+    @Override
+    public Integer getCategoryCount() throws Exception {
+        return this.categoryMapper.getCategoryCount();
+    }
 }

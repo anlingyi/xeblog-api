@@ -11,4 +11,8 @@
           FROM category c ORDER BY c.id
     </select>
 
+    <select id="getCategoryCount" resultType="integer">
+        SELECT COUNT(id) FROM category
+    </select>
+
 </mapper>

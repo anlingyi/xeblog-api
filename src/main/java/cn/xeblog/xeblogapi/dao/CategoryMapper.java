@@ -19,4 +19,12 @@ public interface CategoryMapper {
      * @throws Exception
      */
     List<Category> listCategory() throws Exception;
+
+    /**
+     * 获取分类数量
+     *
+     * @return
+     * @throws Exception
+     */
+    Integer getCategoryCount() throws Exception;
 }
