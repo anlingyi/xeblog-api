@@ -2,6 +2,7 @@ package cn.xeblog.xeblogapi.service;
 
 import cn.xeblog.xeblogapi.domain.bo.ArticleDetailsBO;
 import cn.xeblog.xeblogapi.domain.bo.PageList;
+import cn.xeblog.xeblogapi.domain.request.Pagination;
 import cn.xeblog.xeblogapi.domain.request.QueryArticle;
 
 /**
@@ -44,5 +45,13 @@ public interface ArticleService {
      * @throws Exception
      */
     boolean addPageviews(Integer id) throws Exception;
+
+    /**
+     * 归档
+     *
+     * @return
+     * @throws Exception
+     */
+    PageList listArchives(Pagination pagination) throws Exception;
 
 }

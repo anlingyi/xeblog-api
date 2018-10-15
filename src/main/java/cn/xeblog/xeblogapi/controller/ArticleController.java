@@ -1,5 +1,6 @@
 package cn.xeblog.xeblogapi.controller;
 
+import cn.xeblog.xeblogapi.domain.request.Pagination;
 import cn.xeblog.xeblogapi.domain.request.QueryArticle;
 import cn.xeblog.xeblogapi.enums.Code;
 import cn.xeblog.xeblogapi.service.ArticleService;
@@ -76,5 +77,18 @@ public class ArticleController {
         this.articleService.addPageviews(id);
 
         return new Response(this.articleService.getArticleDetails(id));
+    }
+
+    /**
+     * 归档
+     *
+     * @param pagination
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "归档")
+    @GetMapping("/archives")
+    public Response archives(Pagination pagination) throws Exception {
+        return new Response(articleService.listArchives(pagination));
     }
 }

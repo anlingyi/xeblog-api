@@ -55,4 +55,12 @@ public interface ArticleMapper {
      */
     List<Article> listTitileAndId() throws Exception;
 
+    /**
+     * 归档
+     *
+     * @return
+     * @throws Exception
+     */
+    List<Article> listArchives() throws Exception;
+
 }

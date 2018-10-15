@@ -49,4 +49,10 @@
           ORDER BY a.is_top DESC, a.id DESC
     </select>
 
+    <select id="listArchives" resultType="article">
+        SELECT a.id, a.create_time AS createTime, a.title
+          FROM article a WHERE a.is_private = 0 AND a.is_draft = 0
+          ORDER BY a.create_time DESC
+    </select>
+
 </mapper>

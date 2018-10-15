@@ -3,10 +3,9 @@ package cn.xeblog.xeblogapi.service.impl;
 import cn.xeblog.xeblogapi.dao.ArticleMapper;
 import cn.xeblog.xeblogapi.domain.bo.ArticleDetailsBO;
 import cn.xeblog.xeblogapi.domain.bo.PageList;
-import cn.xeblog.xeblogapi.domain.dto.ArticleDTO;
-import cn.xeblog.xeblogapi.domain.dto.ArticleDetailsDTO;
-import cn.xeblog.xeblogapi.domain.dto.ArticleNavDTO;
+import cn.xeblog.xeblogapi.domain.dto.*;
 import cn.xeblog.xeblogapi.domain.model.Article;
+import cn.xeblog.xeblogapi.domain.request.Pagination;
 import cn.xeblog.xeblogapi.domain.request.QueryArticle;
 import cn.xeblog.xeblogapi.service.ArticleService;
 import com.github.pagehelper.PageHelper;
@@ -86,4 +85,23 @@ public class ArticleServiceImpl implements ArticleService {
         return 1 == this.articleMapper.addPageviews(id);
     }
 
+    @Override
+    public PageList listArchives(Pagination pagination) throws Exception {
+        PageHelper.startPage(pagination.getPageIndex(), pagination.getPageSize());
+        List<Article> articleList = articleMapper.listArchives();
+
+        PageInfo pageInfo = new PageInfo(articleList);
+
+        if (articleList.isEmpty()) {
+            return null;
+        }
+
+        List<ArticleArchivesDTO> articleArchivesDTOList = new ArrayList<>();
+
+        for (Article article : articleList) {
+            articleArchivesDTOList.add(ArticleArchivesDTO.toArticleArchivesDTO(article));
+        }
+
+        return new PageList(articleArchivesDTOList, pageInfo.getPageNum(), pageInfo.getPages());
+    }
 }
