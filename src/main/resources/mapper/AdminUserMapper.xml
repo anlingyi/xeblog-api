@@ -7,18 +7,51 @@
 
     <select id="getAdminUser" resultType="AdminUser">
         SELECT u.name, u.avatar, u.github_url AS githubUrl, u.signature
-          FROM admin_user u
+          FROM admin_user u LIMIT 1
     </select>
 
     <select id="getAdminUserAdmin" resultType="AdminUser">
         SELECT u.id, u.name, u.avatar, u.github_url AS githubUrl, u.signature
-          FROM admin_user u
+          FROM admin_user u LIMIT 1
     </select>
 
     <update id="updateAdminUser">
         UPDATE admin_user u
           SET u.avatar = #{info.avatar}, u.name = #{info.name}, u.signature = #{info.signature},
           u.github_url = #{info.githubUrl}
+          LIMIT 1
     </update>
 
+    <select id="getAdminUserByUsernameAndPassword" resultType="AdminUser">
+      SELECT u.id, u.username
+          FROM admin_user u
+          WHERE u.username = #{username} AND u.password = #{password}
+    </select>
+
+    <select id="getToken" resultType="string">
+        SELECT u.token
+          FROM admin_user u LIMIT 1
+    </select>
+
+    <update id="updateToken">
+        UPDATE admin_user u SET u.token = #{token} LIMIT 1
+    </update>
+
+    <update id="updateUsernameOrPassword">
+        UPDATE admin_user u
+        <set>
+            <if test="username != null and username != ''">
+                u.username = #{username},
+            </if>
+            <if test="password != null and password != ''">
+                u.password = #{password},
+            </if>
+        </set>
+        LIMIT 1
+    </update>
+
+    <select id="getPassword" resultType="string">
+      SELECT u.password
+        FROM admin_user u LIMIT 1
+    </select>
 </mapper>

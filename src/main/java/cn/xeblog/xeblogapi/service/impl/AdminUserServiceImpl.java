@@ -55,4 +55,19 @@ public class AdminUserServiceImpl implements AdminUserService {
     public boolean updateAdminUser(UpdateUserInfo updateUserInfo) throws Exception {
         return 1 == this.adminUserMapper.updateAdminUser(updateUserInfo);
     }
+
+    @Override
+    public String getToken() throws Exception {
+        return this.adminUserMapper.getToken();
+    }
+
+    @Override
+    public boolean updateUsernameOrPassword(String username, String password) throws Exception {
+        return 1 == this.adminUserMapper.updateUsernameOrPassword(username, password);
+    }
+
+    @Override
+    public String getPassword() throws Exception {
+        return this.adminUserMapper.getPassword();
+    }
 }

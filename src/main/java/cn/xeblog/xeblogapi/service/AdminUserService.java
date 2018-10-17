@@ -34,4 +34,30 @@ public interface AdminUserService {
      * @throws Exception
      */
     boolean updateAdminUser(UpdateUserInfo updateUserInfo) throws Exception;
+
+    /**
+     * 获取token
+     *
+     * @return
+     * @throws Exception
+     */
+    String getToken() throws Exception;
+
+    /**
+     * 更新用户名或密码
+     *
+     * @param username
+     * @param password
+     * @return
+     * @throws Exception
+     */
+    boolean updateUsernameOrPassword(String username, String password) throws Exception;
+
+    /**
+     * 获取密码
+     *
+     * @return
+     * @throws Exception
+     */
+    String getPassword() throws Exception;
 }

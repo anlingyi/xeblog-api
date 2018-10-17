@@ -34,4 +34,50 @@ public interface AdminUserMapper {
      * @throws Exception
      */
     Integer updateAdminUser(@Param("info") UpdateUserInfo updateUserInfo) throws Exception;
+
+    /**
+     * 通过用户名和密码获取用户
+     *
+     * @param username
+     * @param password
+     * @return
+     * @throws Exception
+     */
+    AdminUser getAdminUserByUsernameAndPassword(@Param("username") String username,
+                                                @Param("password") String password) throws Exception;
+
+    /**
+     * 获取token
+     *
+     * @return
+     * @throws Exception
+     */
+    String getToken() throws Exception;
+
+    /**
+     * 更新token
+     *
+     * @return
+     * @throws Exception
+     */
+    Integer updateToken(@Param("token") String token) throws Exception;
+
+    /**
+     * 更新用户名或密码
+     *
+     * @param username
+     * @param password
+     * @return
+     * @throws Exception
+     */
+    Integer updateUsernameOrPassword(@Param("username") String username,
+                                     @Param("password") String password) throws Exception;
+
+    /**
+     * 获取密码
+     *
+     * @return
+     * @throws Exception
+     */
+    String getPassword() throws Exception;
 }

@@ -17,4 +17,5 @@ public class CheckUtils {
     public static boolean checkId(Integer id) {
         return null == id || 1 > id;
     }
+
 }
