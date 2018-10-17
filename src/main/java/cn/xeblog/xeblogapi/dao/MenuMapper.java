@@ -46,4 +46,12 @@ public interface MenuMapper {
      * @throws Exception
      */
     Integer deleteMenu(Integer id) throws Exception;
+
+    /**
+     * 菜单列表cms
+     *
+     * @return
+     * @throws Exception
+     */
+    List<Menu> listMenuAdmin() throws Exception;
 }

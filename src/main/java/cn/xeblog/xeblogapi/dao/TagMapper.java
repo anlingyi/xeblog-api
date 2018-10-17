@@ -52,4 +52,12 @@ public interface TagMapper {
      * @throws Exception
      */
     Integer getTagIdByName(String name) throws Exception;
+
+    /**
+     * 标签列表cms
+     *
+     * @return
+     * @throws Exception
+     */
+    List<Tag> listTagAdmin() throws Exception;
 }

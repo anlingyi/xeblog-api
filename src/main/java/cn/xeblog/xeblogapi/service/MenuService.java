@@ -1,7 +1,9 @@
 package cn.xeblog.xeblogapi.service;
 
+import cn.xeblog.xeblogapi.domain.bo.PageList;
 import cn.xeblog.xeblogapi.domain.dto.MenuDTO;
 import cn.xeblog.xeblogapi.domain.request.AddOrUpdateMenu;
+import cn.xeblog.xeblogapi.domain.request.Pagination;
 
 import java.util.List;
 
@@ -45,4 +47,12 @@ public interface MenuService {
      * @throws Exception
      */
     boolean deleteMenu(Integer id) throws Exception;
+
+    /**
+     * 菜单列表
+     *
+     * @return
+     * @throws Exception
+     */
+    PageList listMenuAdmin(Pagination pagination) throws Exception;
 }

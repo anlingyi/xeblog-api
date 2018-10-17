@@ -24,4 +24,9 @@
         DELETE FROM menu WHERE id = #{id}
     </delete>
 
+    <select id="listMenuAdmin" resultType="Menu">
+        SELECT m.id, m.name, m.url, m.icon, m.create_time AS createTime, m.update_time AS updateTime, m.order_id AS orderId
+          FROM menu m ORDER BY ISNULL(m.order_id), m.order_id, m.id DESC
+    </select>
+
 </mapper>

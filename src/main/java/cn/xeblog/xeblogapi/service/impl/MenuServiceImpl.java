@@ -1,10 +1,15 @@
 package cn.xeblog.xeblogapi.service.impl;
 
 import cn.xeblog.xeblogapi.dao.MenuMapper;
+import cn.xeblog.xeblogapi.domain.bo.PageList;
 import cn.xeblog.xeblogapi.domain.dto.MenuDTO;
+import cn.xeblog.xeblogapi.domain.dto.admin.MenuAdminDTO;
 import cn.xeblog.xeblogapi.domain.model.Menu;
 import cn.xeblog.xeblogapi.domain.request.AddOrUpdateMenu;
+import cn.xeblog.xeblogapi.domain.request.Pagination;
 import cn.xeblog.xeblogapi.service.MenuService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -51,5 +56,24 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public boolean deleteMenu(Integer id) throws Exception {
         return 1 == this.menuMapper.deleteMenu(id);
+    }
+
+    @Override
+    public PageList listMenuAdmin(Pagination pagination) throws Exception {
+        PageHelper.startPage(pagination.getPageIndex(), pagination.getPageSize());
+        List<Menu> menuList = this.menuMapper.listMenuAdmin();
+
+        if (menuList.isEmpty()) {
+            return null;
+        }
+
+        PageInfo pageInfo = new PageInfo(menuList);
+
+        List<MenuAdminDTO> menuAdminDTOList = new ArrayList<>(menuList.size());
+        for (Menu menu : menuList) {
+            menuAdminDTOList.add(MenuAdminDTO.toMenuAdminDTO(menu));
+        }
+
+        return new PageList(menuAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages());
     }
 }

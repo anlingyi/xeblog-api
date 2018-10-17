@@ -90,14 +90,13 @@ public class ArticleServiceImpl implements ArticleService {
         PageHelper.startPage(pagination.getPageIndex(), pagination.getPageSize());
         List<Article> articleList = articleMapper.listArchives();
 
-        PageInfo pageInfo = new PageInfo(articleList);
-
         if (articleList.isEmpty()) {
             return null;
         }
 
-        List<ArticleArchivesDTO> articleArchivesDTOList = new ArrayList<>();
+        PageInfo pageInfo = new PageInfo(articleList);
 
+        List<ArticleArchivesDTO> articleArchivesDTOList = new ArrayList<>(articleList.size());
         for (Article article : articleList) {
             articleArchivesDTOList.add(ArticleArchivesDTO.toArticleArchivesDTO(article));
         }

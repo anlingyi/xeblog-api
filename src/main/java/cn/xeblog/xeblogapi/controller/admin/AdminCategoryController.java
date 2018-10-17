@@ -1,4 +1,4 @@
-package cn.xeblog.xeblogapi.controller;
+package cn.xeblog.xeblogapi.controller.admin;
 
 import cn.xeblog.xeblogapi.service.CategoryService;
 import cn.xeblog.xeblogapi.util.Response;
@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * 分类
+ * 分类cms端
  *
  * @author yanpanyi
- * @date 2018/10/11
+ * @date 2018/10/16
  */
-@Api(tags = "分类")
+@Api(tags = "分类管理")
 @RestController
-@RequestMapping("/api/categories")
-public class CategoryController {
+@RequestMapping("/admin/api/categories")
+public class AdminCategoryController {
 
     @Resource
     private CategoryService categoryService;

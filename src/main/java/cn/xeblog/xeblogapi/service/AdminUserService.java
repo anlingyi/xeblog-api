@@ -1,6 +1,8 @@
 package cn.xeblog.xeblogapi.service;
 
 import cn.xeblog.xeblogapi.domain.dto.UserInfoDTO;
+import cn.xeblog.xeblogapi.domain.dto.admin.AdminUserInfoDTO;
+import cn.xeblog.xeblogapi.domain.request.UpdateUserInfo;
 
 /**
  * @author yanpanyi
@@ -15,4 +17,21 @@ public interface AdminUserService {
      * @throws Exception
      */
     UserInfoDTO getUserInfo() throws Exception;
+
+    /**
+     * 获取用户信息cms
+     *
+     * @return
+     * @throws Exception
+     */
+    AdminUserInfoDTO getUserInfoAdmin() throws Exception;
+
+    /**
+     * 更新用户信息
+     *
+     * @param updateUserInfo
+     * @return
+     * @throws Exception
+     */
+    boolean updateAdminUser(UpdateUserInfo updateUserInfo) throws Exception;
 }

@@ -1,5 +1,6 @@
 package cn.xeblog.xeblogapi.controller.admin;
 
+import cn.xeblog.xeblogapi.domain.request.Pagination;
 import cn.xeblog.xeblogapi.enums.Code;
 import cn.xeblog.xeblogapi.service.TagService;
 import cn.xeblog.xeblogapi.util.CheckUtils;
@@ -63,5 +64,18 @@ public class AdminTagController {
 
         return this.tagService.deleteTagById(id) ? new Response(Code.SUCCESS) :
                 new Response(Code.FAILED);
+    }
+
+    /**
+     * 获取标签列表
+     *
+     * @param pagination
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "获取标签列表")
+    @GetMapping()
+    public Response listTag(Pagination pagination) throws Exception {
+        return new Response(this.tagService.listTagAdmin(pagination));
     }
 }

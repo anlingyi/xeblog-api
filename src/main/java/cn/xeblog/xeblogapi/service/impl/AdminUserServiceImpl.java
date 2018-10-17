@@ -2,6 +2,8 @@ package cn.xeblog.xeblogapi.service.impl;
 
 import cn.xeblog.xeblogapi.dao.AdminUserMapper;
 import cn.xeblog.xeblogapi.domain.dto.UserInfoDTO;
+import cn.xeblog.xeblogapi.domain.dto.admin.AdminUserInfoDTO;
+import cn.xeblog.xeblogapi.domain.request.UpdateUserInfo;
 import cn.xeblog.xeblogapi.service.AdminUserService;
 import cn.xeblog.xeblogapi.service.ArticleService;
 import cn.xeblog.xeblogapi.service.CategoryService;
@@ -42,5 +44,15 @@ public class AdminUserServiceImpl implements AdminUserService {
         userInfoDTO.setCategoryCount(this.categoryService.getCategoryCount());
 
         return userInfoDTO;
+    }
+
+    @Override
+    public AdminUserInfoDTO getUserInfoAdmin() throws Exception {
+        return AdminUserInfoDTO.toAdminUserInfoDTO(this.adminUserMapper.getAdminUserAdmin());
+    }
+
+    @Override
+    public boolean updateAdminUser(UpdateUserInfo updateUserInfo) throws Exception {
+        return 1 == this.adminUserMapper.updateAdminUser(updateUserInfo);
     }
 }

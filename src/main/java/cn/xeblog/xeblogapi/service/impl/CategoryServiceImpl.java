@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
             return null;
         }
 
-        List<CategoryDTO> categoryDTOList = new ArrayList<>();
+        List<CategoryDTO> categoryDTOList = new ArrayList<>(categoryList.size());
         for (Category category : categoryList) {
             categoryDTOList.add(CategoryDTO.toCategoryDTO(category));
         }

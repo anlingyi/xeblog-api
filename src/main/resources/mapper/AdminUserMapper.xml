@@ -10,4 +10,15 @@
           FROM admin_user u
     </select>
 
+    <select id="getAdminUserAdmin" resultType="AdminUser">
+        SELECT u.id, u.name, u.avatar, u.github_url AS githubUrl, u.signature
+          FROM admin_user u
+    </select>
+
+    <update id="updateAdminUser">
+        UPDATE admin_user u
+          SET u.avatar = #{info.avatar}, u.name = #{info.name}, u.signature = #{info.signature},
+          u.github_url = #{info.githubUrl}
+    </update>
+
 </mapper>

@@ -1,11 +1,16 @@
 package cn.xeblog.xeblogapi.service.impl;
 
 import cn.xeblog.xeblogapi.dao.TagMapper;
+import cn.xeblog.xeblogapi.domain.bo.PageList;
 import cn.xeblog.xeblogapi.domain.dto.TagDTO;
+import cn.xeblog.xeblogapi.domain.dto.admin.TagAdminDTO;
 import cn.xeblog.xeblogapi.domain.model.Tag;
+import cn.xeblog.xeblogapi.domain.request.Pagination;
 import cn.xeblog.xeblogapi.enums.Code;
 import cn.xeblog.xeblogapi.exception.CustomException;
 import cn.xeblog.xeblogapi.service.TagService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -60,5 +65,24 @@ public class TagServiceImpl implements TagService {
     @Override
     public Integer getTagIdByName(String name) throws Exception {
         return this.tagMapper.getTagIdByName(name);
+    }
+
+    @Override
+    public PageList listTagAdmin(Pagination pagination) throws Exception {
+        PageHelper.startPage(pagination.getPageIndex(), pagination.getPageSize());
+        List<Tag> tagList = this.tagMapper.listTagAdmin();
+
+        if (tagList.isEmpty()) {
+            return null;
+        }
+
+        PageInfo pageInfo = new PageInfo(tagList);
+
+        List<TagAdminDTO> tagAdminDTOList = new ArrayList<>(tagList.size());
+        for (Tag tag : tagList) {
+            tagAdminDTOList.add(TagAdminDTO.toTagAdminDTO(tag));
+        }
+
+        return new PageList(tagAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages());
     }
 }

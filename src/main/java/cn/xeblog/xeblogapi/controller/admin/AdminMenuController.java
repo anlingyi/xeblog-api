@@ -1,6 +1,7 @@
 package cn.xeblog.xeblogapi.controller.admin;
 
 import cn.xeblog.xeblogapi.domain.request.AddOrUpdateMenu;
+import cn.xeblog.xeblogapi.domain.request.Pagination;
 import cn.xeblog.xeblogapi.enums.Code;
 import cn.xeblog.xeblogapi.service.MenuService;
 import cn.xeblog.xeblogapi.util.CheckUtils;
@@ -30,7 +31,7 @@ public class AdminMenuController {
     /**
      * 添加菜单
      *
-     * @param addOrUpdateMenu r
+     * @param addOrUpdateMenu
      * @return
      * @throws Exception
      */
@@ -72,5 +73,18 @@ public class AdminMenuController {
 
         return this.menuService.deleteMenu(id) ? new Response(Code.SUCCESS) :
                 new Response(Code.FAILED);
+    }
+
+    /**
+     * 菜单列表
+     *
+     * @param pagination
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "获取菜单列表")
+    @GetMapping
+    public Response listMenu(Pagination pagination) throws Exception {
+        return new Response(this.menuService.listMenuAdmin(pagination));
     }
 }

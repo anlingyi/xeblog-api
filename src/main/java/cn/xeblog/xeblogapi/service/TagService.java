@@ -1,6 +1,8 @@
 package cn.xeblog.xeblogapi.service;
 
+import cn.xeblog.xeblogapi.domain.bo.PageList;
 import cn.xeblog.xeblogapi.domain.dto.TagDTO;
+import cn.xeblog.xeblogapi.domain.request.Pagination;
 
 import java.util.List;
 
@@ -52,4 +54,13 @@ public interface TagService {
      * @throws Exception
      */
     Integer getTagIdByName(String name) throws Exception;
+
+    /**
+     * 标签列表cms
+     *
+     * @param pagination
+     * @return
+     * @throws Exception
+     */
+    PageList listTagAdmin(Pagination pagination) throws Exception;
 }

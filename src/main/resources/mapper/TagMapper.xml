@@ -28,4 +28,10 @@
         SELECT id FROM tag WHERE name = #{name}
     </select>
 
+    <select id="listTagAdmin" resultType="tag">
+        SELECT t.id, t.name, t.update_time AS updateTime, t.create_time AS createTime
+          FROM tag t
+          ORDER BY t.id DESC
+    </select>
+
 </mapper>
