@@ -39,7 +39,7 @@ public enum Code implements ErrorCode {
     /**
      * 处理失败
      */
-    FAILED(503, "处理失败");
+    FAILED(503, "处理失败！");
 
     private int code;
     private String message;

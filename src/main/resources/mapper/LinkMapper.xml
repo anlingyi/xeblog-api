@@ -10,4 +10,23 @@
           FROM link l ORDER BY ISNULL(l.order_id), l.order_id, l.id DESC
     </select>
 
+    <select id="listLinkAdmin" resultType="link">
+        SELECT l.name, l.url, l.brief, l.order_id AS orderId, l.id, l.create_time AS createTime, l.update_time AS updateTime
+          FROM link l ORDER BY ISNULL(l.order_id), l.order_id, l.id DESC
+    </select>
+
+    <insert id="addLink">
+        INSERT INTO link (name, url, brief, order_id)
+          VALUES (#{add.name}, #{add.url}, #{add.brief}, #{add.orderId})
+    </insert>
+
+    <delete id="deleteLinkById">
+        DELETE FROM link WHERE id = #{id}
+    </delete>
+
+    <update id="updateLinkById">
+        UPDATE link SET name = #{up.name}, url = #{up.url}, brief = #{up.brief}, order_id = #{up.orderId}
+          WHERE id = #{up.id}
+    </update>
+
 </mapper>

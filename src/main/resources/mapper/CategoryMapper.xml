@@ -15,4 +15,21 @@
         SELECT COUNT(id) FROM category
     </select>
 
+    <select id="listCategoryAdmin" resultType="Category">
+        SELECT c.id, c.name, c.create_time AS createTime, c.update_time AS updateTime
+          FROM category c ORDER BY c.id DESC
+    </select>
+
+    <insert id="addCategory">
+        INSERT INTO category (name) VALUES (#{name})
+    </insert>
+
+    <delete id="deleteCategoryById">
+        DELETE FROM category WHERE id = #{id}
+    </delete>
+
+    <update id="updateCategoryById">
+        UPDATE category SET name = #{name} WHERE id = #{id}
+    </update>
+
 </mapper>

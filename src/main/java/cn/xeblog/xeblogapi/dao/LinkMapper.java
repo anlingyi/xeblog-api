@@ -1,6 +1,8 @@
 package cn.xeblog.xeblogapi.dao;
 
 import cn.xeblog.xeblogapi.domain.model.Link;
+import cn.xeblog.xeblogapi.domain.request.AddOrUpdateLink;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -17,4 +19,40 @@ public interface LinkMapper {
      * @throws Exception
      */
     List<Link> listLink() throws Exception;
+
+    /**
+     * 链接列表cms
+     *
+     * @return
+     * @throws Exception
+     */
+    List<Link> listLinkAdmin() throws Exception;
+
+    /**
+     * 添加链接信息
+     *
+     * @param addOrUpdateLink
+     * @return
+     * @throws Exception
+     */
+    Integer addLink(@Param("add") AddOrUpdateLink addOrUpdateLink) throws Exception;
+
+    /**
+     * 更新链接信息
+     *
+     * @param addOrUpdateLink
+     * @return
+     * @throws Exception
+     */
+    Integer updateLinkById(@Param("up") AddOrUpdateLink addOrUpdateLink) throws Exception;
+
+    /**
+     * 通过id删除链接
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    Integer deleteLinkById(Integer id) throws Exception;
+
 }
