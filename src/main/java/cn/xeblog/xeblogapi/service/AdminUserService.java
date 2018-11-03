@@ -60,4 +60,13 @@ public interface AdminUserService {
      * @throws Exception
      */
     String getPassword() throws Exception;
+
+    /**
+     * 更新token
+     *
+     * @param token
+     * @return
+     * @throws Exception
+     */
+    boolean updateToken(String token) throws Exception;
 }

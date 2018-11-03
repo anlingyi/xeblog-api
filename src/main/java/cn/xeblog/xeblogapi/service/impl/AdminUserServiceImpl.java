@@ -70,4 +70,9 @@ public class AdminUserServiceImpl implements AdminUserService {
     public String getPassword() throws Exception {
         return this.adminUserMapper.getPassword();
     }
+
+    @Override
+    public boolean updateToken(String token) throws Exception {
+        return 1 == this.adminUserMapper.updateToken(token);
+    }
 }
