@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.xeblog.xeblogapi.dao.AdminUserMapper">
+<mapper namespace="cn.xeblog.api.dao.AdminUserMapper">
 
     <select id="getAdminUser" resultType="AdminUser">
         SELECT u.name, u.avatar, u.github_url AS githubUrl, u.signature
