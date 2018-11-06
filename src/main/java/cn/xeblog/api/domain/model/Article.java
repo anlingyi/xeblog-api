@@ -16,7 +16,6 @@ public class Article {
     private String cover;
     private Integer isTop;
     private Integer isPrivate;
-    private Integer isDraft;
     private Integer categoryId;
     private String tag;
     private Integer pageviews;
@@ -88,14 +87,6 @@ public class Article {
 
     public void setIsPrivate(Integer isPrivate) {
         this.isPrivate = isPrivate;
-    }
-
-    public Integer getIsDraft() {
-        return isDraft;
-    }
-
-    public void setIsDraft(Integer isDraft) {
-        this.isDraft = isDraft;
     }
 
     public Integer getCategoryId() {

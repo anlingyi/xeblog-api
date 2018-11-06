@@ -76,7 +76,6 @@ CREATE TABLE `article` (
   `cover` varchar(256) DEFAULT NULL COMMENT '文章封面',
   `is_top` int(1) DEFAULT 0 COMMENT '是否置顶,0否|1是',
   `is_private` int(1) DEFAULT 0 COMMENT '是否私有,0否|1是',
-  `is_draft` int(1) DEFAULT 0 COMMENT '是否草稿,0否|1是',
   `category_id` int(11) NOT NULL COMMENT '类目id',
   `tag` varchar(500) DEFAULT NULL COMMENT '标签',
   `pageviews` int(11) NOT NULL DEFAULT 0 COMMENT '浏览量',

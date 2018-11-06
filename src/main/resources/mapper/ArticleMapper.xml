@@ -7,7 +7,7 @@
 
     <select id="getCount" resultType="integer">
         SELECT COUNT(id)
-          FROM article WHERE is_private = 0 AND is_draft = 0
+          FROM article WHERE is_private = 0
     </select>
 
     <select id="listArticle" resultType="article">
@@ -15,7 +15,7 @@
         a.create_time AS createTime, a.is_top AS isTop, a.category_id AS categoryId
         FROM article a
         LEFT JOIN category c ON c.id = a.category_id
-        WHERE a.is_private = 0 AND a.is_draft = 0
+        WHERE a.is_private = 0
         <if test="null != query.categoryId and '' != query.categoryId">
             AND a.category_id = #{query.categoryId}
         </if>
@@ -35,23 +35,23 @@
           a.author, a.create_time AS createTime
           FROM article a
           LEFT JOIN category c ON c.id = a.category_id
-          WHERE a.id = #{id} AND a.is_private = 0 AND a.is_draft = 0
+          WHERE a.id = #{id} AND a.is_private = 0
     </select>
 
     <update id="addPageviews">
-        UPDATE article a SET a.pageviews = a.pageviews + 1 WHERE a.id = #{id} AND a.is_private = 0 AND a.is_draft = 0
+        UPDATE article a SET a.pageviews = a.pageviews + 1 WHERE a.id = #{id} AND a.is_private = 0
     </update>
 
     <select id="listTitileAndId" resultType="article">
         SELECT a.id, a.title
           FROM article a
-          WHERE a.is_private = 0 AND a.is_draft = 0
+          WHERE a.is_private = 0
           ORDER BY a.is_top DESC, a.id DESC
     </select>
 
     <select id="listArchives" resultType="article">
         SELECT a.id, a.create_time AS createTime, a.title
-          FROM article a WHERE a.is_private = 0 AND a.is_draft = 0
+          FROM article a WHERE a.is_private = 0
           ORDER BY a.create_time DESC
     </select>
 

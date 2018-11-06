@@ -6,8 +6,8 @@
 <mapper namespace="cn.xeblog.api.dao.CategoryMapper">
 
     <select id="listCategory" resultType="Category">
-        SELECT c.id, c.name, (SELECT COUNT(a.id) FROM article a WHERE a.category_id = c.id AND a.is_private = 0
-          AND a.is_draft = 0) AS articleCount
+        SELECT c.id, c.name, (SELECT COUNT(a.id) FROM article a WHERE a.category_id = c.id AND a.is_private = 0)
+          AS articleCount
           FROM category c ORDER BY c.id
     </select>
 
