@@ -5,12 +5,16 @@ import cn.xeblog.api.domain.bo.ArticleDetailsBO;
 import cn.xeblog.api.domain.bo.PageList;
 import cn.xeblog.api.domain.dto.*;
 import cn.xeblog.api.domain.model.Article;
+import cn.xeblog.api.domain.request.AddOrUpdateArticle;
 import cn.xeblog.api.domain.request.Pagination;
 import cn.xeblog.api.domain.request.QueryArticle;
 import cn.xeblog.api.service.ArticleService;
+import cn.xeblog.api.service.TagService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -25,6 +29,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Resource
     private ArticleMapper articleMapper;
+    @Resource
+    private TagService tagService;
 
     @Override
     public Integer getCount() throws Exception {
@@ -102,5 +108,22 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         return new PageList(articleArchivesDTOList, pageInfo.getPageNum(), pageInfo.getPages());
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean addArticle(AddOrUpdateArticle addOrUpdateArticle) throws Exception {
+        String tag = addOrUpdateArticle.getTag();
+
+        // 如果标签不为空则添加标签到标签表
+        if (!StringUtils.isEmpty(tag)) {
+            String[] tags = tag.split(",");
+
+            for (String str : tags) {
+                this.tagService.addTag(str);
+            }
+        }
+
+        return 1 == this.articleMapper.addArticle(addOrUpdateArticle);
     }
 }

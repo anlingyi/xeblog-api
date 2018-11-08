@@ -30,6 +30,8 @@ public class ArticleDetailsDTO {
     private String content;
     @ApiModelProperty("更新时间")
     private String updateTime;
+    @ApiModelProperty("文章类目id")
+    private Integer categoryId;
 
     public String getUpdateTime() {
         return updateTime;
@@ -103,6 +105,14 @@ public class ArticleDetailsDTO {
         this.content = content;
     }
 
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
     @Override
     public String toString() {
         return "ArticleDetailsDTO{" +
@@ -115,6 +125,7 @@ public class ArticleDetailsDTO {
                 ", createTime='" + createTime + '\'' +
                 ", content='" + content + '\'' +
                 ", updateTime='" + updateTime + '\'' +
+                ", categoryId=" + categoryId +
                 '}';
     }
 
@@ -134,6 +145,7 @@ public class ArticleDetailsDTO {
         articleDetailsDTO.setAuthor(article.getAuthor());
         articleDetailsDTO.setCreateTime(DateFormatUtils.format(article.getCreateTime(), "yyyy-MM-dd"));
         articleDetailsDTO.setCategoryName(article.getCategoryName());
+        articleDetailsDTO.setCategoryId(article.getCategoryId());
 
         return articleDetailsDTO;
     }

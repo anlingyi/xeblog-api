@@ -49,11 +49,6 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public boolean addTag(String name) throws Exception {
-        if (null != this.getTagIdByName(name)) {
-            // 标签已存在
-            throw new CustomException(Code.TAG_ALREADY_EXISTS);
-        }
-
         return 1 == this.tagMapper.addTag(name);
     }
 

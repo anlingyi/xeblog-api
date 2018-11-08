@@ -1,6 +1,7 @@
 package cn.xeblog.api.dao;
 
 import cn.xeblog.api.domain.model.Article;
+import cn.xeblog.api.domain.request.AddOrUpdateArticle;
 import cn.xeblog.api.domain.request.QueryArticle;
 import org.apache.ibatis.annotations.Param;
 
@@ -63,4 +64,12 @@ public interface ArticleMapper {
      */
     List<Article> listArchives() throws Exception;
 
+    /**
+     * 添加文章
+     *
+     * @param addOrUpdateArticle
+     * @return
+     * @throws Exception
+     */
+    Integer addArticle(@Param("add") AddOrUpdateArticle addOrUpdateArticle) throws Exception;
 }

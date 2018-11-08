@@ -32,7 +32,7 @@
 
     <select id="getArticleById" resultType="article">
         SELECT a.id, a.title, a.content, a.update_time AS updateTime, c.name AS categoryName, a.tag, a.pageviews,
-          a.author, a.create_time AS createTime
+          a.author, a.create_time AS createTime, a.category_id AS categoryId
           FROM article a
           LEFT JOIN category c ON c.id = a.category_id
           WHERE a.id = #{id} AND a.is_private = 0
@@ -54,5 +54,11 @@
           FROM article a WHERE a.is_private = 0
           ORDER BY a.create_time DESC
     </select>
+
+    <insert id="addArticle">
+      INSERT INTO article (title, content, cover, category_id, tag, author, brief, is_top, is_private)
+        VALUES (#{add.title}, #{add.content}, #{add.cover}, #{add.categoryId}, #{add.tag}, #{add.author}, #{add.brief},
+        #{add.isTop}, #{add.isPrivate})
+    </insert>
 
 </mapper>

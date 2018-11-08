@@ -17,7 +17,9 @@
     </select>
 
     <insert id="addTag">
-        INSERT INTO tag (name) VALUES (#{name})
+        INSERT INTO tag (name)
+          SELECT #{name} FROM DUAL
+          WHERE NOT EXISTS (SELECT t.id FROM tag t WHERE t.name = #{name})
     </insert>
 
     <delete id="deleteTagById">
