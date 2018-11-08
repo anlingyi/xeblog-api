@@ -66,4 +66,13 @@ public interface CategoryService {
      * @throws Exception
      */
     boolean updateCategoryById(Integer id, String name) throws Exception;
+
+    /**
+     * 判断分类下是否有文章
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    boolean hasArticle(Integer id) throws Exception;
 }

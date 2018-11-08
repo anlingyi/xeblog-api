@@ -64,4 +64,13 @@ public interface CategoryMapper {
      * @throws Exception
      */
     Integer updateCategoryById(@Param("id") Integer id, @Param("name") String name) throws Exception;
+
+    /**
+     * 判断分类下是否有文章
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    Integer hasArticle(Integer id) throws Exception;
 }

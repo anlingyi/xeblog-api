@@ -73,6 +73,11 @@ public class AdminCategoryController {
             return new Response(Code.INVALID_PARAMETERS);
         }
 
+        if (this.categoryService.hasArticle(id)) {
+            // 分类下有文章不能删除
+            return new Response(Code.EXISTING_ARTICLE_FAILED_TO_DELETE);
+        }
+
         return this.categoryService.deleteCategoryById(id) ? new Response(Code.SUCCESS) :
                 new Response(Code.FAILED);
     }

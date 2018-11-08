@@ -9,6 +9,10 @@ package cn.xeblog.api.enums;
 public enum Code implements ErrorCode {
 
     /**
+     * 该分类下存在文章，删除失败
+     */
+    EXISTING_ARTICLE_FAILED_TO_DELETE(1004, "该分类下存在文章，删除失败!"),
+    /**
      * 旧密码输入错误
      */
     OLD_PASSWORD_INPUT_ERROR(1003, "旧密码输入错误!"),

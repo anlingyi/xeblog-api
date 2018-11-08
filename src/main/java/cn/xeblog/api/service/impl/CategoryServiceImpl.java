@@ -77,4 +77,9 @@ public class CategoryServiceImpl implements CategoryService {
     public boolean updateCategoryById(Integer id, String name) throws Exception {
         return 1 == this.categoryMapper.updateCategoryById(id, name);
     }
+
+    @Override
+    public boolean hasArticle(Integer id) throws Exception {
+        return null != this.categoryMapper.hasArticle(id);
+    }
 }

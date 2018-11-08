@@ -32,4 +32,8 @@
         UPDATE category SET name = #{name} WHERE id = #{id}
     </update>
 
+    <select id="hasArticle" resultType="integer">
+      SELECT id FROM article WHERE category_id = #{id} LIMIT 1
+    </select>
+
 </mapper>
