@@ -20,6 +20,7 @@ public interface WebsiteInfoService {
     /**
      * 更新网站信息
      *
+     * @param updateWebsiteInfo
      * @return
      * @throws Exception
      */

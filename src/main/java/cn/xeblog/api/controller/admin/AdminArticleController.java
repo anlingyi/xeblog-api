@@ -1,14 +1,14 @@
 package cn.xeblog.api.controller.admin;
 
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
+import cn.xeblog.api.domain.request.Pagination;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.service.ArticleService;
+import cn.xeblog.api.util.CheckUtils;
 import cn.xeblog.api.util.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -38,6 +38,55 @@ public class AdminArticleController {
     public Response addArticle(AddOrUpdateArticle addOrUpdateArticle) throws Exception {
         return this.articleService.addArticle(addOrUpdateArticle) ? new Response(Code.SUCCESS) :
                 new Response(Code.FAILED);
+    }
+
+    /**
+     * 修改文章
+     *
+     * @param addOrUpdateArticle
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "修改文章")
+    @PutMapping
+    public Response updateArticle(AddOrUpdateArticle addOrUpdateArticle) throws Exception {
+        if (CheckUtils.checkId(addOrUpdateArticle.getId())) {
+            return new Response(Code.INVALID_PARAMETERS);
+        }
+
+        return this.articleService.updateArticle(addOrUpdateArticle) ? new Response(Code.SUCCESS) :
+                new Response(Code.FAILED);
+    }
+
+    /**
+     * 删除文章
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "删除文章")
+    @DeleteMapping
+    public Response deleteArticle(Integer id) throws Exception {
+        if (CheckUtils.checkId(id)) {
+            return new Response(Code.INVALID_PARAMETERS);
+        }
+
+        return this.articleService.deleteArticle(id) ? new Response(Code.SUCCESS) :
+                new Response(Code.FAILED);
+    }
+
+    /**
+     * 文章列表
+     *
+     * @param pagination
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "文章列表")
+    @GetMapping
+    public Response listArticle(Pagination pagination) throws Exception {
+        return new Response(this.articleService.listArticleAdmin(pagination));
     }
 
 }

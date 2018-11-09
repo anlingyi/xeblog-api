@@ -2,6 +2,7 @@ package cn.xeblog.api.dao;
 
 import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
+import cn.xeblog.api.domain.request.Pagination;
 import cn.xeblog.api.domain.request.QueryArticle;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,11 +25,11 @@ public interface ArticleMapper {
     /**
      * 文章列表
      *
-     * @param queryArticle
+     * @param pagination
      * @return
      * @throws Exception
      */
-    List<Article> listArticle(@Param("query") QueryArticle queryArticle) throws Exception;
+    List<Article> listArticle(@Param("page") Pagination pagination) throws Exception;
 
     /**
      * 通过id获取文章信息
@@ -72,4 +73,30 @@ public interface ArticleMapper {
      * @throws Exception
      */
     Integer addArticle(@Param("add") AddOrUpdateArticle addOrUpdateArticle) throws Exception;
+
+    /**
+     * 修改文章
+     *
+     * @param addOrUpdateArticle
+     * @return
+     * @throws Exception
+     */
+    Integer updateArticle(@Param("update") AddOrUpdateArticle addOrUpdateArticle) throws Exception;
+
+    /**
+     * 删除文章
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    Integer deleteArticle(Integer id) throws Exception;
+
+    /**
+     * 文章列表cms
+     *
+     * @return
+     * @throws Exception
+     */
+    List<Article> listArticleAdmin() throws Exception;
 }

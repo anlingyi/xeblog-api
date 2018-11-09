@@ -16,16 +16,16 @@
         FROM article a
         LEFT JOIN category c ON c.id = a.category_id
         WHERE a.is_private = 0
-        <if test="null != query.categoryId and '' != query.categoryId">
-            AND a.category_id = #{query.categoryId}
+        <if test="null != page.categoryId and '' != page.categoryId">
+            AND a.category_id = #{page.categoryId}
         </if>
-        <if test="null != query.query and '' != query.query">
-            AND (a.title LIKE CONCAT('%', #{query.query}, '%')
-            OR a.content LIKE CONCAT('%', #{query.query}, '%')
-            OR FIND_IN_SET(#{query.query}, a.tag))
+        <if test="null != page.query and '' != page.query">
+            AND (a.title LIKE CONCAT('%', #{page.query}, '%')
+            OR a.content LIKE CONCAT('%', #{page.query}, '%')
+            OR FIND_IN_SET(#{page.query}, a.tag))
         </if>
-        <if test="null != query.tag and '' != query.tag">
-            AND FIND_IN_SET(#{query.tag}, a.tag)
+        <if test="null != page.tag and '' != page.tag">
+            AND FIND_IN_SET(#{page.tag}, a.tag)
         </if>
         ORDER BY a.is_top DESC, a.id DESC
     </select>
@@ -60,5 +60,24 @@
         VALUES (#{add.title}, #{add.content}, #{add.cover}, #{add.categoryId}, #{add.tag}, #{add.author}, #{add.brief},
         #{add.isTop}, #{add.isPrivate})
     </insert>
+
+    <update id="updateArticle">
+      UPDATE article SET title = #{update.title}, content = #{update.content}, cover = #{update.cover},
+        category_id = #{update.categoryId}, tag = #{update.tag}, author = #{update.author}, brief = #{update.brief},
+        is_top = #{update.isTop}, is_private = #{update.isPrivate}
+        WHERE id = #{update.id}
+    </update>
+
+    <delete id="deleteArticle">
+        DELETE FROM article WHERE id = #{id}
+    </delete>
+
+    <select id="listArticleAdmin" resultType="article">
+      SELECT a.id, a.title, c.name AS categoryName, a.pageviews, a.create_time AS createTime, a.is_top AS isTop,
+        is_private AS isPrivate
+        FROM article a
+        LEFT JOIN category c ON c.id = a.category_id
+        ORDER BY a.id DESC
+    </select>
 
 </mapper>

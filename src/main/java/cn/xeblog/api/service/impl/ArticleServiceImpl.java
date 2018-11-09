@@ -4,6 +4,7 @@ import cn.xeblog.api.dao.ArticleMapper;
 import cn.xeblog.api.domain.bo.ArticleDetailsBO;
 import cn.xeblog.api.domain.bo.PageList;
 import cn.xeblog.api.domain.dto.*;
+import cn.xeblog.api.domain.dto.admin.ArticleAdminDTO;
 import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
 import cn.xeblog.api.domain.request.Pagination;
@@ -113,17 +114,57 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean addArticle(AddOrUpdateArticle addOrUpdateArticle) throws Exception {
-        String tag = addOrUpdateArticle.getTag();
+        this.addTags(addOrUpdateArticle.getTag());
+        return 1 == this.articleMapper.addArticle(addOrUpdateArticle);
+    }
 
-        // 如果标签不为空则添加标签到标签表
-        if (!StringUtils.isEmpty(tag)) {
-            String[] tags = tag.split(",");
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateArticle(AddOrUpdateArticle addOrUpdateArticle) throws Exception {
+        this.addTags(addOrUpdateArticle.getTag());
+        return 1 == this.articleMapper.updateArticle(addOrUpdateArticle);
+    }
 
-            for (String str : tags) {
-                this.tagService.addTag(str);
-            }
+    @Override
+    public boolean deleteArticle(Integer id) throws Exception {
+        return 1 == this.articleMapper.deleteArticle(id);
+    }
+
+    /**
+     * 添加标签，标签以,分割
+     *
+     * @param tags
+     * @throws Exception
+     */
+    private void addTags(String tags) throws Exception {
+        if (StringUtils.isEmpty(tags)) {
+            return;
         }
 
-        return 1 == this.articleMapper.addArticle(addOrUpdateArticle);
+        // 如果标签不为空则添加标签到标签表
+        String[] strings = tags.split(",");
+
+        for (String str : strings) {
+            this.tagService.addTag(str);
+        }
+    }
+
+    @Override
+    public PageList listArticleAdmin(Pagination pagination) throws Exception {
+        PageHelper.startPage(pagination.getPageIndex(), pagination.getPageSize());
+        List<Article> articleList = articleMapper.listArticleAdmin();
+
+        if (articleList.isEmpty()) {
+            return null;
+        }
+
+        PageInfo pageInfo = new PageInfo(articleList);
+
+        List<ArticleAdminDTO> articleAdminDTOList = new ArrayList<>(articleList.size());
+        for (Article article : articleList) {
+            articleAdminDTOList.add(ArticleAdminDTO.toArticleAdminDTO(article));
+        }
+
+        return new PageList(articleAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages());
     }
 }

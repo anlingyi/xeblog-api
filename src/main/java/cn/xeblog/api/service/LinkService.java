@@ -24,6 +24,7 @@ public interface LinkService {
     /**
      * 链接列表cms
      *
+     * @param pagination
      * @return
      * @throws Exception
      */

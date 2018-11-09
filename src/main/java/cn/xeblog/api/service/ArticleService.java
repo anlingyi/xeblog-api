@@ -50,6 +50,7 @@ public interface ArticleService {
     /**
      * 归档
      *
+     * @param pagination
      * @return
      * @throws Exception
      */
@@ -63,5 +64,32 @@ public interface ArticleService {
      * @throws Exception
      */
     boolean addArticle(AddOrUpdateArticle addOrUpdateArticle) throws Exception;
+
+    /**
+     * 修改文章
+     *
+     * @param addOrUpdateArticle
+     * @return
+     * @throws Exception
+     */
+    boolean updateArticle(AddOrUpdateArticle addOrUpdateArticle) throws Exception;
+
+    /**
+     * 删除文章
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    boolean deleteArticle(Integer id) throws Exception;
+
+    /**
+     * 文章列表cms
+     *
+     * @param pagination
+     * @return
+     * @throws Exception
+     */
+    PageList listArticleAdmin(Pagination pagination) throws Exception;
 
 }

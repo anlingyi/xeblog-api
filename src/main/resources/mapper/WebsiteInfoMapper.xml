@@ -7,11 +7,12 @@
 
     <select id="getWebsiteInfo" resultType="WebsiteInfo">
       SELECT w.title, w.copyright, w.subtitle
-        FROM website_info w
+        FROM website_info w LIMIT 1
     </select>
 
     <update id="updateWebsite">
       UPDATE website_info w SET w.title = #{info.title}, w.copyright = #{info.copyright}, w.subtitle = #{info.subtitle}
+        LIMIT 1
     </update>
 
 </mapper>
