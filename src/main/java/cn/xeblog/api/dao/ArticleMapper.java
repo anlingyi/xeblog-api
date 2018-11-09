@@ -35,10 +35,11 @@ public interface ArticleMapper {
      * 通过id获取文章信息
      *
      * @param id
+     * @param isPrivate
      * @return
      * @throws Exception
      */
-    Article getArticleById(Integer id) throws Exception;
+    Article getArticleById(@Param("id") Integer id, @Param("isPrivate") Integer isPrivate) throws Exception;
 
     /**
      * 增加浏览量
@@ -99,4 +100,5 @@ public interface ArticleMapper {
      * @throws Exception
      */
     List<Article> listArticleAdmin() throws Exception;
+
 }

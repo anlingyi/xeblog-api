@@ -89,4 +89,17 @@ public class AdminArticleController {
         return new Response(this.articleService.listArticleAdmin(pagination));
     }
 
+    /**
+     * 文章预览
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "文章预览")
+    @GetMapping("/preview")
+    public Response listArticle(Integer id) throws Exception {
+        return new Response(this.articleService.previewArticle(id));
+    }
+
 }

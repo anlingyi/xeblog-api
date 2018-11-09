@@ -32,10 +32,13 @@
 
     <select id="getArticleById" resultType="article">
         SELECT a.id, a.title, a.content, a.update_time AS updateTime, c.name AS categoryName, a.tag, a.pageviews,
-          a.author, a.create_time AS createTime, a.category_id AS categoryId
-          FROM article a
-          LEFT JOIN category c ON c.id = a.category_id
-          WHERE a.id = #{id} AND a.is_private = 0
+        a.author, a.create_time AS createTime, a.category_id AS categoryId
+        FROM article a
+        LEFT JOIN category c ON c.id = a.category_id
+        WHERE a.id = #{id}
+        <if test="isPrivate != null">
+            a.is_private = #{isPrivate}
+        </if>
     </select>
 
     <update id="addPageviews">

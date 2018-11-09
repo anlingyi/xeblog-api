@@ -135,7 +135,7 @@ public class ArticleDetailsDTO {
         }
 
         ArticleDetailsDTO articleDetailsDTO = new ArticleDetailsDTO();
-        articleDetailsDTO.setUpdateTime(DateFormatUtils.format(article.getUpdateTime(), "yyyy-MM-dd"));
+        articleDetailsDTO.setUpdateTime(DateFormatUtils.format(article.getUpdateTime(), "yyyy/MM/dd"));
         articleDetailsDTO.setContent(article.getContent());
         articleDetailsDTO.setId(article.getId());
         articleDetailsDTO.setTitle(article.getTitle());
@@ -143,7 +143,7 @@ public class ArticleDetailsDTO {
         articleDetailsDTO.setTag(article.getTag());
         articleDetailsDTO.setPageviews(article.getPageviews());
         articleDetailsDTO.setAuthor(article.getAuthor());
-        articleDetailsDTO.setCreateTime(DateFormatUtils.format(article.getCreateTime(), "yyyy-MM-dd"));
+        articleDetailsDTO.setCreateTime(DateFormatUtils.format(article.getCreateTime(), "yyyy/MM/dd"));
         articleDetailsDTO.setCategoryName(article.getCategoryName());
         articleDetailsDTO.setCategoryId(article.getCategoryId());
 

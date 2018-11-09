@@ -60,7 +60,8 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ArticleDetailsBO getArticleDetails(Integer id) throws Exception {
         // 文章详情
-        ArticleDetailsDTO articleDetailsDTO = ArticleDetailsDTO.toArticleDetailsDTO(this.articleMapper.getArticleById(id));
+        ArticleDetailsDTO articleDetailsDTO = ArticleDetailsDTO.toArticleDetailsDTO(this.articleMapper
+                .getArticleById(id, 0));
 
         List<Article> articleList = articleMapper.listTitileAndId();
         // 上一篇
@@ -166,5 +167,10 @@ public class ArticleServiceImpl implements ArticleService {
         }
 
         return new PageList(articleAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages());
+    }
+
+    @Override
+    public ArticleDetailsDTO previewArticle(Integer id) throws Exception {
+        return ArticleDetailsDTO.toArticleDetailsDTO(this.articleMapper.getArticleById(id, null));
     }
 }

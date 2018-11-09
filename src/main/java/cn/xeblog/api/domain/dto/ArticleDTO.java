@@ -154,7 +154,7 @@ public class ArticleDTO {
         articleDTO.setTag(article.getTag());
         articleDTO.setPageviews(article.getPageviews());
         articleDTO.setAuthor(article.getAuthor());
-        articleDTO.setCreateTime(DateFormatUtils.format(article.getCreateTime(), "yyyy-MM-dd"));
+        articleDTO.setCreateTime(DateFormatUtils.format(article.getCreateTime(), "yyyy/MM/dd"));
         articleDTO.setTop(article.getIsTop() == 1);
         articleDTO.setCategoryId(article.getCategoryId());
 
