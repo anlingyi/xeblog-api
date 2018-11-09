@@ -37,7 +37,7 @@
         LEFT JOIN category c ON c.id = a.category_id
         WHERE a.id = #{id}
         <if test="isPrivate != null">
-            a.is_private = #{isPrivate}
+            AND a.is_private = #{isPrivate}
         </if>
     </select>
 
