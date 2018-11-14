@@ -1,10 +1,14 @@
 package cn.xeblog.api.config;
 
+import cn.xeblog.api.interceptor.LoginInterceptor;
+import cn.xeblog.api.service.AdminUserService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import javax.annotation.Resource;
 
 /**
  * mvc配置
@@ -14,9 +18,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
+    @Resource
+    private LoginInterceptor loginInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-
+        registry.addInterceptor(loginInterceptor).addPathPatterns("/admin/**");
     }
 
     @Override

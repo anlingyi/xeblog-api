@@ -22,4 +22,8 @@ public class CommonConstant {
      * jwt过期时间，单位（天）
      */
     public static final int JWT_EXPIRE_DATE = 7;
+    /**
+     * token
+     */
+    public static final String TOKEN = "token";
 }
