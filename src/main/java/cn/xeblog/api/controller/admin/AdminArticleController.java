@@ -97,8 +97,8 @@ public class AdminArticleController {
      * @throws Exception
      */
     @ApiOperation(value = "文章预览")
-    @GetMapping("/preview")
-    public Response listArticle(Integer id) throws Exception {
+    @GetMapping("/preview/{id}")
+    public Response listArticle(@PathVariable Integer id) throws Exception {
         return new Response(this.articleService.previewArticle(id));
     }
 
