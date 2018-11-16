@@ -6,7 +6,6 @@ import cn.xeblog.api.exception.CustomException;
 import cn.xeblog.api.util.CheckUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -25,11 +24,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        // 如果是OPTIONS则结束请求
-        if (HttpMethod.OPTIONS.toString().equals(request.getMethod())) {
-            return false;
-        }
-
         logger.debug("登陆拦截");
         String token = request.getHeader(CommonConstant.TOKEN);
         String userId = request.getHeader(CommonConstant.USER_ID);
