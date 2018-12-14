@@ -3,12 +3,14 @@ package cn.xeblog.api.interceptor;
 import cn.xeblog.api.constant.CommonConstant;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.exception.CustomException;
+import cn.xeblog.api.service.AdminUserService;
 import cn.xeblog.api.util.CheckUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,6 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
+
+    @Resource
+    private AdminUserService adminUserService;
 
     private final static Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 
@@ -31,7 +36,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         logger.debug("token {}", token);
         logger.debug("userId {}", userId);
 
-        if (CheckUtils.validateToken(userId, token)) {
+        if (CheckUtils.validateToken(userId, token, adminUserService.getToken())) {
             return true;
         }
 

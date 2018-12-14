@@ -16,7 +16,7 @@
         FROM article a
         LEFT JOIN category c ON c.id = a.category_id
         WHERE a.is_private = 0
-        <if test="null != page.categoryId and '' != page.categoryId">
+        <if test="null != page.categoryId">
             AND a.category_id = #{page.categoryId}
         </if>
         <if test="null != page.query and '' != page.query">

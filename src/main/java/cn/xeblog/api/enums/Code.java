@@ -58,16 +58,9 @@ public enum Code implements ErrorCode {
         return code;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
     @Override
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

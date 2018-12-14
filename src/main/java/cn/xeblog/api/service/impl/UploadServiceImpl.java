@@ -55,9 +55,7 @@ public class UploadServiceImpl implements UploadService {
                     File file = new File(ResourceUtils.getURL("classpath:").getPath()
                             + savePath);
                     File fileParent = file.getParentFile();
-                    if (!fileParent.exists()) {
-                        fileParent.mkdirs();
-                    }
+                    fileParent.mkdirs();
 
                     stream = new BufferedOutputStream(new FileOutputStream(file));
                     stream.write(bytes);
@@ -66,8 +64,10 @@ public class UploadServiceImpl implements UploadService {
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    stream.close();
-                    stream = null;
+                    if (null != stream) {
+                        stream.close();
+                        stream = null;
+                    }
                 }
             }
         }

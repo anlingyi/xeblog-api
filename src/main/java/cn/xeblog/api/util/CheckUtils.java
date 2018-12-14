@@ -18,16 +18,6 @@ import java.util.Map;
 @Component
 public class CheckUtils {
 
-    @Resource
-    private AdminUserService adminUserService;
-
-    private static CheckUtils checkUtils;
-
-    @PostConstruct
-    public void init() {
-        checkUtils = this;
-    }
-
     /**
      * 校验id
      *
@@ -41,24 +31,25 @@ public class CheckUtils {
     /**
      * 校验登陆用户token合法性
      *
-     * @param userId
-     * @param token
+     * @param userId   登陆用户id
+     * @param token    登陆用户token
+     * @param nowToken 当前用户数据库中的token
      * @return
      * @throws Exception
      */
-    public static boolean validateToken(String userId, String token) throws Exception {
+    public static boolean validateToken(String userId, String token, String nowToken) throws Exception {
         if (token == null || userId == null) {
             return false;
         }
 
         // 对比数据库token
-        if (token.equals(checkUtils.adminUserService.getToken())) {
+        if (token.equals(nowToken)) {
             // 解析token
             Map<String, Claim> claim = JwtUtils.verifyToken(token);
             if (null != claim) {
                 int jwtUserId = claim.get(CommonConstant.USER_ID).asInt();
 
-                if (0 < jwtUserId && jwtUserId == Integer.parseInt(userId)) {
+                if (jwtUserId == Integer.parseInt(userId)) {
                     return true;
                 }
             }
