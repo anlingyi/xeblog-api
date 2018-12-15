@@ -21,11 +21,33 @@ public class PageList {
      * 总页数
      */
     private Integer pages;
+    /**
+     * 总记录数
+     */
+    private long total;
+
+    public PageList() {
+    }
 
     public PageList(List list, Integer pageNum, Integer pages) {
         this.list = list;
         this.pageNum = pageNum;
         this.pages = pages;
+    }
+
+    public PageList(List list, Integer pageNum, Integer pages, long total) {
+        this.list = list;
+        this.pageNum = pageNum;
+        this.pages = pages;
+        this.total = total;
+    }
+
+    public long getTotal() {
+        return total;
+    }
+
+    public void setTotal(long total) {
+        this.total = total;
     }
 
     public List getList() {
@@ -58,6 +80,7 @@ public class PageList {
                 "list=" + list +
                 ", pageNum=" + pageNum +
                 ", pages=" + pages +
+                ", total=" + total +
                 '}';
     }
 }

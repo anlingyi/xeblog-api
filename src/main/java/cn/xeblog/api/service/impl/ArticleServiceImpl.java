@@ -166,7 +166,7 @@ public class ArticleServiceImpl implements ArticleService {
             articleAdminDTOList.add(ArticleAdminDTO.toArticleAdminDTO(article));
         }
 
-        return new PageList(articleAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages());
+        return new PageList(articleAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages(), pageInfo.getTotal());
     }
 
     @Override
