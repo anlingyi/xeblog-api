@@ -101,4 +101,13 @@ public interface ArticleMapper {
      */
     List<Article> listArticleAdmin() throws Exception;
 
+    /**
+     * 获取文章详情cms
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    Article getAdminArticleById(Integer id) throws Exception;
+
 }

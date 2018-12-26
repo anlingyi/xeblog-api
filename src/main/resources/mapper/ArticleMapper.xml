@@ -83,4 +83,28 @@
         ORDER BY a.id DESC
     </select>
 
+    <select id="getAdminArticleById" resultMap="articleDetails">
+      SELECT a.*, c.name
+        FROM article a
+        LEFT JOIN category c ON c.id = a.category_id
+        WHERE a.id = #{id}
+    </select>
+
+    <resultMap id="articleDetails" type="cn.xeblog.api.domain.model.Article">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="cover" column="cover"/>
+        <result property="isTop" column="is_top"/>
+        <result property="isPrivate" column="is_private"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="tag" column="tag"/>
+        <result property="pageviews" column="pageviews"/>
+        <result property="author" column="author"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="brief" column="brief"/>
+        <result property="categoryName" column="name"/>
+    </resultMap>
+
 </mapper>

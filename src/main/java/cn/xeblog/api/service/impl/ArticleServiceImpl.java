@@ -4,6 +4,7 @@ import cn.xeblog.api.dao.ArticleMapper;
 import cn.xeblog.api.domain.bo.ArticleDetailsBO;
 import cn.xeblog.api.domain.bo.PageList;
 import cn.xeblog.api.domain.dto.*;
+import cn.xeblog.api.domain.dto.admin.AdminArticleDetailsDTO;
 import cn.xeblog.api.domain.dto.admin.ArticleAdminDTO;
 import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
@@ -172,5 +173,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ArticleDetailsDTO previewArticle(Integer id) throws Exception {
         return ArticleDetailsDTO.toArticleDetailsDTO(this.articleMapper.getArticleById(id, null));
+    }
+
+    @Override
+    public AdminArticleDetailsDTO getArticleDetailsAdmin(Integer id) throws Exception {
+        return AdminArticleDetailsDTO.toAdminArticleDetailsDTO(this.articleMapper.getAdminArticleById(id));
     }
 }

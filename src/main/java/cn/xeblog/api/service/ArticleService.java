@@ -3,6 +3,7 @@ package cn.xeblog.api.service;
 import cn.xeblog.api.domain.bo.ArticleDetailsBO;
 import cn.xeblog.api.domain.bo.PageList;
 import cn.xeblog.api.domain.dto.ArticleDetailsDTO;
+import cn.xeblog.api.domain.dto.admin.AdminArticleDetailsDTO;
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
 import cn.xeblog.api.domain.request.Pagination;
 import cn.xeblog.api.domain.request.QueryArticle;
@@ -102,4 +103,12 @@ public interface ArticleService {
      */
     ArticleDetailsDTO previewArticle(Integer id) throws Exception;
 
+    /**
+     * 文章详情cms
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    AdminArticleDetailsDTO getArticleDetailsAdmin(Integer id) throws Exception;
 }

@@ -102,4 +102,21 @@ public class AdminArticleController {
         return new Response(this.articleService.previewArticle(id));
     }
 
+    /**
+     * 文章详情
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "文章详情")
+    @GetMapping("/details")
+    public Response getArticleDetails(Integer id) throws Exception {
+        if (CheckUtils.checkId(id)) {
+            return new Response(Code.INVALID_PARAMETERS);
+        }
+
+        return new Response(this.articleService.getArticleDetailsAdmin(id));
+    }
+
 }
