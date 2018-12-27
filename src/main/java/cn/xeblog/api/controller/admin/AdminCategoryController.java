@@ -102,4 +102,16 @@ public class AdminCategoryController {
                 new Response(Code.FAILED);
     }
 
+    /**
+     * 文章分类选择列表
+     *
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "分类选择列表")
+    @GetMapping("/select")
+    public Response listCategoryName() throws Exception {
+        return new Response(this.categoryService.listCategoryNameAdmin());
+    }
+
 }

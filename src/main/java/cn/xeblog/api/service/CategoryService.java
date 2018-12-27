@@ -5,6 +5,7 @@ import cn.xeblog.api.domain.dto.CategoryDTO;
 import cn.xeblog.api.domain.request.Pagination;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 分类
@@ -75,4 +76,12 @@ public interface CategoryService {
      * @throws Exception
      */
     boolean hasArticle(Integer id) throws Exception;
+
+    /**
+     * 分类名称列表
+     *
+     * @return
+     * @throws Exception
+     */
+    List<Map<String, Object>> listCategoryNameAdmin() throws Exception;
 }

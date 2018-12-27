@@ -36,4 +36,8 @@
       SELECT id FROM article WHERE category_id = #{id} LIMIT 1
     </select>
 
+    <select id="listCategoryNameAdmin" resultType="map">
+        SELECT id, name FROM category
+    </select>
+
 </mapper>

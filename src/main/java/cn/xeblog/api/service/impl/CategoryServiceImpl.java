@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author yanpanyi
@@ -81,5 +82,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public boolean hasArticle(Integer id) throws Exception {
         return null != this.categoryMapper.hasArticle(id);
+    }
+
+    @Override
+    public List<Map<String, Object>> listCategoryNameAdmin() throws Exception {
+        return this.categoryMapper.listCategoryNameAdmin();
     }
 }

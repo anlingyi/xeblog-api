@@ -4,6 +4,7 @@ import cn.xeblog.api.domain.model.Category;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 文章分类
@@ -73,4 +74,12 @@ public interface CategoryMapper {
      * @throws Exception
      */
     Integer hasArticle(Integer id) throws Exception;
+
+    /**
+     * 分类名称列表
+     *
+     * @return
+     * @throws Exception
+     */
+    List<Map<String, Object>> listCategoryNameAdmin() throws Exception;
 }
