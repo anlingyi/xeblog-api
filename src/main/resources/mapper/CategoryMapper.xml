@@ -16,7 +16,8 @@
     </select>
 
     <select id="listCategoryAdmin" resultType="Category">
-        SELECT c.id, c.name, c.create_time AS createTime, c.update_time AS updateTime
+        SELECT c.id, c.name, c.create_time AS createTime, c.update_time AS updateTime,
+          (SELECT COUNT(a.id) FROM article a WHERE a.category_id = c.id) AS articleCount
           FROM category c ORDER BY c.id DESC
     </select>
 

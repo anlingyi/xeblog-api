@@ -15,7 +15,6 @@ public class Category {
     private Date updateTime;
     private Integer articleCount;
 
-
     public Integer getId() {
         return id;
     }

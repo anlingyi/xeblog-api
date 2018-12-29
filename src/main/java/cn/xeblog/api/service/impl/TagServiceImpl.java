@@ -78,6 +78,7 @@ public class TagServiceImpl implements TagService {
             tagAdminDTOList.add(TagAdminDTO.toTagAdminDTO(tag));
         }
 
-        return new PageList(tagAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages());
+        return new PageList(tagAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages(),
+                pageInfo.getTotal());
     }
 }

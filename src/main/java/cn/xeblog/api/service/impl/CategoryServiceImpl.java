@@ -61,7 +61,8 @@ public class CategoryServiceImpl implements CategoryService {
             categoryAdminDTOList.add(CategoryAdminDTO.toCategoryAdminDTO(category));
         }
 
-        return new PageList(categoryAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages());
+        return new PageList(categoryAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages(),
+                pageInfo.getTotal());
     }
 
     @Override

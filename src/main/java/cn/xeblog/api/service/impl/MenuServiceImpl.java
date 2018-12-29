@@ -74,6 +74,7 @@ public class MenuServiceImpl implements MenuService {
             menuAdminDTOList.add(MenuAdminDTO.toMenuAdminDTO(menu));
         }
 
-        return new PageList(menuAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages());
+        return new PageList(menuAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages(),
+                pageInfo.getTotal());
     }
 }

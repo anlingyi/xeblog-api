@@ -31,7 +31,8 @@
     </select>
 
     <select id="listTagAdmin" resultType="tag">
-        SELECT t.id, t.name, t.update_time AS updateTime, t.create_time AS createTime
+        SELECT t.id, t.name, t.update_time AS updateTime, t.create_time AS createTime,
+          (SELECT COUNT(a.id) FROM article a WHERE FIND_IN_SET(t.name, a.tag)) AS articleCount
           FROM tag t
           ORDER BY t.id DESC
     </select>

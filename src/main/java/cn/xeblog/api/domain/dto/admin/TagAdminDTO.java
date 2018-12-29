@@ -19,6 +19,16 @@ public class TagAdminDTO {
     private String createTime;
     @ApiModelProperty("更新时间")
     private String updateTime;
+    @ApiModelProperty("文章数")
+    private Integer articleTotal;
+
+    public Integer getArticleTotal() {
+        return articleTotal;
+    }
+
+    public void setArticleTotal(Integer articleTotal) {
+        this.articleTotal = articleTotal;
+    }
 
     public Integer getId() {
         return id;
@@ -59,6 +69,7 @@ public class TagAdminDTO {
                 ", name='" + name + '\'' +
                 ", createTime='" + createTime + '\'' +
                 ", updateTime='" + updateTime + '\'' +
+                ", articleTotal=" + articleTotal +
                 '}';
     }
 
@@ -72,6 +83,7 @@ public class TagAdminDTO {
         tagAdminDTO.setName(tag.getName());
         tagAdminDTO.setCreateTime(DateFormatUtils.format(tag.getCreateTime(), "yyyy-MM-dd HH:mm:ss"));
         tagAdminDTO.setUpdateTime(DateFormatUtils.format(tag.getUpdateTime(), "yyyy-MM-dd HH:mm:ss"));
+        tagAdminDTO.setArticleTotal(tag.getArticleCount());
 
         return tagAdminDTO;
 

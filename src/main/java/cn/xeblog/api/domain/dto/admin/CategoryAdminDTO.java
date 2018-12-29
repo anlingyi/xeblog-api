@@ -14,6 +14,7 @@ public class CategoryAdminDTO {
     private String name;
     private String createTime;
     private String updateTime;
+    private Integer articleTotal;
 
     public Integer getId() {
         return id;
@@ -47,13 +48,22 @@ public class CategoryAdminDTO {
         this.updateTime = updateTime;
     }
 
+    public Integer getArticleTotal() {
+        return articleTotal;
+    }
+
+    public void setArticleTotal(Integer articleTotal) {
+        this.articleTotal = articleTotal;
+    }
+
     @Override
     public String toString() {
         return "CategoryAdminDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", articleTotal=" + articleTotal +
                 '}';
     }
 
@@ -67,6 +77,7 @@ public class CategoryAdminDTO {
         categoryAdminDTO.setName(category.getName());
         categoryAdminDTO.setCreateTime(DateFormatUtils.format(category.getCreateTime(), "yyyy-MM-dd HH:mm:ss"));
         categoryAdminDTO.setUpdateTime(DateFormatUtils.format(category.getUpdateTime(), "yyyy-MM-dd HH:mm:ss"));
+        categoryAdminDTO.setArticleTotal(category.getArticleCount());
 
         return categoryAdminDTO;
     }
