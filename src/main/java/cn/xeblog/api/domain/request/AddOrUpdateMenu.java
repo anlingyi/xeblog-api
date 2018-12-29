@@ -18,15 +18,26 @@ public class AddOrUpdateMenu {
     private String url;
     @ApiModelProperty("菜单排序")
     private Integer orderId;
+    @ApiModelProperty("菜单图标")
+    private String icon;
 
     public AddOrUpdateMenu() {
     }
 
-    public AddOrUpdateMenu(Integer id, String name, String url, Integer orderId) {
+    public AddOrUpdateMenu(Integer id, String name, String url, Integer orderId, String icon) {
         this.id = id;
         this.name = name;
         this.url = url;
         this.orderId = orderId;
+        this.icon = icon;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public Integer getOrderId() {
@@ -68,6 +79,7 @@ public class AddOrUpdateMenu {
                 ", name='" + name + '\'' +
                 ", url='" + url + '\'' +
                 ", orderId=" + orderId +
+                ", icon='" + icon + '\'' +
                 '}';
     }
 }

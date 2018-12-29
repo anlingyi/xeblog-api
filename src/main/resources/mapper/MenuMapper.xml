@@ -11,12 +11,13 @@
     </select>
 
     <insert id="addMenu">
-        INSERT INTO menu (name, url, order_id)
-          VALUES (#{add.name}, #{add.url}, #{add.orderId})
+        INSERT INTO menu (name, url, order_id, icon)
+          VALUES (#{add.name}, #{add.url}, #{add.orderId}, #{add.icon})
     </insert>
 
     <update id="updateMenu">
-        UPDATE menu m SET m.name = #{ud.name}, m.url = #{ud.url}, m.order_id = #{ud.orderId}
+        UPDATE menu m SET m.name = #{ud.name}, m.url = #{ud.url}, m.order_id = #{ud.orderId},
+          m.icon = #{ud.icon}
           WHERE m.id = #{ud.id}
     </update>
 
