@@ -26,4 +26,12 @@ public interface WebsiteInfoMapper {
      * @throws Exception
      */
     Integer updateWebsite(@Param("info") UpdateWebsiteInfo updateWebsiteInfo) throws Exception;
+
+    /**
+     * 获取网站信息cms
+     *
+     * @return
+     * @throws Exception
+     */
+    WebsiteInfo getWebsiteInfoAdmin() throws Exception;
 }

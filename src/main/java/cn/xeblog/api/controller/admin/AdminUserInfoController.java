@@ -61,7 +61,7 @@ public class AdminUserInfoController {
      * @throws Exception
      */
     @ApiOperation(value = "更新用户名或密码")
-    @PutMapping("/")
+    @PutMapping("/password")
     public Response updateUsernameOrPassword(String username, String password, String oldPassword) throws Exception {
         if (StringUtils.isEmpty(username) && StringUtils.isEmpty(password)) {
             // 用户名和密码都为空不做任何修改

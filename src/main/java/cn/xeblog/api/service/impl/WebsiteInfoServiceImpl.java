@@ -2,6 +2,7 @@ package cn.xeblog.api.service.impl;
 
 import cn.xeblog.api.dao.WebsiteInfoMapper;
 import cn.xeblog.api.domain.dto.WebsiteInfoDTO;
+import cn.xeblog.api.domain.dto.admin.AdminWebsiteInfoDTO;
 import cn.xeblog.api.domain.request.UpdateWebsiteInfo;
 import cn.xeblog.api.service.WebsiteInfoService;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,10 @@ public class WebsiteInfoServiceImpl implements WebsiteInfoService {
     @Override
     public boolean updateWebsite(UpdateWebsiteInfo updateWebsiteInfo) throws Exception {
         return 1 == this.websiteInfoMapper.updateWebsite(updateWebsiteInfo);
+    }
+
+    @Override
+    public AdminWebsiteInfoDTO getWebsiteInfoAdmin() throws Exception {
+        return AdminWebsiteInfoDTO.toAdminWebsiteInfoDTO(this.websiteInfoMapper.getWebsiteInfoAdmin());
     }
 }

@@ -1,6 +1,7 @@
 package cn.xeblog.api.service;
 
 import cn.xeblog.api.domain.dto.WebsiteInfoDTO;
+import cn.xeblog.api.domain.dto.admin.AdminWebsiteInfoDTO;
 import cn.xeblog.api.domain.request.UpdateWebsiteInfo;
 
 /**
@@ -25,4 +26,12 @@ public interface WebsiteInfoService {
      * @throws Exception
      */
     boolean updateWebsite(UpdateWebsiteInfo updateWebsiteInfo) throws Exception;
+
+    /**
+     * 获取网站信息cms
+     *
+     * @return
+     * @throws Exception
+     */
+    AdminWebsiteInfoDTO getWebsiteInfoAdmin() throws Exception;
 }

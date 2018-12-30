@@ -32,10 +32,22 @@ public class AdminWebsiteInfoController {
      * @throws Exception
      */
     @ApiOperation(value = "网站信息更新", notes = "更新网站标题、副标题、版权信息")
-    @PostMapping
+    @PutMapping
     public Response updateWebsiteInfo(UpdateWebsiteInfo updateWebsiteInfo) throws Exception {
         return this.websiteInfoService.updateWebsite(updateWebsiteInfo) ? new Response(Code.SUCCESS) :
                 new Response(Code.FAILED);
+    }
+
+    /**
+     * 获取网站信息
+     *
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "获取网站信息")
+    @GetMapping
+    public Response getWebsiteInfo() throws Exception {
+        return new Response(this.websiteInfoService.getWebsiteInfoAdmin());
     }
 
 }

@@ -15,4 +15,13 @@
         LIMIT 1
     </update>
 
+    <resultMap id="getWebsiteInfo" type="cn.xeblog.api.domain.model.WebsiteInfo">
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="getWebsiteInfoAdmin" resultMap="getWebsiteInfo">
+      SELECT w.* FROM website_info w LIMIT 1
+    </select>
+
 </mapper>

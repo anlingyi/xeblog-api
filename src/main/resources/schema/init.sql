@@ -3,7 +3,7 @@ insert into `xeblog`.`admin_user` (`password`, `github_url`, `signature`, `usern
 
 insert into `xeblog`.`website_info` (`title`, `copyright`, `subtitle`) values(
   '小毅博客',
-  '<div class="footer-inner">  <div class="copyright">© <span itemprop="copyrightYear">2018</span> <span class="with-love" id="animate"> <i class="fa fa-heart"></i> </span> <span class="author" itemprop="copyrightHolder">小毅博客</span> </div>',
+  '<div class="copyright">© <span itemprop="copyrightYear">2018</span> <span class="with-love" id="animate"> <i class="fa fa-heart"></i> </span> <span class="author" itemprop="copyrightHolder">小毅博客</span>',
   '分享的不只是代码更是生活！');
 
 insert into `xeblog`.`category` (`name`) values ('记录');
