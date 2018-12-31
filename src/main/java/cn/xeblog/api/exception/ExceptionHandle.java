@@ -22,9 +22,9 @@ public class ExceptionHandle {
         return new Response(Code.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(value = CustomException.class)
+    @ExceptionHandler(value = ErrorCodeException.class)
     @ResponseBody
-    public Response invalidParameterErrorHandler(CustomException e) {
+    public Response invalidParameterErrorHandler(ErrorCodeException e) {
         return new Response(e.getErrorCode());
     }
 

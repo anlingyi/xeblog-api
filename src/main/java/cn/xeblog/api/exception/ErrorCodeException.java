@@ -4,15 +4,15 @@ package cn.xeblog.api.exception;
 import cn.xeblog.api.enums.ErrorCode;
 
 /**
- * 自定义异常
+ * 响应错误码
  *
  * @author yanpanyi
  */
-public class CustomException extends Exception {
+public class ErrorCodeException extends Exception {
 
     private ErrorCode errorCode;
 
-    public CustomException(ErrorCode errorCode) {
+    public ErrorCodeException(ErrorCode errorCode) {
         this.errorCode = errorCode;
     }
 

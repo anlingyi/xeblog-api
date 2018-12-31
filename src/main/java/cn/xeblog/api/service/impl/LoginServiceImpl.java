@@ -4,7 +4,7 @@ import cn.xeblog.api.dao.AdminUserMapper;
 import cn.xeblog.api.domain.dto.admin.LoginInfoDTO;
 import cn.xeblog.api.domain.model.AdminUser;
 import cn.xeblog.api.enums.Code;
-import cn.xeblog.api.exception.CustomException;
+import cn.xeblog.api.exception.ErrorCodeException;
 import cn.xeblog.api.service.LoginService;
 import cn.xeblog.api.util.JwtUtils;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -29,7 +29,7 @@ public class LoginServiceImpl implements LoginService {
 
         if (null == adminUser) {
             // 用户名或密码错误
-            throw new CustomException(Code.WRONG_USER_NAME_OR_PASSWORD);
+            throw new ErrorCodeException(Code.WRONG_USER_NAME_OR_PASSWORD);
         }
 
         // 创建token

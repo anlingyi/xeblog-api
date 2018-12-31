@@ -24,20 +24,12 @@
         </encoder>
     </appender>
 
-    <!--myibatis log configure-->
-    <logger name="com.apache.ibatis" level="INFO"/>
-    <logger name="java.sql.Connection" level="INFO"/>
-    <logger name="java.sql.Statement" level="INFO"/>
-    <logger name="java.sql.PreparedStatement" level="INFO"/>
-    <logger name="org.apache.http" level="INFO"/>
-    <logger name="org.mybatis" level="INFO"/>
-
     <!-- 日志输出级别-->
-    <root level="DEBUG">
+    <root level="INFO">
         <appender-ref ref="FILE"/>
         <appender-ref ref="STDOUT"/>
     </root>
-    <!--<root level="INFO">-->
-    <!--<appender-ref ref="FILE"/>-->
-    <!--</root>-->
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+    </root>
 </configuration>

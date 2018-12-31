@@ -2,7 +2,7 @@ package cn.xeblog.api.interceptor;
 
 import cn.xeblog.api.constant.CommonConstant;
 import cn.xeblog.api.enums.Code;
-import cn.xeblog.api.exception.CustomException;
+import cn.xeblog.api.exception.ErrorCodeException;
 import cn.xeblog.api.service.AdminUserService;
 import cn.xeblog.api.util.CheckUtils;
 import org.slf4j.Logger;
@@ -41,6 +41,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
 
         // token无效
-        throw new CustomException(Code.INVALID_TOKEN);
+        throw new ErrorCodeException(Code.INVALID_TOKEN);
     }
 }

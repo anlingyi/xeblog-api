@@ -1,5 +1,6 @@
 package cn.xeblog.api.config;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -24,7 +25,17 @@ import java.util.List;
  */
 @Configuration
 @EnableSwagger2
+@ConfigurationProperties(prefix = "swagger")
 public class SwaggerConfig {
+
+    /**
+     * 是否开启swagger
+     */
+    private boolean enable;
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
 
     /**
      * 创建api
@@ -34,6 +45,7 @@ public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+                .enable(enable)
                 // 详细定制
                 .apiInfo(apiInfo())
                 .select()
