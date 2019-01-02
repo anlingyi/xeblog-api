@@ -110,6 +110,7 @@
     </dependencies>
 
     <build>
+        <defaultGoal>compile</defaultGoal>
         <finalName>${name}-${version}</finalName>
         <plugins>
             <plugin>
