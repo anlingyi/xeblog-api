@@ -6,7 +6,7 @@
     <groupId>cn.xeblog</groupId>
     <artifactId>api</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>xeblog-api</name>
     <description>xeblog api</description>
