@@ -1,13 +1,13 @@
 package cn.xeblog.api.service.impl;
 
+import cn.xeblog.api.domain.config.FileConfig;
 import cn.xeblog.api.service.UploadService;
 import cn.xeblog.api.util.RequestUtils;
 import cn.xeblog.api.util.UUIDUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -23,8 +23,8 @@ import java.util.Map;
 @Service
 public class UploadServiceImpl implements UploadService {
 
-    @Value("${file.upload.path}")
-    private String uploadPath;
+    @Resource
+    private FileConfig fileConfig;
 
     @Override
     public Map<String, String> upload(HttpServletRequest request) throws Exception {
@@ -37,6 +37,8 @@ public class UploadServiceImpl implements UploadService {
         String type;
         // 保存到数据库的路径
         String savePath;
+        // 上传路径
+        String uploadPath;
         MultipartFile multipartFile;
         BufferedOutputStream stream = null;
 
@@ -50,12 +52,14 @@ public class UploadServiceImpl implements UploadService {
                     type = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().
                             indexOf("."));
                     fileName = UUIDUtils.createUUID() + type;
-                    savePath = uploadPath + fileName;
+                    savePath = fileConfig.getUploadPath() + fileName;
+                    uploadPath = fileConfig.getDirectoryMapping().replace("file:", "") + savePath;
 
-                    File file = new File(ResourceUtils.getURL("classpath:").getPath()
-                            + savePath);
-                    File fileParent = file.getParentFile();
-                    fileParent.mkdirs();
+                    File file = new File(uploadPath);
+
+                    if (!file.getParentFile().exists()) {
+                        file.getParentFile().mkdirs();
+                    }
 
                     stream = new BufferedOutputStream(new FileOutputStream(file));
                     stream.write(bytes);
