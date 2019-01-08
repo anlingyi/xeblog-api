@@ -105,9 +105,9 @@ insert into `category` (`name`) values ('记录');
 
 insert into `menu` (`order_id`, `name`, `url`, `icon`) values
 (1, '首页', '/', 'home'),
-(2, '分类', '/categories', 'group'),
-(3, '归档', '/archives', 'archive'),
-(4, '标签', '/tags', 'tags');
+(2, '分类', '/categories/', 'group'),
+(3, '归档', '/archives/', 'archive'),
+(4, '标签', '/tags/', 'tags');
 
 insert into `article` (`author`, `category_id`, `title`, `content`, `brief`) values ('小毅', 1, 'Hello World!',
   '你好，世界！', '记录，从此刻开始！');
