@@ -8,6 +8,8 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -20,9 +22,20 @@ import java.util.Map;
  * @author yanpanyi
  * @date 2018/10/16
  */
+@Component
 public class JwtUtils {
 
     private final static Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+
+    /**
+     * jwt公用密钥
+     */
+    private static String publicKey;
+
+    @Value("${jwt.publicKey}")
+    public void setPublicKey(String publicKey) {
+        JwtUtils.publicKey = publicKey;
+    }
 
     /**
      * 生成token
@@ -47,7 +60,7 @@ public class JwtUtils {
                 .withClaim(CommonConstant.USER_ID, id)
                 .withExpiresAt(expireDate)
                 .withIssuedAt(iatDate)
-                .sign(Algorithm.HMAC256(CommonConstant.JWT_PUBLIC_KEY));
+                .sign(Algorithm.HMAC256(publicKey));
 
         return token;
     }
@@ -60,7 +73,7 @@ public class JwtUtils {
      * @throws Exception
      */
     public static Map<String, Claim> verifyToken(String token) throws Exception {
-        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(CommonConstant.JWT_PUBLIC_KEY))
+        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(publicKey))
                 .build();
         DecodedJWT jwt;
 
