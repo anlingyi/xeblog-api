@@ -33,6 +33,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler(fileConfig.getStaticAccessPath())
                 .addResourceLocations(fileConfig.getDirectoryMapping());
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
     }
 
 }
