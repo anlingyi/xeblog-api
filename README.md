@@ -7,6 +7,7 @@
 
 * JDK1.8
 * SpringBoot
+* MyBatis
 * Maven
 * Mysql
 
