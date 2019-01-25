@@ -25,6 +25,18 @@ public class FileConfig {
      * 文件目录映射
      */
     private String directoryMapping;
+    /**
+     * 访问地址
+     */
+    private String accessAddress;
+
+    public String getAccessAddress() {
+        return accessAddress;
+    }
+
+    public void setAccessAddress(String accessAddress) {
+        this.accessAddress = accessAddress;
+    }
 
     public String getDirectoryMapping() {
         return directoryMapping;

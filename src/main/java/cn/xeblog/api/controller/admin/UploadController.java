@@ -2,6 +2,7 @@ package cn.xeblog.api.controller.admin;
 
 import cn.xeblog.api.service.UploadService;
 import cn.xeblog.api.util.Response;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/admin/api/upload")
 public class UploadController {
 
-    @Resource
+    @Resource(name = "upYunUploadServiceImpl")
     private UploadService uploadService;
 
     /**

@@ -1,7 +1,5 @@
 package cn.xeblog.api.constant;
 
-import org.springframework.beans.factory.annotation.Value;
-
 /**
  * 常量类
  *

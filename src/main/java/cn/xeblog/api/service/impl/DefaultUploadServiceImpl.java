@@ -17,11 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 默认文件上传实现
  * @author yanpanyi
  * @date 2018/11/12
  */
 @Service
-public class UploadServiceImpl implements UploadService {
+public class DefaultUploadServiceImpl implements UploadService {
 
     @Resource
     private FileConfig fileConfig;
@@ -35,10 +36,8 @@ public class UploadServiceImpl implements UploadService {
         String fileName;
         // 文件类型
         String type;
-        // 保存到数据库的路径
-        String savePath;
-        // 上传路径
-        String uploadPath;
+        // 返回路径
+        String respPath;
         MultipartFile multipartFile;
         BufferedOutputStream stream = null;
 
@@ -52,10 +51,10 @@ public class UploadServiceImpl implements UploadService {
                     type = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().
                             indexOf("."));
                     fileName = UUIDUtils.createUUID() + type;
-                    savePath = fileConfig.getUploadPath() + fileName;
-                    uploadPath = fileConfig.getDirectoryMapping().replace("file:", "") + savePath;
+                    respPath = fileConfig.getAccessAddress() + fileName;
 
-                    File file = new File(uploadPath);
+                    File file = new File(fileConfig.getDirectoryMapping().replace("file:", "") +
+                            fileConfig.getUploadPath() + fileName);
 
                     if (!file.getParentFile().exists()) {
                         file.getParentFile().mkdirs();
@@ -64,7 +63,7 @@ public class UploadServiceImpl implements UploadService {
                     stream = new BufferedOutputStream(new FileOutputStream(file));
                     stream.write(bytes);
 
-                    map.put(multipartFile.getName(), savePath);
+                    map.put(multipartFile.getName(), respPath);
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
