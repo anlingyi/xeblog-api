@@ -6,10 +6,11 @@
 ## 环境
 
 * JDK1.8
-* SpringBoot
+* SpringBoot2.0
 * MyBatis
 * Maven
 * Mysql
+* Flyway
 
 ## 编译运行
 
@@ -42,6 +43,9 @@ java -jar xeblog-api.jar
     - [x] 网站信息修改
     - [x] 博主信息修改
     - [x] 密码修改
+    
+## 优化
+- [ ] 网站公共信息缓存优化
 
 
 
