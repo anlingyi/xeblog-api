@@ -16,7 +16,7 @@
 
 ```
 mvn clean install -Dmaven.test.skip=true
-java -jar xeblog-api.jar
+java -jar ${finalName}.jar --spring.profiles.active=${env}
 ```
 
 ## 功能实现
