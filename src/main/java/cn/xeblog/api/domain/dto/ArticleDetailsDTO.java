@@ -32,6 +32,26 @@ public class ArticleDetailsDTO {
     private String updateTime;
     @ApiModelProperty("文章类目id")
     private Integer categoryId;
+    @ApiModelProperty("文章封面")
+    private String cover;
+    @ApiModelProperty("文章简述")
+    private String brief;
+
+    public String getCover() {
+        return cover;
+    }
+
+    public void setCover(String cover) {
+        this.cover = cover;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
 
     public String getUpdateTime() {
         return updateTime;
@@ -146,6 +166,8 @@ public class ArticleDetailsDTO {
         articleDetailsDTO.setCreateTime(DateFormatUtils.format(article.getCreateTime(), "yyyy/MM/dd"));
         articleDetailsDTO.setCategoryName(article.getCategoryName());
         articleDetailsDTO.setCategoryId(article.getCategoryId());
+        articleDetailsDTO.setCover(article.getCover());
+        articleDetailsDTO.setBrief(article.getBrief());
 
         return articleDetailsDTO;
     }
