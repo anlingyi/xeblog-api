@@ -67,7 +67,7 @@
     <update id="updateArticle">
       UPDATE article SET title = #{update.title}, content = #{update.content}, cover = #{update.cover},
         category_id = #{update.categoryId}, tag = #{update.tag}, author = #{update.author}, brief = #{update.brief},
-        is_top = #{update.isTop}, is_private = #{update.isPrivate}
+        is_top = #{update.isTop}, is_private = #{update.isPrivate}, update_time = NOW()
         WHERE id = #{update.id}
     </update>
 
