@@ -9,21 +9,25 @@ package cn.xeblog.api.enums;
 public enum Code implements ErrorCode {
 
     /**
+     * 只能上传图片
+     */
+    CAN_ONLY_UPLOAD_IMAGES(1005, "只能上传图片！"),
+    /**
      * 该分类下存在文章，删除失败
      */
-    EXISTING_ARTICLE_FAILED_TO_DELETE(1004, "该分类下存在文章，删除失败!"),
+    EXISTING_ARTICLE_FAILED_TO_DELETE(1004, "该分类下存在文章，删除失败！"),
     /**
      * 旧密码输入错误
      */
-    OLD_PASSWORD_INPUT_ERROR(1003, "旧密码输入错误!"),
+    OLD_PASSWORD_INPUT_ERROR(1003, "旧密码输入错误！"),
     /**
      * 用户名或密码错误
      */
-    WRONG_USER_NAME_OR_PASSWORD(1002, "用户名或密码错误!"),
+    WRONG_USER_NAME_OR_PASSWORD(1002, "用户名或密码错误！"),
     /**
      * 标签已存在
      */
-    TAG_ALREADY_EXISTS(1001, "标签已存在!"),
+    TAG_ALREADY_EXISTS(1001, "标签已存在！"),
     /**
      * 处理成功
      */

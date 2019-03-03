@@ -19,4 +19,12 @@ public interface UploadService {
      * @throws Exception
      */
     Map<String, String> upload(HttpServletRequest request) throws Exception;
+
+    /**
+     * 上传文件带水印
+     *
+     * @param request
+     * @return
+     */
+    Map<String, String> uploadImageWithWatermark(HttpServletRequest request) throws Exception;
 }

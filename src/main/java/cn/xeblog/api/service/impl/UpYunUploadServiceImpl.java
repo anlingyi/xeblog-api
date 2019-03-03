@@ -7,11 +7,17 @@ import cn.xeblog.api.service.UploadService;
 import cn.xeblog.api.util.RequestUtils;
 import cn.xeblog.api.util.UUIDUtils;
 import main.java.com.UpYun;
+import net.coobird.thumbnailator.Thumbnails;
+import net.coobird.thumbnailator.geometry.Positions;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,11 +35,27 @@ public class UpYunUploadServiceImpl implements UploadService {
     private UpYunConfig upYunConfig;
 
     private static UpYun upYun;
-
+    private List<MultipartFile> files;
+    private Map<String, String> map;
     /**
-     * 初始化
+     * 文件名
      */
-    private void init() {
+    private String fileName;
+    /**
+     * 文件类型
+     */
+    private String type;
+    /**
+     * 返回路径
+     */
+    private String respPath;
+    private byte[] bytes;
+    private MultipartFile multipartFile;
+
+    private void init(HttpServletRequest request) {
+        files = RequestUtils.getFiles(request);
+        map = new HashMap<>(files.size());
+
         if (null != upYun) {
             return;
         }
@@ -41,45 +63,86 @@ public class UpYunUploadServiceImpl implements UploadService {
         upYun = new UpYun(upYunConfig.getBucketName(), upYunConfig.getUserName(), upYunConfig.getPassword());
     }
 
+    private void getValues() {
+        type = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().
+                indexOf("."));
+        fileName = UUIDUtils.createUUID() + type;
+        respPath = upYunConfig.getAccessAddress() + fileName;
+    }
+
+    private boolean execute() {
+        return upYun.writeFile(upYunConfig.getUploadPath() + fileName, bytes, true);
+    }
+
+    private void add() {
+        map.put(multipartFile.getName(), respPath);
+    }
+
     @Override
-    public Map<String, String> upload(HttpServletRequest request) {
-        this.init();
-
-        List<MultipartFile> files = RequestUtils.getFiles(request);
-        Map<String, String> map = new HashMap<>(files.size());
-
-        // 文件名
-        String fileName;
-        // 文件类型
-        String type;
-        // 返回路径
-        String respPath;
-        MultipartFile multipartFile;
+    public Map<String, String> upload(HttpServletRequest request) throws Exception {
+        init(request);
 
         for (int i = 0; i < files.size(); i++) {
             multipartFile = files.get(i);
 
-            if (!multipartFile.isEmpty()) {
-                try {
-                    byte[] bytes = multipartFile.getBytes();
-
-                    type = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().
-                            indexOf("."));
-                    fileName = UUIDUtils.createUUID() + type;
-                    respPath = upYunConfig.getAccessAddress() + fileName;
-
-                    if (!upYun.writeFile(upYunConfig.getUploadPath() + fileName, bytes, true)) {
-                        throw new ErrorCodeException(Code.FAILED);
-                    }
-
-                    map.put(multipartFile.getName(), respPath);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            if (multipartFile.isEmpty()) {
+                continue;
             }
+
+            bytes = multipartFile.getBytes();
+            getValues();
+
+            if (!execute()) {
+                throw new ErrorCodeException(Code.FAILED);
+            }
+
+            add();
         }
 
         return map;
     }
 
+    @Override
+    public Map<String, String> uploadImageWithWatermark(HttpServletRequest request) throws Exception {
+        init(request);
+
+        for (int i = 0; i < files.size(); i++) {
+            multipartFile = files.get(i);
+
+            if (multipartFile.isEmpty()) {
+                continue;
+            }
+
+            getWatermarkImageBytes();
+
+            if (!execute()) {
+                throw new ErrorCodeException(Code.FAILED);
+            }
+
+            add();
+        }
+
+        return map;
+    }
+
+    private void getWatermarkImageBytes() throws ErrorCodeException, IOException {
+        BufferedImage bufferedImage = ImageIO.read(multipartFile.getInputStream());
+        if (null == bufferedImage) {
+            // 上传的文件不是图片
+            throw new ErrorCodeException(Code.CAN_ONLY_UPLOAD_IMAGES);
+        }
+
+        BufferedImage watermarkImage = Thumbnails.of(bufferedImage)
+                .size(bufferedImage.getWidth(), bufferedImage.getHeight())
+                .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(this.getClass()
+                        .getResourceAsStream("/watermark.png")), 0.25f)
+                .asBufferedImage();
+
+        getValues();
+
+        // 将BufferedImage转换成byte[]
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        ImageIO.write(watermarkImage, type.replace(".", ""), byteArrayOutputStream);
+        bytes = byteArrayOutputStream.toByteArray();
+    }
 }

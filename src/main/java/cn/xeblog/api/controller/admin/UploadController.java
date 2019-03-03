@@ -2,7 +2,6 @@ package cn.xeblog.api.controller.admin;
 
 import cn.xeblog.api.service.UploadService;
 import cn.xeblog.api.util.Response;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/admin/api/upload")
 public class UploadController {
 
-    @Resource(name = "upYunUploadServiceImpl")
+    @Resource(name = "${default.upload.impl}")
     private UploadService uploadService;
 
     /**
@@ -35,4 +34,15 @@ public class UploadController {
         return new Response(uploadService.upload(request));
     }
 
+    /**
+     * 上传图片带水印
+     *
+     * @param request
+     * @return
+     * @throws Exception
+     */
+    @PostMapping("/image")
+    public Response uploadImageWithWatermark(HttpServletRequest request) throws Exception {
+        return new Response(uploadService.uploadImageWithWatermark(request));
+    }
 }
