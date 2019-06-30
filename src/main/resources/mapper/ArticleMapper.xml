@@ -45,7 +45,7 @@
         UPDATE article a SET a.pageviews = a.pageviews + 1 WHERE a.id = #{id} AND a.is_private = 0
     </update>
 
-    <select id="listTitileAndId" resultType="article">
+    <select id="listTitleAndId" resultType="article">
         SELECT a.id, a.title
           FROM article a
           WHERE a.is_private = 0

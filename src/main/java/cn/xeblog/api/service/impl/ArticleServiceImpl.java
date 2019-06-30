@@ -64,7 +64,7 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleDetailsDTO articleDetailsDTO = ArticleDetailsDTO.toArticleDetailsDTO(this.articleMapper
                 .getArticleById(id, 0));
 
-        List<Article> articleList = articleMapper.listTitileAndId();
+        List<Article> articleList = articleMapper.listTitleAndId();
         // 上一篇
         ArticleNavDTO previous = null;
         // 下一篇

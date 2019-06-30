@@ -17,10 +17,7 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,7 +49,6 @@ public class DefaultUploadServiceImpl implements UploadService {
      * 返回路径
      */
     private String respPath;
-    private byte[] bytes;
     private MultipartFile multipartFile;
 
     private void init(HttpServletRequest request) {
@@ -62,7 +58,7 @@ public class DefaultUploadServiceImpl implements UploadService {
 
     private File getFile() {
         type = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().
-                indexOf("."));
+                lastIndexOf("."));
         fileName = UUIDUtils.createUUID() + type;
         respPath = fileConfig.getAccessAddress() + fileName;
 
@@ -75,22 +71,6 @@ public class DefaultUploadServiceImpl implements UploadService {
         return file;
     }
 
-    private void execute() throws IOException {
-        BufferedOutputStream stream = null;
-
-        try {
-            stream = new BufferedOutputStream(new FileOutputStream(getFile()));
-            stream.write(bytes);
-            add();
-        } catch (Exception e) {
-            LOGGER.error("上传文件出现异常！error -> ", e);
-        } finally {
-            if (null != stream) {
-                stream.close();
-            }
-        }
-    }
-
     private void add() {
         map.put(multipartFile.getName(), respPath);
     }
@@ -101,13 +81,12 @@ public class DefaultUploadServiceImpl implements UploadService {
 
         for (int i = 0; i < files.size(); i++) {
             multipartFile = files.get(i);
-            bytes = multipartFile.getBytes();
-
             if (multipartFile.isEmpty()) {
                 continue;
             }
 
-            execute();
+            multipartFile.transferTo(getFile());
+            add();
         }
 
         return map;

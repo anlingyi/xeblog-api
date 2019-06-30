@@ -34,7 +34,7 @@ public class UpYunUploadServiceImpl implements UploadService {
     @Resource
     private UpYunConfig upYunConfig;
 
-    private static UpYun upYun;
+    private volatile static UpYun upYun;
     private List<MultipartFile> files;
     private Map<String, String> map;
     /**
@@ -56,16 +56,14 @@ public class UpYunUploadServiceImpl implements UploadService {
         files = RequestUtils.getFiles(request);
         map = new HashMap<>(files.size());
 
-        if (null != upYun) {
-            return;
+        if (null == upYun) {
+            upYun = new UpYun(upYunConfig.getBucketName(), upYunConfig.getUserName(), upYunConfig.getPassword());
         }
-
-        upYun = new UpYun(upYunConfig.getBucketName(), upYunConfig.getUserName(), upYunConfig.getPassword());
     }
 
     private void getValues() {
         type = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().
-                indexOf("."));
+                lastIndexOf("."));
         fileName = UUIDUtils.createUUID() + type;
         respPath = upYunConfig.getAccessAddress() + fileName;
     }

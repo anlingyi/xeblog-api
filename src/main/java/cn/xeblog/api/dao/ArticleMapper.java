@@ -56,7 +56,7 @@ public interface ArticleMapper {
      * @return
      * @throws Exception
      */
-    List<Article> listTitileAndId() throws Exception;
+    List<Article> listTitleAndId() throws Exception;
 
     /**
      * 归档
