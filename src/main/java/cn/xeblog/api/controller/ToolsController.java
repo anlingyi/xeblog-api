@@ -6,6 +6,8 @@ import cn.xeblog.api.util.Response;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Encoder;
@@ -23,6 +25,8 @@ import java.io.InputStream;
 @RestController
 @RequestMapping("/api/tools")
 public class ToolsController {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(ToolsController.class);
 
     private static final String ACCEPT_FILE_TYPE = "jpg,jpeg,png";
 
@@ -52,6 +56,7 @@ public class ToolsController {
             jsonObject.put("image", str);
             return new Response(jsonObject);
         } catch (IOException e) {
+            LOGGER.error("图片合成失败！", e);
             return new Response(Code.IMAGE_SYNTHESIS_FAILED);
         }
     }
