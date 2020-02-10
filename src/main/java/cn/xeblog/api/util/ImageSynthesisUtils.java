@@ -1,7 +1,6 @@
 package cn.xeblog.api.util;
 
 import net.coobird.thumbnailator.Thumbnails;
-import org.springframework.util.ResourceUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -83,7 +82,7 @@ public class ImageSynthesisUtils {
         }
 
         // 模板图
-        BufferedImage template = ImageIO.read(ResourceUtils.getFile("classpath:" + SEPARATOR + "images" + SEPARATOR + "template.png"));
+        BufferedImage template = ImageIO.read(Thread.currentThread().getContextClassLoader().getResourceAsStream(SEPARATOR + "images" + SEPARATOR + "template.png"));
         // 待合成图
         BufferedImage image = ImageIO.read(inputStream);
         // 调整待合成图的亮度、对比度
