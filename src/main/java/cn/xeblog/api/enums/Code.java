@@ -9,6 +9,10 @@ package cn.xeblog.api.enums;
 public enum Code implements ErrorCode {
 
     /**
+     * 图片合成失败
+     */
+    IMAGE_SYNTHESIS_FAILED(1006, "图片合成失败！"),
+    /**
      * 只能上传图片
      */
     CAN_ONLY_UPLOAD_IMAGES(1005, "只能上传图片！"),
