@@ -9,6 +9,10 @@ package cn.xeblog.api.enums;
 public enum Code implements ErrorCode {
 
     /**
+     * 不支持的图片类型
+     */
+    UNSUPPORTED_IMAGE_TYPE(1007, "不支持的图片类型！"),
+    /**
      * 图片合成失败
      */
     IMAGE_SYNTHESIS_FAILED(1006, "图片合成失败！"),

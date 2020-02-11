@@ -98,7 +98,7 @@ public class ImageSynthesisUtils {
         graphics2D.drawImage(template,0,0, null);
         graphics2D.dispose();
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(1024 << 10);
         ImageIO.write(result, "png", outputStream);
         return outputStream.toByteArray();
     }
