@@ -8,7 +8,7 @@ import cn.xeblog.api.enums.ErrorCode;
  *
  * @author yanpanyi
  */
-public class ErrorCodeException extends Exception {
+public class ErrorCodeException extends RuntimeException {
 
     private ErrorCode errorCode;
 

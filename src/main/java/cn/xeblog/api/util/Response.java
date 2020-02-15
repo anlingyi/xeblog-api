@@ -72,4 +72,20 @@ public class Response {
                 ", message='" + message + '\'' +
                 '}';
     }
+
+    public static Response ok() {
+        return new Response(Code.SUCCESS);
+    }
+
+    public static Response failed() {
+        return new Response(Code.FAILED);
+    }
+
+    public static Response failed(ErrorCode errorCode) {
+        return new Response(errorCode);
+    }
+
+    public static Response what(boolean flag) {
+        return flag ? ok() : failed();
+    }
 }

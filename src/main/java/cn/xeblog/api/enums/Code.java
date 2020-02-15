@@ -9,6 +9,34 @@ package cn.xeblog.api.enums;
 public enum Code implements ErrorCode {
 
     /**
+     * 操作频繁
+     */
+    FREQUENT_OPERATIONS(1014, "操作频繁！"),
+    /**
+     * 验证码已过期
+     */
+    VERIFICATION_CODE_HAS_EXPIRED(1013, "验证码已过期！"),
+    /**
+     * 验证码不正确
+     */
+    INCORRECT_VERIFICATION_CODE(1012, "验证码不正确！"),
+    /**
+     * 请发送验证邮件
+     */
+    PLEASE_SEND_VERIFICATION_EMAIL(1011, "请发送验证邮件！"),
+    /**
+     * 邮箱不合法
+     */
+    EMAIL_IS_INVALID(1010, "邮箱不合法！"),
+    /**
+     * 该邮箱已订阅
+     */
+    THIS_EMAIL_IS_SUBSCRIBED(1009, "该邮箱已订阅！"),
+    /**
+     * 邮件发送失败
+     */
+    MAIL_SEND_FAILED(1008, "邮件发送失败！"),
+    /**
      * 不支持的图片类型
      */
     UNSUPPORTED_IMAGE_TYPE(1007, "不支持的图片类型！"),

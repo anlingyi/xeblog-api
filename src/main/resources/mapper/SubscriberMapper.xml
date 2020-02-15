@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.xeblog.api.dao.SubscriberMapper">
+
+    <insert id="addSubscriber">
+        INSERT INTO subscriber (email, uid, status) VALUES (#{email}, #{uid}, #{status})
+    </insert>
+
+    <update id="updateSubscriberStatus">
+        UPDATE subscriber SET status = #{status} WHERE id = #{id}
+    </update>
+
+    <select id="getSubscriberByUid" resultType="cn.xeblog.api.domain.model.Subscriber">
+        SELECT * FROM subscriber WHERE uid = #{uid} limit 1
+    </select>
+
+    <select id="listSubscriberByStatus" resultType="cn.xeblog.api.domain.model.Subscriber">
+        SELECT * FROM subscriber WHERE status = #{status}
+    </select>
+
+    <select id="getSubscriberByEmail" resultType="cn.xeblog.api.domain.model.Subscriber">
+        SELECT * FROM subscriber WHERE email = #{email} limit 1
+    </select>
+
+</mapper>
