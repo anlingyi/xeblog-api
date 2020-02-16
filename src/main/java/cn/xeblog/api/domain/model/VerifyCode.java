@@ -1,7 +1,6 @@
 package cn.xeblog.api.domain.model;
 
 import cn.xeblog.api.constant.CommonConstant;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,10 +27,10 @@ public class VerifyCode {
      */
     private long createTime;
 
-    public VerifyCode(String code, long expireDate) {
+    public VerifyCode(String code) {
         this.code = code;
-        this.expireDate = expireDate + CommonConstant.VERIFICATION_CODE_EXPIRATION_TIME;
         this.createTime = System.currentTimeMillis();
+        this.expireDate = this.createTime + CommonConstant.VERIFICATION_CODE_EXPIRATION_TIME;
     }
 
 }

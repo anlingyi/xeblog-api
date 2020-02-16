@@ -105,14 +105,9 @@ public class SubscriberController {
             return Response.failed(Code.THIS_EMAIL_IS_SUBSCRIBED);
         }
 
-        if (subscriberService.isSubscribed(email)) {
-            // 该邮箱已订阅
-            return Response.failed(Code.THIS_EMAIL_IS_SUBSCRIBED);
-        }
-
         String code = VerifyCodeUtils.generate();
         // 缓存验证码
-        cacheService.add(key, new VerifyCode(code, System.currentTimeMillis()));
+        cacheService.add(key, new VerifyCode(code));
         // 发送验证码
         emailService.sendVerifyCodeMail(email, code);
 
