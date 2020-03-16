@@ -1,6 +1,8 @@
 package cn.xeblog.api.service;
 
+import cn.xeblog.api.domain.bo.PageList;
 import cn.xeblog.api.domain.model.Subscriber;
+import cn.xeblog.api.domain.request.Pagination;
 import cn.xeblog.api.enums.SubscribeStatus;
 
 /**
@@ -50,4 +52,12 @@ public interface SubscriberService {
      * @return
      */
     boolean addSubscriber(String email, SubscribeStatus subscribeStatus);
+
+    /**
+     * 订阅者列表
+     *
+     * @param pagination
+     * @return
+     */
+    PageList listSubscriber(Pagination pagination);
 }

@@ -88,4 +88,8 @@ public class Response {
     public static Response what(boolean flag) {
         return flag ? ok() : failed();
     }
+
+    public static Response ok(Object obj) {
+        return new Response(obj);
+    }
 }

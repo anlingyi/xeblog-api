@@ -1,13 +1,20 @@
 package cn.xeblog.api.service.impl;
 
 import cn.xeblog.api.dao.SubscriberMapper;
+import cn.xeblog.api.domain.bo.PageList;
+import cn.xeblog.api.domain.dto.admin.SubscriberListDTO;
 import cn.xeblog.api.domain.model.Subscriber;
+import cn.xeblog.api.domain.request.Pagination;
 import cn.xeblog.api.enums.SubscribeStatus;
 import cn.xeblog.api.service.SubscriberService;
 import cn.xeblog.api.util.UUIDUtils;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author anlingyi
@@ -54,4 +61,21 @@ public class SubscriberServiceImpl implements SubscriberService {
         return UUIDUtils.createUUID();
     }
 
+    @Override
+    public PageList listSubscriber(Pagination pagination) {
+        PageHelper.startPage(pagination.getPageIndex(), pagination.getPageSize());
+
+        List<Subscriber> subscriberList = subscriberMapper.listSubscriber();
+        if (subscriberList.isEmpty()) {
+            return null;
+        }
+
+        PageInfo pageInfo = new PageInfo(subscriberList);
+        List<SubscriberListDTO> subscriberListDTOList = new ArrayList<>(subscriberList.size());
+        for (Subscriber subscriber : subscriberList) {
+            subscriberListDTOList.add(SubscriberListDTO.toSubscriberListDTO(subscriber));
+        }
+
+        return PageList.create(subscriberListDTOList, pageInfo);
+    }
 }

@@ -25,4 +25,8 @@
         SELECT * FROM subscriber WHERE email = #{email} limit 1
     </select>
 
+    <select id="listSubscriber" resultType="cn.xeblog.api.domain.model.Subscriber">
+        SELECT id, email, status, create_time createTime FROM subscriber ORDER BY id DESC
+    </select>
+
 </mapper>

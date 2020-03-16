@@ -1,5 +1,7 @@
 package cn.xeblog.api.domain.bo;
 
+import com.github.pagehelper.PageInfo;
+
 import java.util.List;
 
 /**
@@ -82,5 +84,9 @@ public class PageList {
                 ", pages=" + pages +
                 ", total=" + total +
                 '}';
+    }
+
+    public static PageList create(List list, PageInfo pageInfo) {
+        return new PageList(list, pageInfo.getPageNum(), pageInfo.getPages(), pageInfo.getTotal());
     }
 }

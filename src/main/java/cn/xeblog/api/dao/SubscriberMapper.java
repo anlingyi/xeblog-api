@@ -66,4 +66,10 @@ public interface SubscriberMapper {
      */
     Subscriber getSubscriberByEmail(String email);
 
+    /**
+     * 订阅者列表
+     *
+     * @return
+     */
+    List<Subscriber> listSubscriber();
 }
