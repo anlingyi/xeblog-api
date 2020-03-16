@@ -11,6 +11,7 @@ import net.coobird.thumbnailator.geometry.Positions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -28,6 +29,7 @@ import java.util.Map;
  * @date 2018/11/12
  */
 @Service
+@RequestScope
 public class DefaultUploadServiceImpl implements UploadService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultUploadServiceImpl.class);
@@ -78,7 +80,7 @@ public class DefaultUploadServiceImpl implements UploadService {
     @Override
     public Map<String, String> upload(HttpServletRequest request) throws Exception {
         init(request);
-
+        Thread.sleep(3000);
         for (int i = 0; i < files.size(); i++) {
             multipartFile = files.get(i);
             if (multipartFile.isEmpty()) {

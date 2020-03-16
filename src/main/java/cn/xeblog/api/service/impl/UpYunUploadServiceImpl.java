@@ -10,6 +10,7 @@ import main.java.com.UpYun;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -29,6 +30,7 @@ import java.util.Map;
  * @date 2019/1/25
  */
 @Service
+@RequestScope
 public class UpYunUploadServiceImpl implements UploadService {
 
     @Resource
