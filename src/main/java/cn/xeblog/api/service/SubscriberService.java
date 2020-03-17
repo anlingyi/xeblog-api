@@ -3,7 +3,10 @@ package cn.xeblog.api.service;
 import cn.xeblog.api.domain.bo.PageList;
 import cn.xeblog.api.domain.model.Subscriber;
 import cn.xeblog.api.domain.request.Pagination;
+import cn.xeblog.api.domain.request.SendEmail;
 import cn.xeblog.api.enums.SubscribeStatus;
+
+import java.util.List;
 
 /**
  * @author anlingyi
@@ -60,4 +63,20 @@ public interface SubscriberService {
      * @return
      */
     PageList listSubscriber(Pagination pagination);
+
+    /**
+     * 查询出该文章未发送邮件的订阅者列表
+     *
+     * @param articleId
+     * @return
+     */
+    List<SendEmail.Subscriber> listSendMailSubscriber(Integer articleId);
+
+    /**
+     * 通过订阅状态统计订阅人数
+     *
+     * @param subscribeStatus
+     * @return
+     */
+    Integer getTotalByStatus(SubscribeStatus subscribeStatus);
 }

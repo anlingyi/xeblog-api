@@ -3,6 +3,7 @@ package cn.xeblog.api.service.impl;
 import cn.xeblog.api.dao.ArticleMapper;
 import cn.xeblog.api.domain.request.SendEmail;
 import cn.xeblog.api.service.EmailService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +22,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Ignore
 public class EmailServiceImplTest {
 
     @Resource
@@ -33,7 +35,7 @@ public class EmailServiceImplTest {
         SendEmail sendEmail = new SendEmail();
         sendEmail.setArticle(articleMapper.getArticleById(29, null));
         List<SendEmail.Subscriber> subscriberList = new ArrayList<>();
-        subscriberList.add(sendEmail.new Subscriber(1, "1090172196@qq.com"));
+        subscriberList.add(new SendEmail.Subscriber(1, "1090172196@qq.com"));
         sendEmail.setSubscriberList(subscriberList);
         emailService.sendArticleEmail(sendEmail);
     }

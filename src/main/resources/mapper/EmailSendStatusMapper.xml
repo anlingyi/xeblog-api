@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xeblog.api.dao.EmailSendStatusMapper">
+
+    <insert id="addEmailSendStatus">
+        INSERT INTO email_send_status (sub_id, article_id, status)
+         VALUES (#{emailSendStatus.subId}, #{emailSendStatus.articleId}, #{emailSendStatus.status})
+    </insert>
+
+    <select id="listSendStatusByArticleId" resultType="integer">
+        SELECT status
+            FROM email_send_status
+             WHERE article_id = #{articleId}
+    </select>
+
+</mapper>

@@ -1,6 +1,7 @@
 package cn.xeblog.api.domain.model;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
@@ -11,6 +12,7 @@ import java.util.Date;
  * @date 2020/2/13
  */
 @Data
+@NoArgsConstructor
 public class EmailSendStatus {
 
     /**
@@ -31,4 +33,10 @@ public class EmailSendStatus {
     private Integer status;
     private Date createTime;
     private Date updateTime;
+
+    public EmailSendStatus(Integer subId, Integer articleId, Integer status) {
+        this.subId = subId;
+        this.articleId = articleId;
+        this.status = status;
+    }
 }

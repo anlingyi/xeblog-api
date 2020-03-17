@@ -3,6 +3,7 @@ package cn.xeblog.api.domain.request;
 import cn.xeblog.api.domain.model.Article;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class SendEmail {
 
     /**
-     * 文章ID
+     * 文章
      */
     private Article article;
     /**
@@ -26,7 +27,8 @@ public class SendEmail {
 
     @Data
     @AllArgsConstructor
-    public class Subscriber {
+    @NoArgsConstructor
+    public static class Subscriber {
 
         /**
          * 订阅者id

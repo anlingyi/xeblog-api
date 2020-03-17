@@ -179,4 +179,9 @@ public class ArticleServiceImpl implements ArticleService {
     public AdminArticleDetailsDTO getArticleDetailsAdmin(Integer id) throws Exception {
         return AdminArticleDetailsDTO.toAdminArticleDetailsDTO(this.articleMapper.getAdminArticleById(id));
     }
+
+    @Override
+    public Article getArticleById(Integer articleId) {
+        return articleMapper.getArticle(articleId);
+    }
 }

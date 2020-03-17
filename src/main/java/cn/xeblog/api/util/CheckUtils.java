@@ -95,7 +95,7 @@ public class CheckUtils {
      *
      * @param errorCode
      */
-    private static void error(ErrorCode errorCode) {
+    public static void error(ErrorCode errorCode) {
         throw new ErrorCodeException(errorCode);
     }
 }

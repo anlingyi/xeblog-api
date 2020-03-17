@@ -110,4 +110,12 @@ public interface ArticleMapper {
      */
     Article getAdminArticleById(Integer id) throws Exception;
 
+    /**
+     * 获取文章信息
+     *
+     * @param id
+     * @return
+     * @throws Exception
+     */
+    Article getArticle(@Param("id") Integer id);
 }

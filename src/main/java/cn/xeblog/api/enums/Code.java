@@ -9,6 +9,18 @@ package cn.xeblog.api.enums;
 public enum Code implements ErrorCode {
 
     /**
+     * 没有订阅用户需要推送
+     */
+    NO_SUBSCRIBER_NEED_TO_PUSH(1017, "没有订阅用户需要推送！"),
+    /**
+     * 文章未公开
+     */
+    ARTICLE_NOT_PUBLIC(1016, "文章未公开！"),
+    /**
+     * 文章不存在
+     */
+    ARTICLE_DOES_NOT_EXIST(1015, "文章不存在！"),
+    /**
      * 操作频繁
      */
     FREQUENT_OPERATIONS(1014, "操作频繁！"),

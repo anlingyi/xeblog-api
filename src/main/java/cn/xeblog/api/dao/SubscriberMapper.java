@@ -72,4 +72,20 @@ public interface SubscriberMapper {
      * @return
      */
     List<Subscriber> listSubscriber();
+
+    /**
+     * 查询出该文章未发送邮件的订阅者列表
+     *
+     * @param articleId
+     * @return
+     */
+    List<Subscriber> listSendMailSubscriber(Integer articleId);
+
+    /**
+     * 通过订阅状态统计订阅人数
+     *
+     * @param status
+     * @return
+     */
+    Integer getTotalByStatus(int status);
 }

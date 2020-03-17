@@ -107,4 +107,7 @@
         <result property="categoryName" column="name"/>
     </resultMap>
 
+    <select id="getArticle" resultMap="articleDetails">
+        SELECT * FROM article WHERE id = #{id}
+    </select>
 </mapper>

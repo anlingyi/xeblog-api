@@ -5,6 +5,7 @@ import cn.xeblog.api.domain.bo.PageList;
 import cn.xeblog.api.domain.dto.admin.SubscriberListDTO;
 import cn.xeblog.api.domain.model.Subscriber;
 import cn.xeblog.api.domain.request.Pagination;
+import cn.xeblog.api.domain.request.SendEmail;
 import cn.xeblog.api.enums.SubscribeStatus;
 import cn.xeblog.api.service.SubscriberService;
 import cn.xeblog.api.util.UUIDUtils;
@@ -77,5 +78,26 @@ public class SubscriberServiceImpl implements SubscriberService {
         }
 
         return PageList.create(subscriberListDTOList, pageInfo);
+    }
+
+    @Override
+    public List<SendEmail.Subscriber> listSendMailSubscriber(Integer articleId) {
+        List<Subscriber> subscriberList = subscriberMapper.listSendMailSubscriber(articleId);
+        if (subscriberList.isEmpty()) {
+            return null;
+        }
+
+        List<SendEmail.Subscriber> sendEmailSubscriberList = new ArrayList<>(subscriberList.size());
+        for (Subscriber subscriber : subscriberList) {
+            sendEmailSubscriberList.add(new SendEmail.Subscriber(subscriber.getId(), subscriber.getEmail()));
+        }
+
+        return sendEmailSubscriberList;
+    }
+
+    @Override
+    public Integer getTotalByStatus(SubscribeStatus subscribeStatus) {
+        Integer total = subscriberMapper.getTotalByStatus(subscribeStatus.getStatus());
+        return total == null ? 0 : total;
     }
 }

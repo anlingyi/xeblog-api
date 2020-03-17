@@ -29,4 +29,14 @@
         SELECT id, email, status, create_time createTime FROM subscriber ORDER BY id DESC
     </select>
 
+    <select id="listSendMailSubscriber" resultType="cn.xeblog.api.domain.model.Subscriber">
+        SELECT s.id, s.email FROM subscriber s
+            LEFT JOIN email_send_status e ON s.id = e.sub_id AND e.article_id = #{articleId} AND e.status = 1
+            WHERE s.status = 1 AND e.id IS NULL
+    </select>
+
+    <select id="getTotalByStatus" resultType="integer">
+        SELECT COUNT(*) FROM subscriber WHERE status = #{status}
+    </select>
+
 </mapper>
