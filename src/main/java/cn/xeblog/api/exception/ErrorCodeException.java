@@ -23,4 +23,9 @@ public class ErrorCodeException extends RuntimeException {
     public void setErrorCode(ErrorCode errorCode) {
         this.errorCode = errorCode;
     }
+
+    @Override
+    public String toString() {
+        return "errorCode:" + errorCode.getCode() + ", message:" + errorCode.getMessage();
+    }
 }

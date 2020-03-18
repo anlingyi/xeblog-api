@@ -14,8 +14,9 @@ public interface EmailService {
      * 发送文章邮件
      *
      * @param sendEmail
+     * @param callBackService
      */
-    void sendArticleEmail(SendEmail sendEmail);
+    void sendArticleEmail(SendEmail sendEmail, CallBackService callBackService);
 
     /**
      * 发送验证码邮件

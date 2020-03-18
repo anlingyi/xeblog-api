@@ -1,5 +1,6 @@
 package cn.xeblog.api.service.impl;
 
+import cn.xeblog.api.cache.CacheService;
 import cn.xeblog.api.domain.bo.ArticlePushStatistics;
 import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.SendEmail;
@@ -29,6 +30,8 @@ public class PushServiceImpl implements PushService {
     private EmailService emailService;
     @Resource
     private EmailSendStatusService emailSendStatusService;
+    @Resource(name = "defaultCacheServiceImpl")
+    private CacheService<String, String> cacheService;
 
     @Override
     public void pushArticle(Integer articleId) {
@@ -45,11 +48,20 @@ public class PushServiceImpl implements PushService {
             error(Code.NO_SUBSCRIBER_NEED_TO_PUSH);
         }
 
+        String key = getArticlePushKey(articleId);
+        synchronized (this) {
+            if (cacheService.containKey(key)) {
+                error(Code.FREQUENT_OPERATIONS);
+            }
+            cacheService.add(key, "");
+        }
+
         SendEmail sendEmail = new SendEmail();
         sendEmail.setArticle(article);
         sendEmail.setSubscriberList(subscriberList);
-
-        emailService.sendArticleEmail(sendEmail);
+        emailService.sendArticleEmail(sendEmail, () -> {
+            cacheService.remove(key);
+        });
     }
 
     @Override
@@ -82,5 +94,11 @@ public class PushServiceImpl implements PushService {
         articlePushStatistics.setFailTotal(failTotal);
 
         return articlePushStatistics;
+    }
+
+    private static final String ARTICLE_PUSH_KEY_ = "push-article-";
+
+    private static String getArticlePushKey(Integer articleId) {
+        return ARTICLE_PUSH_KEY_ + articleId;
     }
 }

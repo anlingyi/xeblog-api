@@ -14,8 +14,6 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
 /**
  * @author anlingyi
  * @date 2020/2/13
@@ -37,7 +35,9 @@ public class EmailServiceImplTest {
         List<SendEmail.Subscriber> subscriberList = new ArrayList<>();
         subscriberList.add(new SendEmail.Subscriber(1, "1090172196@qq.com"));
         sendEmail.setSubscriberList(subscriberList);
-        emailService.sendArticleEmail(sendEmail);
+        emailService.sendArticleEmail(sendEmail, () -> {
+            System.out.println("文章已推送完成！");
+        });
     }
 
     @Test

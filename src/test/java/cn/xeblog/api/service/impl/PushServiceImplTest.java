@@ -25,7 +25,7 @@ public class PushServiceImplTest {
 
     @Test
     public void pushArticle() {
-        pushService.pushArticle(7);
+        pushService.pushArticle(28);
     }
 
     @Test

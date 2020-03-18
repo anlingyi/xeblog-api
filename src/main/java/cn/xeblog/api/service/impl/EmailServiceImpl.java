@@ -4,6 +4,7 @@ import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.SendEmail;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.exception.ErrorCodeException;
+import cn.xeblog.api.service.CallBackService;
 import cn.xeblog.api.service.EmailSendStatusService;
 import cn.xeblog.api.service.EmailService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,14 +40,13 @@ public class EmailServiceImpl implements EmailService {
 
     @Async
     @Override
-    public void sendArticleEmail(SendEmail sendEmail) {
-        log.info("待推送人数：{}", sendEmail.getSubscriberList().size());
-
-        Article article = sendEmail.getArticle();
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
-
+    public void sendArticleEmail(SendEmail sendEmail, CallBackService callBackService) {
         try {
+            log.info("待推送人数：{}", sendEmail.getSubscriberList().size());
+            Article article = sendEmail.getArticle();
+
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
             mimeMessageHelper.setFrom(MAIL_FROM);
             mimeMessageHelper.setSubject(SUBJECT_PREFIX + article.getTitle());
 
@@ -77,6 +77,9 @@ public class EmailServiceImpl implements EmailService {
         } catch (MessagingException e) {
             log.error("发送文章推送邮件失败！", e);
             throw new ErrorCodeException(Code.MAIL_SEND_FAILED);
+        } finally {
+            // 执行回调方法
+            callBackService.exec();
         }
     }
 

@@ -25,9 +25,8 @@ public class ExceptionHandle {
     @ExceptionHandler(value = ErrorCodeException.class)
     @ResponseBody
     public Response invalidParameterErrorHandler(ErrorCodeException e) {
-        LOGGER.error("error：", e);
+        LOGGER.error("ErrorCode：{}", e.toString());
         return new Response(e.getErrorCode());
     }
-
 
 }

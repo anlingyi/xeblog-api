@@ -34,7 +34,9 @@ public class AdminPushController {
     @PostMapping
     public Response pushArticle(Integer articleId) {
         checkArticleId(articleId);
+
         pushService.pushArticle(articleId);
+
         return Response.ok();
     }
 

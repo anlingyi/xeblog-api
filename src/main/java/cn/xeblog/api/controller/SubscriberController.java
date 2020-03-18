@@ -121,7 +121,7 @@ public class SubscriberController {
 
     private static final String VERIFY_CODE_KEY_PREFIX = "verify_code_";
 
-    private String getVerifyCodeKey(String email) {
+    private static String getVerifyCodeKey(String email) {
         return VERIFY_CODE_KEY_PREFIX + email;
     }
 }
