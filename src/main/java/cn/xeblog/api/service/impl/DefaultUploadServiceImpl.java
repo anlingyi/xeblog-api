@@ -80,7 +80,7 @@ public class DefaultUploadServiceImpl implements UploadService {
     @Override
     public Map<String, String> upload(HttpServletRequest request) throws Exception {
         init(request);
-        Thread.sleep(3000);
+
         for (int i = 0; i < files.size(); i++) {
             multipartFile = files.get(i);
             if (multipartFile.isEmpty()) {
