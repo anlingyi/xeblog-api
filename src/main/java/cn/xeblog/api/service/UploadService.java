@@ -1,7 +1,9 @@
 package cn.xeblog.api.service;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import cn.xeblog.api.util.UUIDUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * 上传
@@ -14,18 +16,25 @@ public interface UploadService {
     /**
      * 文件上传
      *
-     * @param request
+     * @param files
      * @return
-     * @throws Exception
      */
-    Map<String, String> upload(HttpServletRequest request) throws Exception;
+    List<String> upload(MultipartFile[] files);
 
     /**
      * 上传图片带水印
      *
-     * @param request
+     * @param files
      * @return
-     * @throws Exception
      */
-    Map<String, String> uploadImageWithWatermark(HttpServletRequest request) throws Exception;
+    List<String> uploadImageWithWatermark(MultipartFile[] files);
+
+    default String createFileName(MultipartFile multipartFile) {
+        return UUIDUtils.createUUID() + "." + getFileType(multipartFile);
+    }
+
+    default String getFileType(MultipartFile multipartFile) {
+        return multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename()
+                .lastIndexOf(".") + 1);
+    }
 }

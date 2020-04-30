@@ -4,24 +4,22 @@ import cn.xeblog.api.domain.config.UpYunConfig;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.exception.ErrorCodeException;
 import cn.xeblog.api.service.UploadService;
-import cn.xeblog.api.util.RequestUtils;
-import cn.xeblog.api.util.UUIDUtils;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import main.java.com.UpYun;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 又拍云上传
@@ -30,103 +28,74 @@ import java.util.Map;
  * @date 2019/1/25
  */
 @Service
-@RequestScope
+@Slf4j
 public class UpYunUploadServiceImpl implements UploadService {
 
     @Resource
     private UpYunConfig upYunConfig;
 
     private volatile static UpYun upYun;
-    private List<MultipartFile> files;
-    private Map<String, String> map;
-    /**
-     * 文件名
-     */
-    private String fileName;
-    /**
-     * 文件类型
-     */
-    private String type;
-    /**
-     * 返回路径
-     */
-    private String respPath;
-    private byte[] bytes;
-    private MultipartFile multipartFile;
 
-    private void init(HttpServletRequest request) {
-        files = RequestUtils.getFiles(request);
-        map = new HashMap<>(files.size());
+    @Override
+    public List<String> upload(MultipartFile[] files) {
+        return execute(files, false);
+    }
 
+    @Override
+    public List<String> uploadImageWithWatermark(MultipartFile[] files) {
+        return execute(files, true);
+    }
+
+    private void init() {
         if (null == upYun) {
-            upYun = new UpYun(upYunConfig.getBucketName(), upYunConfig.getUserName(), upYunConfig.getPassword());
+            synchronized (this) {
+                if (null == upYun) {
+                    upYun = new UpYun(upYunConfig.getBucketName(), upYunConfig.getUserName(), upYunConfig.getPassword());
+                }
+            }
         }
     }
 
-    private void getValues() {
-        type = multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().
-                lastIndexOf("."));
-        fileName = UUIDUtils.createUUID() + type;
-        respPath = upYunConfig.getAccessAddress() + fileName;
+    private FileInfo getFileInfo(MultipartFile multipartFile) throws IOException {
+        String fileName = createFileName(multipartFile);
+        return new FileInfo(fileName, upYunConfig.getAccessAddress() + fileName);
     }
 
-    private boolean execute() {
+    private boolean toUpYun(String fileName, byte[] bytes) {
         return upYun.writeFile(upYunConfig.getUploadPath() + fileName, bytes, true);
     }
 
-    private void add() {
-        map.put(multipartFile.getName(), respPath);
-    }
+    private List<String> execute(MultipartFile[] files, boolean watermarked) {
+        init();
 
-    @Override
-    public Map<String, String> upload(HttpServletRequest request) throws Exception {
-        init(request);
+        List<String> list = new ArrayList<>(files.length);
 
-        for (int i = 0; i < files.size(); i++) {
-            multipartFile = files.get(i);
+        try {
+            for (MultipartFile multipartFile : files) {
+                if (multipartFile.isEmpty()) {
+                    continue;
+                }
 
-            if (multipartFile.isEmpty()) {
-                continue;
+                byte[] bytes = watermarked && !"gif".equals(getFileType(multipartFile)) ? getWatermarkImageBytes(multipartFile) : multipartFile.getBytes();
+                FileInfo fileInfo = getFileInfo(multipartFile);
+
+                if (!toUpYun(fileInfo.getFileName(), bytes)) {
+                    throw new ErrorCodeException(Code.FAILED);
+                }
+
+                list.add(fileInfo.getFileUrl());
             }
-
-            bytes = multipartFile.getBytes();
-            getValues();
-
-            if (!execute()) {
-                throw new ErrorCodeException(Code.FAILED);
-            }
-
-            add();
+        } catch (IOException e) {
+            log.error("上传文件出现异常", e);
+            throw new ErrorCodeException(Code.FAILED);
         }
 
-        return map;
+        return list;
     }
 
-    @Override
-    public Map<String, String> uploadImageWithWatermark(HttpServletRequest request) throws Exception {
-        init(request);
-
-        for (int i = 0; i < files.size(); i++) {
-            multipartFile = files.get(i);
-
-            if (multipartFile.isEmpty()) {
-                continue;
-            }
-
-            getWatermarkImageBytes();
-
-            if (!execute()) {
-                throw new ErrorCodeException(Code.FAILED);
-            }
-
-            add();
-        }
-
-        return map;
-    }
-
-    private void getWatermarkImageBytes() throws ErrorCodeException, IOException {
+    private byte[] getWatermarkImageBytes(MultipartFile multipartFile) throws ErrorCodeException, IOException {
         BufferedImage bufferedImage = ImageIO.read(multipartFile.getInputStream());
+
         if (null == bufferedImage) {
             // 上传的文件不是图片
             throw new ErrorCodeException(Code.CAN_ONLY_UPLOAD_IMAGES);
@@ -138,11 +107,17 @@ public class UpYunUploadServiceImpl implements UploadService {
                         .getResourceAsStream("/watermark.png")), 0.25f)
                 .asBufferedImage();
 
-        getValues();
-
         // 将BufferedImage转换成byte[]
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(watermarkImage, type.replace(".", ""), byteArrayOutputStream);
-        bytes = byteArrayOutputStream.toByteArray();
+        ImageIO.write(watermarkImage, getFileType(multipartFile), byteArrayOutputStream);
+
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    @Data
+    @AllArgsConstructor
+    private static class FileInfo {
+        private String fileName;
+        private String fileUrl;
     }
 }

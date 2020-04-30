@@ -1,13 +1,15 @@
 package cn.xeblog.api.controller.admin;
 
+import cn.xeblog.api.enums.Code;
+import cn.xeblog.api.exception.ErrorCodeException;
 import cn.xeblog.api.service.UploadService;
 import cn.xeblog.api.util.Response;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 上传文件
@@ -25,24 +27,32 @@ public class UploadController {
     /**
      * 上传
      *
-     * @param request
+     * @param files
      * @return
-     * @throws Exception
      */
     @PostMapping
-    public Response upload(HttpServletRequest request) throws Exception {
-        return new Response(uploadService.upload(request));
+    public Response upload(MultipartFile[] files) {
+        checkFile(files);
+
+        return new Response(uploadService.upload(files));
     }
 
     /**
      * 上传图片带水印
      *
-     * @param request
+     * @param files
      * @return
-     * @throws Exception
      */
     @PostMapping("/image")
-    public Response uploadImageWithWatermark(HttpServletRequest request) throws Exception {
-        return new Response(uploadService.uploadImageWithWatermark(request));
+    public Response uploadImageWithWatermark(MultipartFile[] files) {
+        checkFile(files);
+
+        return new Response(uploadService.uploadImageWithWatermark(files));
+    }
+
+    private void checkFile(MultipartFile[] files) {
+        if (files == null || files.length == 0) {
+            throw new ErrorCodeException(Code.INVALID_PARAMETERS);
+        }
     }
 }
