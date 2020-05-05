@@ -37,4 +37,11 @@
           ORDER BY t.id DESC
     </select>
 
+    <select id="blurryQueryTags" resultType="java.lang.String">
+        SELECT name FROM tag
+        <if test="tag != null and tag != ''">
+            WHERE name LIKE CONCAT('%', #{tag}, '%')
+        </if>
+    </select>
+
 </mapper>

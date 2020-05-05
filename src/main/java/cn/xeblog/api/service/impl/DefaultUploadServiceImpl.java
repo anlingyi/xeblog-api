@@ -38,8 +38,8 @@ public class DefaultUploadServiceImpl implements UploadService {
     }
 
     @Override
-    public List<String> uploadImageWithWatermark(MultipartFile[] files) {
-        return execute(files, true);
+    public List<String> uploadImageWithWatermark(MultipartFile[] files, boolean watermarked) {
+        return execute(files, watermarked);
     }
 
     private FileInfo getFileInfo(MultipartFile multipartFile) {

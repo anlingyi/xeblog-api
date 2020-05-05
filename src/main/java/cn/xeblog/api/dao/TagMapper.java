@@ -1,6 +1,7 @@
 package cn.xeblog.api.dao;
 
 import cn.xeblog.api.domain.model.Tag;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -60,4 +61,12 @@ public interface TagMapper {
      * @throws Exception
      */
     List<Tag> listTagAdmin() throws Exception;
+
+    /**
+     * 模糊查询标签
+     *
+     * @param tag
+     * @return
+     */
+    List<String> blurryQueryTags(@Param("tag") String tag);
 }

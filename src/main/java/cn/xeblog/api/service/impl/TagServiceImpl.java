@@ -79,4 +79,9 @@ public class TagServiceImpl implements TagService {
         return new PageList(tagAdminDTOList, pageInfo.getPageNum(), pageInfo.getPages(),
                 pageInfo.getTotal());
     }
+
+    @Override
+    public List<String> blurryQueryTags(String tag) {
+        return this.tagMapper.blurryQueryTags(tag);
+    }
 }

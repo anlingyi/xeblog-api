@@ -25,9 +25,10 @@ public interface UploadService {
      * 上传图片带水印
      *
      * @param files
+     * @param watermarked 是否带水印
      * @return
      */
-    List<String> uploadImageWithWatermark(MultipartFile[] files);
+    List<String> uploadImageWithWatermark(MultipartFile[] files, boolean watermarked);
 
     default String createFileName(MultipartFile multipartFile) {
         return UUIDUtils.createUUID() + "." + getFileType(multipartFile);

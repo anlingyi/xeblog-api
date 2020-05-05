@@ -6,6 +6,7 @@ import cn.xeblog.api.service.UploadService;
 import cn.xeblog.api.util.Response;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,13 +42,14 @@ public class UploadController {
      * 上传图片带水印
      *
      * @param files
+     * @param watermarked 是否带水印
      * @return
      */
     @PostMapping("/image")
-    public Response uploadImageWithWatermark(MultipartFile[] files) {
+    public Response uploadImageWithWatermark(MultipartFile[] files, @RequestParam(defaultValue = "true") boolean watermarked) {
         checkFile(files);
 
-        return new Response(uploadService.uploadImageWithWatermark(files));
+        return new Response(uploadService.uploadImageWithWatermark(files, watermarked));
     }
 
     private void checkFile(MultipartFile[] files) {

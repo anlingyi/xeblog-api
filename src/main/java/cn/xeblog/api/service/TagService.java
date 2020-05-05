@@ -63,4 +63,12 @@ public interface TagService {
      * @throws Exception
      */
     PageList listTagAdmin(Pagination pagination) throws Exception;
+
+    /**
+     * 模糊查询标签
+     *
+     * @param tag
+     * @return
+     */
+    List<String> blurryQueryTags(String tag);
 }

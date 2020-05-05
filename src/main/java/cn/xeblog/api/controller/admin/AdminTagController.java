@@ -76,4 +76,16 @@ public class AdminTagController {
     public Response listTag(Pagination pagination) throws Exception {
         return new Response(this.tagService.listTagAdmin(pagination));
     }
+
+    /**
+     * 模糊查询标签
+     *
+     * @param tag
+     * @return
+     */
+    @ApiOperation(value = "模糊查询标签")
+    @GetMapping("/blurry")
+    public Response blurryQueryTags(String tag) {
+        return Response.ok(this.tagService.blurryQueryTags(tag));
+    }
 }

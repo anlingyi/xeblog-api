@@ -42,8 +42,8 @@ public class UpYunUploadServiceImpl implements UploadService {
     }
 
     @Override
-    public List<String> uploadImageWithWatermark(MultipartFile[] files) {
-        return execute(files, true);
+    public List<String> uploadImageWithWatermark(MultipartFile[] files, boolean watermarked) {
+        return execute(files, watermarked);
     }
 
     private void init() {
@@ -56,7 +56,7 @@ public class UpYunUploadServiceImpl implements UploadService {
         }
     }
 
-    private FileInfo getFileInfo(MultipartFile multipartFile) throws IOException {
+    private FileInfo getFileInfo(MultipartFile multipartFile) {
         String fileName = createFileName(multipartFile);
         return new FileInfo(fileName, upYunConfig.getAccessAddress() + fileName);
     }
