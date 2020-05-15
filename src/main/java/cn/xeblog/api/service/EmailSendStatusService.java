@@ -1,7 +1,5 @@
 package cn.xeblog.api.service;
 
-import cn.xeblog.api.domain.model.EmailSendStatus;
-
 import java.util.List;
 
 /**

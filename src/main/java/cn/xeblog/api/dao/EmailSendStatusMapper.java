@@ -1,6 +1,5 @@
 package cn.xeblog.api.dao;
 
-import cn.xeblog.api.domain.bo.ArticlePushStatistics;
 import cn.xeblog.api.domain.model.EmailSendStatus;
 import org.apache.ibatis.annotations.Param;
 

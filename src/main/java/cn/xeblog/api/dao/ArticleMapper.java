@@ -3,7 +3,6 @@ package cn.xeblog.api.dao;
 import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
 import cn.xeblog.api.domain.request.Pagination;
-import cn.xeblog.api.domain.request.QueryArticle;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
