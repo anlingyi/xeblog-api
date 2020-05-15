@@ -40,11 +40,11 @@ public class JwtUtils {
     /**
      * 生成token
      *
-     * @param id
+     * @param uid
      * @return
      * @throws Exception
      */
-    public static String createToken(int id) throws Exception {
+    public static String createToken(String uid) throws Exception {
         // 签发日期
         Date iatDate = new Date();
         // 过期时间一周
@@ -57,7 +57,7 @@ public class JwtUtils {
         map.put("typ", "JWT");
         String token = JWT.create()
                 .withHeader(map)
-                .withClaim(CommonConstant.USER_ID, id)
+                .withClaim(CommonConstant.UID, uid)
                 .withExpiresAt(expireDate)
                 .withIssuedAt(iatDate)
                 .sign(Algorithm.HMAC256(publicKey));

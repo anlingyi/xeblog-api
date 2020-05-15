@@ -33,10 +33,10 @@ public class LoginServiceImpl implements LoginService {
         }
 
         // 创建token
-        String token = JwtUtils.createToken(adminUser.getId());
+        String token = JwtUtils.createToken(adminUser.getUid());
         // 更新用户token信息
         this.adminUserMapper.updateToken(token);
 
-        return new LoginInfoDTO(adminUser.getId(), adminUser.getUsername(), token);
+        return new LoginInfoDTO(adminUser.getId(), adminUser.getUsername(), token, adminUser.getUid());
     }
 }

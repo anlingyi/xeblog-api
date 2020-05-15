@@ -31,12 +31,12 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         logger.debug("登陆拦截");
         String token = request.getHeader(CommonConstant.TOKEN);
-        String userId = request.getHeader(CommonConstant.USER_ID);
+        String uid = request.getHeader(CommonConstant.UID);
 
         logger.debug("token {}", token);
-        logger.debug("userId {}", userId);
+        logger.debug("uid {}", uid);
 
-        if (CheckUtils.validateToken(userId, token, adminUserService.getToken())) {
+        if (CheckUtils.validateToken(uid, token, adminUserService.getToken())) {
             return true;
         }
 

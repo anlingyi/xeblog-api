@@ -82,7 +82,7 @@ public class SwaggerConfig {
         ParameterBuilder parameterBuilder1 = new ParameterBuilder();
         ParameterBuilder parameterBuilder2 = new ParameterBuilder();
 
-        parameterBuilder1.name("userId").description("用户id").modelRef(new ModelRef("int"))
+        parameterBuilder1.name("uid").description("uid").modelRef(new ModelRef("int"))
                 .parameterType("header").required(false).build();
         parameterBuilder2.name("token").description("令牌").modelRef(new ModelRef("string"))
                 .parameterType("header").required(false).build();

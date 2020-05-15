@@ -11,7 +11,7 @@ public class CommonConstant {
     /**
      * 用户id
      */
-    public static final String USER_ID = "userId";
+    public static final String UID = "uid";
     /**
      * jwt过期时间，单位（天）
      */

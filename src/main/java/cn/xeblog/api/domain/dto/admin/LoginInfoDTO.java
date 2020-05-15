@@ -1,6 +1,9 @@
 package cn.xeblog.api.domain.dto.admin;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 登陆信息
@@ -8,6 +11,9 @@ import io.swagger.annotations.ApiModelProperty;
  * @author yanpanyi
  * @date 2018/10/17
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginInfoDTO {
 
     @ApiModelProperty("id")
@@ -16,47 +22,7 @@ public class LoginInfoDTO {
     private String username;
     @ApiModelProperty("token")
     private String token;
-
-    public LoginInfoDTO() {
-    }
-
-    public LoginInfoDTO(Integer id, String username, String token) {
-        this.id = id;
-        this.username = username;
-        this.token = token;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    @Override
-    public String toString() {
-        return "LoginInfoDTO{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", token='" + token + '\'' +
-                '}';
-    }
+    @ApiModelProperty("uid")
+    private String uid;
 
 }

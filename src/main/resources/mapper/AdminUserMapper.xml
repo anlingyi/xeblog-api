@@ -23,7 +23,7 @@
     </update>
 
     <select id="getAdminUserByUsernameAndPassword" resultType="AdminUser">
-      SELECT u.id, u.username
+      SELECT u.id, u.username, u.uid
           FROM admin_user u
           WHERE u.username = #{username} AND u.password = #{password}
     </select>
