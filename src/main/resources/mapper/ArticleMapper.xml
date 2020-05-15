@@ -7,7 +7,7 @@
 
     <select id="getCount" resultType="integer">
         SELECT COUNT(id)
-          FROM article WHERE is_private = 0
+          FROM article WHERE is_private = 0 AND delete_flag = 0
     </select>
 
     <select id="listArticle" resultType="article">
@@ -15,7 +15,7 @@
         a.create_time AS createTime, a.is_top AS isTop, a.category_id AS categoryId
         FROM article a
         LEFT JOIN category c ON c.id = a.category_id
-        WHERE a.is_private = 0
+        WHERE a.is_private = 0 AND a.delete_flag = 0
         <if test="null != page.categoryId">
             AND a.category_id = #{page.categoryId}
         </if>
@@ -35,26 +35,26 @@
         a.author, a.create_time AS createTime, a.category_id AS categoryId, a.cover, a.brief
         FROM article a
         LEFT JOIN category c ON c.id = a.category_id
-        WHERE a.id = #{id}
+        WHERE a.id = #{id} AND a.delete_flag = 0
         <if test="isPrivate != null">
             AND a.is_private = #{isPrivate}
         </if>
     </select>
 
     <update id="addPageviews">
-        UPDATE article a SET a.pageviews = a.pageviews + 1 WHERE a.id = #{id} AND a.is_private = 0
+        UPDATE article a SET a.pageviews = a.pageviews + 1 WHERE a.id = #{id} AND a.is_private = 0 AND a.delete_flag = 0
     </update>
 
     <select id="listTitleAndId" resultType="article">
         SELECT a.id, a.title
           FROM article a
-          WHERE a.is_private = 0
+          WHERE a.is_private = 0 AND a.delete_flag = 0
           ORDER BY a.is_top DESC, a.id DESC
     </select>
 
     <select id="listArchives" resultType="article">
         SELECT a.id, a.create_time AS createTime, a.title
-          FROM article a WHERE a.is_private = 0
+          FROM article a WHERE a.is_private = 0 AND a.delete_flag = 0
           ORDER BY a.create_time DESC
     </select>
 
@@ -68,18 +68,19 @@
       UPDATE article SET title = #{update.title}, content = #{update.content}, cover = #{update.cover},
         category_id = #{update.categoryId}, tag = #{update.tag}, author = #{update.author}, brief = #{update.brief},
         is_top = #{update.isTop}, is_private = #{update.isPrivate}, update_time = NOW()
-        WHERE id = #{update.id}
+        WHERE id = #{update.id} LIMIT 1
     </update>
 
-    <delete id="deleteArticle">
-        DELETE FROM article WHERE id = #{id}
-    </delete>
+    <update id="deleteArticle">
+        UPDATE article SET delete_flag = 1 WHERE id = #{id} LIMIT 1
+    </update>
 
     <select id="listArticleAdmin" resultType="article">
       SELECT a.id, a.title, c.name AS categoryName, a.pageviews, a.create_time AS createTime, a.is_top AS isTop,
         is_private AS isPrivate
         FROM article a
         LEFT JOIN category c ON c.id = a.category_id
+        WHERE a.delete_flag = 0
         ORDER BY a.id DESC
     </select>
 
@@ -87,6 +88,7 @@
       SELECT a.*, c.name
         FROM article a
         LEFT JOIN category c ON c.id = a.category_id
+        WHERE a.delete_flag = 0
         WHERE a.id = #{id}
     </select>
 
@@ -108,6 +110,6 @@
     </resultMap>
 
     <select id="getArticle" resultMap="articleDetails">
-        SELECT * FROM article WHERE id = #{id}
+        SELECT * FROM article WHERE id = #{id} AND a.delete_flag = 0
     </select>
 </mapper>

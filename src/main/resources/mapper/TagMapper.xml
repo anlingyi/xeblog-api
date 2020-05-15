@@ -11,8 +11,8 @@
     </select>
 
     <select id="listTag" resultType="tag">
-        SELECT t.id, t.name, (SELECT COUNT(a.id) FROM article a WHERE FIND_IN_SET(t.name, a.tag)
-		  AND a.is_private = 0) AS articleCount
+        SELECT t.id, t.name, (SELECT COUNT(a.id) FROM article a WHERE a.is_private = 0 AND a.delete_flag = 0
+         AND FIND_IN_SET(t.name, a.tag)) AS articleCount
           FROM tag t
     </select>
 
@@ -32,7 +32,7 @@
 
     <select id="listTagAdmin" resultType="tag">
         SELECT t.id, t.name, t.update_time AS updateTime, t.create_time AS createTime,
-          (SELECT COUNT(a.id) FROM article a WHERE FIND_IN_SET(t.name, a.tag)) AS articleCount
+          (SELECT COUNT(a.id) FROM article a WHERE a.delete_flag = 0 AND FIND_IN_SET(t.name, a.tag)) AS articleCount
           FROM tag t
           ORDER BY t.id DESC
     </select>
