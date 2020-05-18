@@ -5,13 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-<div style="text-align: center">
-    <pre th:text="${articleBrief}"></pre>
-    <br/>
+<div style="text-align: center;font-size: 1.3rem">
+    <div th:text="${articleBrief}" style="margin-bottom: 10px;"></div>
     <a href="#" th:href="@{ https://xeblog.cn/articles/{id}(id=${articleId}) }"
-       style="font-weight: bold;font-size: 17px">阅读全文</a>
-    <br/>
-    <div>
+       style="font-weight: bold;">阅读全文</a>
+    <div style="margin-top: 10px">
         <img th:src="${articleCover}"/>
     </div>
 </div>
