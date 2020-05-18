@@ -88,8 +88,7 @@
       SELECT a.*, c.name
         FROM article a
         LEFT JOIN category c ON c.id = a.category_id
-        WHERE a.delete_flag = 0
-        WHERE a.id = #{id}
+        WHERE a.delete_flag = 0 AND a.id = #{id}
     </select>
 
     <resultMap id="articleDetails" type="cn.xeblog.api.domain.model.Article">
