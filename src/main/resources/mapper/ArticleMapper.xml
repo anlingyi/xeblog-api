@@ -109,6 +109,6 @@
     </resultMap>
 
     <select id="getArticle" resultMap="articleDetails">
-        SELECT * FROM article WHERE id = #{id} AND a.delete_flag = 0
+        SELECT * FROM article WHERE id = #{id} AND delete_flag = 0
     </select>
 </mapper>
