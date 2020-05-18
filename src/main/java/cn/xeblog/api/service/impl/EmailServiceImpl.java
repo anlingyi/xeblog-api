@@ -53,6 +53,8 @@ public class EmailServiceImpl implements EmailService {
             Context context = new Context();
             context.setVariable("articleId", article.getId());
             context.setVariable("articleTitle", article.getTitle());
+            context.setVariable("articleBrief", article.getBrief());
+            context.setVariable("articleCover", article.getCover());
             String template = templateEngine.process("articleEmail", context);
             mimeMessageHelper.setText(template, true);
 
