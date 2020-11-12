@@ -2,8 +2,8 @@ package cn.xeblog.api.controller;
 
 import cn.xeblog.api.cache.CacheService;
 import cn.xeblog.api.constant.CommonConstant;
+import cn.xeblog.api.domain.bo.VerifyCode;
 import cn.xeblog.api.domain.model.Subscriber;
-import cn.xeblog.api.domain.model.VerifyCode;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.enums.SubscribeStatus;
 import cn.xeblog.api.service.EmailService;

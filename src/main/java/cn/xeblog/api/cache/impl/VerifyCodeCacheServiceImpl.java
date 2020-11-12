@@ -1,7 +1,7 @@
 package cn.xeblog.api.cache.impl;
 
 import cn.xeblog.api.cache.CacheService;
-import cn.xeblog.api.domain.model.VerifyCode;
+import cn.xeblog.api.domain.bo.VerifyCode;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ConcurrentHashMap;

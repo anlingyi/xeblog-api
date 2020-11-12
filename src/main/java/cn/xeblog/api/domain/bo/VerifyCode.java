@@ -1,4 +1,4 @@
-package cn.xeblog.api.domain.model;
+package cn.xeblog.api.domain.bo;
 
 import cn.xeblog.api.constant.CommonConstant;
 import lombok.Data;
