@@ -1,6 +1,8 @@
 package cn.xeblog.api.controller;
 
 import cn.xeblog.api.enums.Code;
+import cn.xeblog.api.exception.ErrorCodeException;
+import cn.xeblog.api.util.CheckUtils;
 import cn.xeblog.api.util.ImageSynthesisUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,8 +28,6 @@ public class ToolsController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ToolsController.class);
 
-    private static final String ACCEPT_FILE_TYPE = "jpg,jpeg,png";
-
     /**
      * 图像合成
      *
@@ -38,17 +38,10 @@ public class ToolsController {
     @ApiOperation(value = "图像合成")
     @PostMapping("/imageSynthesis")
     public void imageSynthesis(MultipartFile file, @RequestParam(defaultValue = "1") Integer systemType, HttpServletResponse response) {
-        if (file == null || file.isEmpty()) {
-            // 不支持的图片类型
-            response.setStatus(Code.UNSUPPORTED_IMAGE_TYPE.getCode());
-            return;
-        }
-
-        String fileName = file.getOriginalFilename();
-        String fileType = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
-        if (ACCEPT_FILE_TYPE.indexOf(fileType) == -1) {
-            // 不支持的图片类型
-            response.setStatus(Code.UNSUPPORTED_IMAGE_TYPE.getCode());
+        try {
+            CheckUtils.checkImageFile(file);
+        } catch (ErrorCodeException e) {
+            response.setStatus(e.getErrorCode().getCode());
             return;
         }
 

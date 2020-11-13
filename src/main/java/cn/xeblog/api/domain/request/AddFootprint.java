@@ -1,6 +1,7 @@
 package cn.xeblog.api.domain.request;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 添加足迹
@@ -11,7 +12,7 @@ import lombok.Data;
 public class AddFootprint {
 
   private String content;
-  private String image;
+  private MultipartFile image;
   private String tag;
   private String address;
   private Double longitude;

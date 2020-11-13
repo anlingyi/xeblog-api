@@ -3,7 +3,7 @@ package cn.xeblog.api.service.impl;
 import cn.xeblog.api.domain.config.UpYunConfig;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.exception.ErrorCodeException;
-import cn.xeblog.api.service.UploadService;
+import cn.xeblog.api.util.FileUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,6 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,12 +28,23 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class UpYunUploadServiceImpl implements UploadService {
+public class UpYunUploadServiceImpl extends AbstractUploadService {
 
     @Resource
     private UpYunConfig upYunConfig;
 
-    private volatile static UpYun upYun;
+    private static volatile UpYun upYun;
+
+    @Override
+    public void before() {
+        if (null == upYun) {
+            synchronized (this) {
+                if (null == upYun) {
+                    upYun = new UpYun(upYunConfig.getBucketName(), upYunConfig.getUserName(), upYunConfig.getPassword());
+                }
+            }
+        }
+    }
 
     @Override
     public List<String> upload(MultipartFile[] files) {
@@ -46,13 +56,20 @@ public class UpYunUploadServiceImpl implements UploadService {
         return execute(files, watermarked);
     }
 
-    private void init() {
-        if (null == upYun) {
-            synchronized (this) {
-                if (null == upYun) {
-                    upYun = new UpYun(upYunConfig.getBucketName(), upYunConfig.getUserName(), upYunConfig.getPassword());
-                }
+    @Override
+    public String uploadImage(MultipartFile file, boolean watermarked) {
+        try {
+            byte[] bytes = watermarked && !"gif".equals(FileUtils.getFileType(file)) ? getWatermarkImageBytes(file) : file.getBytes();
+            FileInfo fileInfo = getFileInfo(file);
+
+            if (!toUpYun(fileInfo.getFileName(), bytes)) {
+                throw new ErrorCodeException(Code.FAILED);
             }
+
+            return fileInfo.getFileUrl();
+        } catch (IOException e) {
+            log.error("上传文件出现异常", e);
+            throw new ErrorCodeException(Code.FAILED);
         }
     }
 
@@ -63,34 +80,6 @@ public class UpYunUploadServiceImpl implements UploadService {
 
     private boolean toUpYun(String fileName, byte[] bytes) {
         return upYun.writeFile(upYunConfig.getUploadPath() + fileName, bytes, true);
-    }
-
-    private List<String> execute(MultipartFile[] files, boolean watermarked) {
-        init();
-
-        List<String> list = new ArrayList<>(files.length);
-
-        try {
-            for (MultipartFile multipartFile : files) {
-                if (multipartFile.isEmpty()) {
-                    continue;
-                }
-
-                byte[] bytes = watermarked && !"gif".equals(getFileType(multipartFile)) ? getWatermarkImageBytes(multipartFile) : multipartFile.getBytes();
-                FileInfo fileInfo = getFileInfo(multipartFile);
-
-                if (!toUpYun(fileInfo.getFileName(), bytes)) {
-                    throw new ErrorCodeException(Code.FAILED);
-                }
-
-                list.add(fileInfo.getFileUrl());
-            }
-        } catch (IOException e) {
-            log.error("上传文件出现异常", e);
-            throw new ErrorCodeException(Code.FAILED);
-        }
-
-        return list;
     }
 
     private byte[] getWatermarkImageBytes(MultipartFile multipartFile) throws ErrorCodeException, IOException {
@@ -109,7 +98,7 @@ public class UpYunUploadServiceImpl implements UploadService {
 
         // 将BufferedImage转换成byte[]
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(watermarkImage, getFileType(multipartFile), byteArrayOutputStream);
+        ImageIO.write(watermarkImage, FileUtils.getFileType(multipartFile), byteArrayOutputStream);
 
         return byteArrayOutputStream.toByteArray();
     }

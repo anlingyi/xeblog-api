@@ -1,13 +1,16 @@
 package cn.xeblog.api.util;
 
 import cn.xeblog.api.constant.CommonConstant;
+import cn.xeblog.api.constant.FileConstant;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.enums.ErrorCode;
 import cn.xeblog.api.exception.ErrorCodeException;
+import cn.xeblog.api.service.UploadService;
 import com.auth0.jwt.interfaces.Claim;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -94,5 +97,24 @@ public class CheckUtils {
      */
     public static void error(ErrorCode errorCode) {
         throw new ErrorCodeException(errorCode);
+    }
+
+    /**
+     * 检验图片
+     *
+     * @param file
+     */
+    public static void checkImageFile(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            error(Code.INVALID_PARAMETERS);
+        }
+
+        if (file.getSize() > FileConstant.FILE_MAX_SIZE) {
+            error(Code.UPLOADED_FILE_IS_TOO_LARGE);
+        }
+
+        if (FileConstant.ACCEPT_IMAGE_FILE_TYPE.indexOf(FileUtils.getFileType(file)) == -1) {
+            error(Code.UNSUPPORTED_IMAGE_TYPE);
+        }
     }
 }

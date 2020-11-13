@@ -9,6 +9,10 @@ package cn.xeblog.api.enums;
 public enum Code implements ErrorCode {
 
     /**
+     * 上传的文件太大
+     */
+    UPLOADED_FILE_IS_TOO_LARGE(1018, "上传的文件太大了！"),
+    /**
      * 没有订阅用户需要推送
      */
     NO_SUBSCRIBER_NEED_TO_PUSH(1017, "没有订阅用户需要推送！"),

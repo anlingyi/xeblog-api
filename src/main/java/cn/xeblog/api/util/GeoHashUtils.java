@@ -25,27 +25,24 @@ public class GeoHashUtils {
         double lngMax = LONGITUDE_MAX, lngMin = LONGITUDE_MIN;
         double latMax = LATITUDE_MAX, latMin = LATITUDE_MIN;
         double lngMid, latMid;
-        char lngChar, latChar;
         for (int i = 0; i < LENGTH; i++) {
             lngMid = (lngMin + lngMax) / 2;
             if (lng > lngMid) {
-                lngChar = '1';
                 lngMin = lngMid;
+                sb.append("1");
             } else {
-                lngChar = '0';
                 lngMax = lngMid;
+                sb.append("0");
             }
 
             latMid = (latMin + latMax) / 2;
             if (lat > latMid) {
-                latChar = '1';
                 latMin = latMid;
+                sb.append("1");
             } else {
-                latChar = '0';
                 latMax = latMid;
+                sb.append("0");
             }
-
-            sb.append(lngChar).append(latChar);
         }
 
         return base32Encode(sb.toString());
