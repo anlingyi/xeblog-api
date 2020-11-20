@@ -44,4 +44,14 @@ public class FootprintController {
         return Response.what(footprintService.addFootprint(addFootprint));
     }
 
+    @ApiOperation(value = "足迹列表")
+    @GetMapping("/list")
+    public Response listFootprint(Double longitude, Double latitude) {
+        if (longitude == null || latitude == null) {
+            return Response.failed(Code.INVALID_PARAMETERS);
+        }
+
+        return Response.ok(footprintService.listFootprint(longitude, latitude));
+    }
+
 }

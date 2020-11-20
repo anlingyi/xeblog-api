@@ -1,6 +1,7 @@
 package cn.xeblog.api.service.impl;
 
 import cn.xeblog.api.dao.FootprintMapper;
+import cn.xeblog.api.domain.dto.FootprintListDTO;
 import cn.xeblog.api.domain.model.Footprint;
 import cn.xeblog.api.domain.request.AddFootprint;
 import cn.xeblog.api.service.FootprintService;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author anlingyi
@@ -41,4 +43,8 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
         return super.save(footprint);
     }
 
+    @Override
+    public List<FootprintListDTO> listFootprint(Double longitude, Double latitude) {
+        return null;
+    }
 }
