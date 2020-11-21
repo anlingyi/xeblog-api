@@ -18,4 +18,9 @@ public interface FootprintMapper extends BaseMapper<Footprint> {
     List<FootprintListDTO> listFootprint(@Param("aroundGeoHash") String aroundGeoHash, @Param("lng") double lng,
                                          @Param("lat") double lat, @Param("range") int range);
 
+    int getTotal();
+
+    int getCurrentTotal(@Param("aroundGeoHash") String aroundGeoHash, @Param("lng") Double lng,
+                        @Param("lat") Double lat, @Param("range") int range);
+
 }

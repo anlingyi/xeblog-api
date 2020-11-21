@@ -14,4 +14,14 @@
         ORDER BY a.distance, a.createTime desc
     </select>
 
+    <select id="getTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM footprint
+    </select>
+
+    <select id="getCurrentTotal" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM footprint
+        WHERE geohash REGEXP CONCAT('(', #{aroundGeoHash}, ')')
+         AND ROUND(ST_DISTANCE_SPHERE(POINT(longitude, latitude), POINT(#{lng}, #{lat}))) &lt; #{range}
+    </select>
+
 </mapper>

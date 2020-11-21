@@ -51,7 +51,7 @@ public class FootprintController {
             return Response.failed(Code.INVALID_PARAMETERS);
         }
 
-        return Response.ok(footprintService.listFootprint(longitude, latitude));
+        return Response.ok(footprintService.getFootprintListInfo(longitude, latitude));
     }
 
 }

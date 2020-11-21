@@ -1,7 +1,7 @@
 package cn.xeblog.api.service.impl;
 
 import cn.xeblog.api.dao.FootprintMapper;
-import cn.xeblog.api.domain.dto.FootprintListDTO;
+import cn.xeblog.api.domain.dto.FootprintListInfoDTO;
 import cn.xeblog.api.domain.model.Footprint;
 import cn.xeblog.api.domain.request.AddFootprint;
 import cn.xeblog.api.service.FootprintService;
@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * @author anlingyi
@@ -45,8 +44,15 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
     }
 
     @Override
-    public List<FootprintListDTO> listFootprint(Double longitude, Double latitude) {
-        return super.baseMapper.listFootprint(StringUtils.join(GeoHashUtils.aroundHash(longitude, latitude, 5), "|"),
-                longitude, latitude, 1000);
+    public FootprintListInfoDTO getFootprintListInfo(Double longitude, Double latitude) {
+        int range = 1000;
+        FootprintListInfoDTO info = new FootprintListInfoDTO();
+        String aroundGeoHash = StringUtils.join(GeoHashUtils.aroundHash(longitude, latitude, 5), "|");
+        info.setTotal(super.baseMapper.getTotal());
+        info.setCurrentTotal(super.baseMapper.getCurrentTotal(aroundGeoHash, longitude, latitude, range));
+        if (info.getCurrentTotal() > 0) {
+            info.setFootprintList(super.baseMapper.listFootprint(aroundGeoHash, longitude, latitude, range));
+        }
+        return info;
     }
 }
