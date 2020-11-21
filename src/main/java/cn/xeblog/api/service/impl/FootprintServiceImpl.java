@@ -9,6 +9,7 @@ import cn.xeblog.api.service.UploadService;
 import cn.xeblog.api.util.GeoHashUtils;
 import cn.xeblog.api.util.IPUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -45,6 +46,7 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
 
     @Override
     public List<FootprintListDTO> listFootprint(Double longitude, Double latitude) {
-        return null;
+        return super.baseMapper.listFootprint(StringUtils.join(GeoHashUtils.aroundHash(longitude, latitude, 5), "|"),
+                longitude, latitude, 1000);
     }
 }

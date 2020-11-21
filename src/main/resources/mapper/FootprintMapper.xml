@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.xeblog.api.dao.FootprintMapper">
+
+    <select id="listFootprint" resultType="cn.xeblog.api.domain.dto.FootprintListDTO">
+        SELECT a.* FROM (
+        SELECT id, content, image, tag, address, create_time createTime,
+            ROUND(ST_DISTANCE_SPHERE(POINT(longitude, latitude), POINT(#{lng}, #{lat}))) distance
+        FROM footprint
+        WHERE geohash REGEXP CONCAT('(', #{aroundGeoHash}, ')')
+        HAVING distance &lt; #{range}
+        ORDER BY RAND()
+        LIMIT 10) a
+        ORDER BY a.distance, a.createTime desc
+    </select>
+
 </mapper>

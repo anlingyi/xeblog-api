@@ -1,5 +1,10 @@
 package cn.xeblog.api.util;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * GeoHash
  *
@@ -13,6 +18,8 @@ public class GeoHashUtils {
     private final static double LATITUDE_MAX = 90d;
     private final static double LATITUDE_MIN = -90d;
     private final static int LENGTH = 20;
+    private final static double LONGITUDE_UNIT = (LONGITUDE_MAX - LONGITUDE_MIN) / (1 << LENGTH);
+    private final static double LATITUDE_UNIT = (LATITUDE_MAX - LATITUDE_MIN) / (1 << LENGTH);
 
     private final static char[] BASE32_CHARS = {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'b', 'c', 'd', 'e', 'f', 'g',
@@ -54,6 +61,20 @@ public class GeoHashUtils {
             sb.append(BASE32_CHARS[Integer.parseInt(str.substring(i, i + 5), 2)]);
         }
         return sb.toString();
+    }
+
+    public static Set<String> aroundHash(double lng, double lat, int len) {
+        Set<String> set = new HashSet<>();
+        set.add(getHash(lng, lat).substring(0, len));
+        set.add(getHash(lng, lat + LATITUDE_UNIT).substring(0, len));
+        set.add(getHash(lng, lat - LATITUDE_UNIT).substring(0, len));
+        set.add(getHash(lng + LONGITUDE_UNIT, lat).substring(0, len));
+        set.add(getHash(lng - LONGITUDE_UNIT, lat).substring(0, len));
+        set.add(getHash(lng + LONGITUDE_UNIT, lat + LATITUDE_UNIT).substring(0, len));
+        set.add(getHash(lng - LONGITUDE_UNIT, lat + LATITUDE_UNIT).substring(0, len));
+        set.add(getHash(lng + LONGITUDE_UNIT, lat - LATITUDE_UNIT).substring(0, len));
+        set.add(getHash(lng - LONGITUDE_UNIT, lat - LATITUDE_UNIT).substring(0, len));
+        return set;
     }
 
 }
