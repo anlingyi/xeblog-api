@@ -12,13 +12,7 @@ import java.util.List;
  */
 public abstract class AbstractUploadService implements UploadService {
 
-    public void before() {
-
-    }
-
     public List<String> execute(MultipartFile[] files, boolean watermarked) {
-        before();
-
         List<String> list = new ArrayList<>(files.length);
 
         for (MultipartFile multipartFile : files) {

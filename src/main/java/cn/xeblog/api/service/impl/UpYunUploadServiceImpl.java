@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import main.java.com.UpYun;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,21 +29,17 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class UpYunUploadServiceImpl extends AbstractUploadService {
+public class UpYunUploadServiceImpl extends AbstractUploadService implements CommandLineRunner {
 
     @Resource
     private UpYunConfig upYunConfig;
 
-    private static volatile UpYun upYun;
+    private static UpYun upYun;
 
     @Override
-    public void before() {
+    public void run(String... args) throws Exception {
         if (null == upYun) {
-            synchronized (this) {
-                if (null == upYun) {
-                    upYun = new UpYun(upYunConfig.getBucketName(), upYunConfig.getUserName(), upYunConfig.getPassword());
-                }
-            }
+            upYun = new UpYun(upYunConfig.getBucketName(), upYunConfig.getUserName(), upYunConfig.getPassword());
         }
     }
 
