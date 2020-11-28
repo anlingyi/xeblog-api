@@ -40,4 +40,6 @@ public class CommonConstant {
      * 发送验证码间隔时间，60s
      */
     public static final long SEND_VERIFICATION_CODE_INTERVAL_TIME = 60 * 1000;
+
+    public static final String DEFAULT_NICKNAME = "匿名";
 }

@@ -1,5 +1,6 @@
 package cn.xeblog.api.controller;
 
+import cn.xeblog.api.constant.CommonConstant;
 import cn.xeblog.api.domain.request.AddFootprint;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.service.FootprintService;
@@ -31,11 +32,16 @@ public class FootprintController {
     @PostMapping()
     public Response addFootprint(AddFootprint addFootprint, @RequestParam(value = "image", required = false) MultipartFile image) {
         if (addFootprint.getLatitude() == null || addFootprint.getLongitude() == null
+                || StringUtils.isBlank(addFootprint.getContent()) || addFootprint.getContent().length() > 30
                 || StringUtils.isBlank(addFootprint.getAddress())
-                || StringUtils.isBlank(addFootprint.getContent())) {
+                || StringUtils.length(addFootprint.getNickname()) > 8
+                || StringUtils.length(addFootprint.getTag()) > 6) {
             return Response.failed(Code.INVALID_PARAMETERS);
         }
 
+        if (StringUtils.isBlank(addFootprint.getNickname())) {
+            addFootprint.setNickname(CommonConstant.DEFAULT_NICKNAME);
+        }
         if (image != null) {
             CheckUtils.checkImageFile(image);
             addFootprint.setImage(image);

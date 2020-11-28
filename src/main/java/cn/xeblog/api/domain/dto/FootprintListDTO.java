@@ -20,5 +20,6 @@ public class FootprintListDTO {
     private Integer distance;
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss")
     private LocalDateTime createTime;
+    private String nickname;
 
 }

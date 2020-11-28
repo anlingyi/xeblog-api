@@ -23,7 +23,8 @@ public class Footprint extends Model<Footprint> {
   private String image;
   private String tag;
   private String address;
-  private Double longitude;
+    private String nickname;
+    private Double longitude;
   private Double latitude;
   private String geohash;
   private String ip;

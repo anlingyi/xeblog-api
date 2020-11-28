@@ -37,6 +37,7 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
         footprint.setLatitude(addFootprint.getLatitude());
         footprint.setLongitude(addFootprint.getLongitude());
         footprint.setTag(addFootprint.getTag());
+        footprint.setNickname(addFootprint.getNickname());
         if (addFootprint.getImage() != null) {
             footprint.setImage(uploadService.uploadImage(addFootprint.getImage(), true));
         }

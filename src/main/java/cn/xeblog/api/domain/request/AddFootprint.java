@@ -17,5 +17,6 @@ public class AddFootprint {
   private String address;
   private Double longitude;
   private Double latitude;
+    private String nickname;
 
 }

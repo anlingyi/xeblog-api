@@ -5,6 +5,7 @@ CREATE TABLE `footprint` (
   `image` varchar(256) NOT NULL DEFAULT '' COMMENT '图片',
   `tag` varchar(8) NOT NULL DEFAULT '' COMMENT '标签',
   `address` varchar(128) NOT NULL COMMENT '地址',
+  `nickname` varchar(10) NOT NULL DEFAULT '' COMMENT '昵称',
   `longitude` decimal(9,6) NOT NULL COMMENT '经度',
   `latitude` decimal(8,6) NOT NULL COMMENT '纬度',
   `geohash` varchar(12) NOT NULL COMMENT 'geohash',
