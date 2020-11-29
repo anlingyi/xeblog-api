@@ -32,7 +32,7 @@ public class FootprintController {
     @PostMapping()
     public Response addFootprint(AddFootprint addFootprint, @RequestParam(value = "image", required = false) MultipartFile image) {
         if (addFootprint.getLatitude() == null || addFootprint.getLongitude() == null
-                || StringUtils.isBlank(addFootprint.getContent()) || addFootprint.getContent().length() > 30
+                || StringUtils.isBlank(addFootprint.getContent()) || addFootprint.getContent().length() > 100
                 || StringUtils.isBlank(addFootprint.getAddress())
                 || StringUtils.length(addFootprint.getNickname()) > 8
                 || StringUtils.length(addFootprint.getTag()) > 6) {
