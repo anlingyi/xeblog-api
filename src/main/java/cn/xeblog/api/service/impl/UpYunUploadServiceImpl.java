@@ -8,15 +8,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import main.java.com.UpYun;
-import net.coobird.thumbnailator.Thumbnails;
-import net.coobird.thumbnailator.geometry.Positions;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
@@ -56,7 +53,7 @@ public class UpYunUploadServiceImpl extends AbstractUploadService implements Com
     @Override
     public String uploadImage(MultipartFile file, boolean watermarked) {
         try {
-            byte[] bytes = watermarked && !"gif".equals(FileUtils.getFileType(file)) ? getWatermarkImageBytes(file) : file.getBytes();
+            byte[] bytes = watermarked && acceptWatermark(file) ? getWatermarkImageBytes(file) : file.getBytes();
             FileInfo fileInfo = getFileInfo(file);
 
             if (!toUpYun(fileInfo.getFileName(), bytes)) {
@@ -66,8 +63,9 @@ public class UpYunUploadServiceImpl extends AbstractUploadService implements Com
             return fileInfo.getFileUrl();
         } catch (IOException e) {
             log.error("上传文件出现异常", e);
-            throw new ErrorCodeException(Code.FAILED);
         }
+
+        throw new ErrorCodeException(Code.FAILED);
     }
 
     private FileInfo getFileInfo(MultipartFile multipartFile) {
@@ -79,25 +77,17 @@ public class UpYunUploadServiceImpl extends AbstractUploadService implements Com
         return upYun.writeFile(upYunConfig.getUploadPath() + fileName, bytes, true);
     }
 
-    private byte[] getWatermarkImageBytes(MultipartFile multipartFile) throws ErrorCodeException, IOException {
-        BufferedImage bufferedImage = ImageIO.read(multipartFile.getInputStream());
-
-        if (null == bufferedImage) {
-            // 上传的文件不是图片
-            throw new ErrorCodeException(Code.CAN_ONLY_UPLOAD_IMAGES);
+    private byte[] getWatermarkImageBytes(MultipartFile multipartFile) throws ErrorCodeException {
+        try {
+            // 将BufferedImage转换成byte[]
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ImageIO.write(buildWatermarkImage(multipartFile).asBufferedImage(), FileUtils.getFileType(multipartFile), byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
+        } catch (IOException e) {
+            log.error("上传文件出现异常", e);
         }
 
-        BufferedImage watermarkImage = Thumbnails.of(bufferedImage)
-                .size(bufferedImage.getWidth(), bufferedImage.getHeight())
-                .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(this.getClass()
-                        .getResourceAsStream("/watermark.png")), 0.25f)
-                .asBufferedImage();
-
-        // 将BufferedImage转换成byte[]
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        ImageIO.write(watermarkImage, FileUtils.getFileType(multipartFile), byteArrayOutputStream);
-
-        return byteArrayOutputStream.toByteArray();
+        throw new ErrorCodeException(Code.FAILED);
     }
 
     @Data
