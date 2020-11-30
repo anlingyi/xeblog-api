@@ -50,9 +50,20 @@ public abstract class AbstractUploadService implements UploadService {
                 throw new ErrorCodeException(Code.CAN_ONLY_UPLOAD_IMAGES);
             }
 
-            return Thumbnails.of(bufferedImage)
-                    .size(bufferedImage.getWidth(), bufferedImage.getHeight())
-                    .watermark(Positions.BOTTOM_RIGHT, ImageIO.read(watermarkInputStream), 0.25f);
+            int width = bufferedImage.getWidth();
+            int height = bufferedImage.getHeight();
+            Thumbnails.Builder builder = Thumbnails.of(bufferedImage)
+                    .size(width, height);
+
+            double scale = width * 0.12 / 60;
+            if (scale >= 0.3) {
+                scale = scale > 3.5 ? 3.5 : scale;
+                builder.watermark(Positions.BOTTOM_RIGHT,
+                        Thumbnails.of(watermarkInputStream).scale(scale).asBufferedImage(),
+                        0.35f);
+            }
+
+            return builder;
         } catch (IOException e) {
             log.error("上传文件出现异常", e);
         }
