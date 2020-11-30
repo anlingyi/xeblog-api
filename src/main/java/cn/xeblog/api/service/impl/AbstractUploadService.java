@@ -55,9 +55,9 @@ public abstract class AbstractUploadService implements UploadService {
             Thumbnails.Builder builder = Thumbnails.of(bufferedImage)
                     .size(width, height);
 
-            double scale = width * 0.12 / 60;
+            double scale = Math.min(width, height) * 0.12 / 60;
             if (scale >= 0.3) {
-                scale = scale > 3.5 ? 3.5 : scale;
+                scale = scale > 2.5 ? 2.5 : scale;
                 builder.watermark(Positions.BOTTOM_RIGHT,
                         Thumbnails.of(watermarkInputStream).scale(scale).asBufferedImage(),
                         0.35f);
