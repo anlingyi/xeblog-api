@@ -52,10 +52,16 @@ public abstract class AbstractUploadService implements UploadService {
 
             int width = bufferedImage.getWidth();
             int height = bufferedImage.getHeight();
+            int max = Math.min(width, height);
+            String conserved = "false";
+            if (max >= 1800) {
+                conserved = "true";
+            }
+            System.setProperty("thumbnailator.conserveMemoryWorkaround", conserved);
             Thumbnails.Builder builder = Thumbnails.of(bufferedImage)
                     .size(width, height);
 
-            double scale = Math.min(width, height) * 0.12 / 60;
+            double scale = max * 0.12 / 60;
             if (scale >= 0.3) {
                 scale = scale > 2.5 ? 2.5 : scale;
                 builder.watermark(Positions.BOTTOM_RIGHT,
