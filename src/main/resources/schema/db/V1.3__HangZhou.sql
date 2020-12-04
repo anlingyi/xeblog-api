@@ -10,10 +10,12 @@ CREATE TABLE `footprint` (
   `latitude` decimal(8,6) NOT NULL COMMENT '纬度',
   `geohash` varchar(12) NOT NULL COMMENT 'geohash',
   `ip` varchar(128) NOT NULL DEFAULT '' COMMENT 'ip',
+  `code` varchar(128) NOT NULL COMMENT 'code',
   `create_time` datetime NOT NULL DEFAULT now() COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT now() ON UPDATE now() COMMENT '更新时间',
   INDEX `idx_geohash` (`geohash`),
   INDEX `idx_create_time` (`create_time`),
+  UNIQUE KEY `uk_code` (`code`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='足迹';
 
