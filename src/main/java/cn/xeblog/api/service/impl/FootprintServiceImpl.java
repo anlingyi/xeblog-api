@@ -32,6 +32,8 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
 
     @Override
     public boolean addFootprint(AddFootprint addFootprint) {
+        boolean hasImage = addFootprint.getImage() != null;
+
         Footprint footprint = new Footprint();
         footprint.setCode(CodeUtils.generateCode());
         footprint.setAddress(addFootprint.getAddress());
@@ -42,10 +44,12 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
         footprint.setLongitude(addFootprint.getLongitude());
         footprint.setTag(addFootprint.getTag());
         footprint.setNickname(addFootprint.getNickname());
-        footprint.setImage(FileConstant.IMAGE_UPLOADING_URL);
+        if (hasImage) {
+            footprint.setImage(FileConstant.IMAGE_UPLOADING_URL);
+        }
         boolean flag = super.save(footprint);
 
-        if (flag && addFootprint.getImage() != null) {
+        if (flag && hasImage) {
             asyncUploadImage(footprint.getId(), addFootprint.getImage());
         }
 
