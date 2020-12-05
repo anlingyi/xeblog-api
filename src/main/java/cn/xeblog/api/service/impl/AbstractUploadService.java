@@ -97,6 +97,7 @@ public abstract class AbstractUploadService implements UploadService {
         callback.exec(url);
     }
 
+    @Async
     @Override
     public void uploadWithAsync(byte[] bytes, String fileType, boolean watermarked, UploadCallback callback) {
         String url;

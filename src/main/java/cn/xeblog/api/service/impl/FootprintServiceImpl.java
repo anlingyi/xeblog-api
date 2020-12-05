@@ -53,7 +53,21 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
         boolean flag = super.save(footprint);
 
         if (flag && hasImage) {
-            asyncUploadImage(footprint.getId(), addFootprint.getImage());
+            try {
+                MultipartFile multipartFile = addFootprint.getImage();
+                uploadService.uploadWithAsync(multipartFile.getBytes(), FileUtils.getFileType(multipartFile),
+                        true, url -> {
+                            Footprint fp = super.getById(footprint.getId());
+                            if (footprint == null) {
+                                return;
+                            }
+
+                            fp.setImage(url);
+                            super.updateById(fp);
+                        });
+            } catch (IOException e) {
+                log.error("文件上传失败！", e);
+            }
         }
 
         return flag;
@@ -70,23 +84,6 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
             info.setFootprintList(super.baseMapper.listFootprint(aroundGeoHash, longitude, latitude, range));
         }
         return info;
-    }
-
-    private void asyncUploadImage(Integer id, MultipartFile multipartFile) {
-        try {
-            uploadService.uploadWithAsync(multipartFile.getBytes(), FileUtils.getFileType(multipartFile),
-                    true, url -> {
-                        Footprint footprint = super.getById(id);
-                        if (footprint == null) {
-                            return;
-                        }
-
-                        footprint.setImage(url);
-                        super.updateById(footprint);
-                    });
-        } catch (IOException e) {
-            log.error("文件上传失败！", e);
-        }
     }
 
 }
