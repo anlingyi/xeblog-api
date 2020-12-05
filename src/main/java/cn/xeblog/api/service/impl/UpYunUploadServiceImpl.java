@@ -54,7 +54,7 @@ public class UpYunUploadServiceImpl extends AbstractUploadService implements Com
             FileInfo fileInfo = getFileInfo(file);
 
             byte[] bytes = watermarked && acceptWatermark(fileInfo.getType()) ? getWatermarkImageBytes(file) : file.getBytes();
-            if (!toUpYun(fileInfo.getName(), bytes)) {
+            if (!toUpYun(fileInfo.getFileName(), bytes)) {
                 throw new ErrorCodeException(Code.FAILED);
             }
 
