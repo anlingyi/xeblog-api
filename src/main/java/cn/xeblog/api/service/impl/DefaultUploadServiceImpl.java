@@ -3,13 +3,12 @@ package cn.xeblog.api.service.impl;
 import cn.xeblog.api.domain.config.FileConfig;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.exception.ErrorCodeException;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import java.io.*;
 import java.util.List;
 
@@ -37,16 +36,18 @@ public class DefaultUploadServiceImpl extends AbstractUploadService {
     }
 
     @Override
-    public String uploadImage(MultipartFile file, boolean watermarked) {
+    public String upload(MultipartFile file, boolean watermarked) {
         FileInfo fileInfo = getFileInfo(file);
         try {
-            if (watermarked && acceptWatermark(file)) {
-                buildWatermarkImage(file).toFile(fileInfo.getFile());
+            File out = new File(fileConfig.getDirectoryMapping().replace("file:", "") +
+                    fileConfig.getUploadPath() + fileInfo.getFileName());
+            if (watermarked && acceptWatermark(fileInfo.getType())) {
+                ImageIO.write(buildWatermarkImage(file), fileInfo.getType(), out);
             } else {
-                file.transferTo(fileInfo.getFile());
+                file.transferTo(out);
             }
 
-            return fileInfo.getFileUrl();
+            return fileInfo.getUrl();
         } catch (IOException e) {
             log.error("上传文件出现异常", e);
         }
@@ -54,22 +55,10 @@ public class DefaultUploadServiceImpl extends AbstractUploadService {
         throw new ErrorCodeException(Code.FAILED);
     }
 
-    private FileInfo getFileInfo(MultipartFile multipartFile) {
-        String fileName = createFileName(multipartFile);
-
-        File file = new File(fileConfig.getDirectoryMapping().replace("file:", "") +
-                fileConfig.getUploadPath() + fileName);
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
-        }
-
-        return new FileInfo(fileConfig.getAccessAddress() + fileName, file);
+    @Override
+    protected FileInfo getFileInfo(MultipartFile multipartFile) {
+        return super.getFileInfo(multipartFile, fileConfig.getAccessAddress());
     }
 
-    @Data
-    @AllArgsConstructor
-    private static class FileInfo {
-        private String fileUrl;
-        private File file;
-    }
+
 }

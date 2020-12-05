@@ -17,4 +17,9 @@ public class FileConstant {
      */
     public static final long FILE_MAX_SIZE = 10 << 20;
 
+    /**
+     * 水印图片地址
+     */
+    public static final String WATERMARK_FILE_URL = "/images/watermark.png";
+
 }

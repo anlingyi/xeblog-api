@@ -31,16 +31,20 @@ public interface UploadService {
     List<String> uploadImageWithWatermark(MultipartFile[] files, boolean watermarked);
 
     /**
-     * 上传图片带水印
+     * 上传文件
      *
      * @param file
      * @param watermarked 是否带水印
-     * @return 上传后的图片地址
+     * @return 上传后的文件地址
      */
-    String uploadImage(MultipartFile file, boolean watermarked);
+    String upload(MultipartFile file, boolean watermarked);
 
     default String createFileName(MultipartFile multipartFile) {
-        return UUIDUtils.createUUID() + "." + FileUtils.getFileType(multipartFile);
+        return createFileName() + "." + FileUtils.getFileType(multipartFile);
+    }
+
+    default String createFileName() {
+        return UUIDUtils.createUUID();
     }
 
 }

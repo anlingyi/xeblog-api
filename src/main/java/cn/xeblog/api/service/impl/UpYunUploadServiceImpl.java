@@ -4,8 +4,6 @@ import cn.xeblog.api.domain.config.UpYunConfig;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.exception.ErrorCodeException;
 import cn.xeblog.api.util.FileUtils;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import main.java.com.UpYun;
 import org.springframework.boot.CommandLineRunner;
@@ -51,16 +49,16 @@ public class UpYunUploadServiceImpl extends AbstractUploadService implements Com
     }
 
     @Override
-    public String uploadImage(MultipartFile file, boolean watermarked) {
+    public String upload(MultipartFile file, boolean watermarked) {
         try {
-            byte[] bytes = watermarked && acceptWatermark(file) ? getWatermarkImageBytes(file) : file.getBytes();
             FileInfo fileInfo = getFileInfo(file);
 
-            if (!toUpYun(fileInfo.getFileName(), bytes)) {
+            byte[] bytes = watermarked && acceptWatermark(fileInfo.getType()) ? getWatermarkImageBytes(file) : file.getBytes();
+            if (!toUpYun(fileInfo.getName(), bytes)) {
                 throw new ErrorCodeException(Code.FAILED);
             }
 
-            return fileInfo.getFileUrl();
+            return fileInfo.getUrl();
         } catch (IOException e) {
             log.error("上传文件出现异常", e);
         }
@@ -68,9 +66,9 @@ public class UpYunUploadServiceImpl extends AbstractUploadService implements Com
         throw new ErrorCodeException(Code.FAILED);
     }
 
-    private FileInfo getFileInfo(MultipartFile multipartFile) {
-        String fileName = createFileName(multipartFile);
-        return new FileInfo(fileName, upYunConfig.getAccessAddress() + fileName);
+    @Override
+    protected FileInfo getFileInfo(MultipartFile multipartFile) {
+        return super.getFileInfo(multipartFile, upYunConfig.getAccessAddress());
     }
 
     private boolean toUpYun(String fileName, byte[] bytes) {
@@ -81,7 +79,7 @@ public class UpYunUploadServiceImpl extends AbstractUploadService implements Com
         try {
             // 将BufferedImage转换成byte[]
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ImageIO.write(buildWatermarkImage(multipartFile).asBufferedImage(), FileUtils.getFileType(multipartFile), byteArrayOutputStream);
+            ImageIO.write(buildWatermarkImage(multipartFile), FileUtils.getFileType(multipartFile), byteArrayOutputStream);
             return byteArrayOutputStream.toByteArray();
         } catch (IOException e) {
             log.error("上传文件出现异常", e);
@@ -90,10 +88,4 @@ public class UpYunUploadServiceImpl extends AbstractUploadService implements Com
         throw new ErrorCodeException(Code.FAILED);
     }
 
-    @Data
-    @AllArgsConstructor
-    private static class FileInfo {
-        private String fileName;
-        private String fileUrl;
-    }
 }
