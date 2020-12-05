@@ -3,6 +3,7 @@ package cn.xeblog.api.util;
 import cn.xeblog.api.constant.FileConstant;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.exception.ErrorCodeException;
+import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.geometry.Positions;
 
@@ -16,6 +17,7 @@ import java.io.InputStream;
  * @author anlingyi
  * @date 2020/12/5 10:30 下午
  */
+@Slf4j
 public class ImageUtils {
 
     private static final float DEFAULT_OPACITY = 0.35f;
@@ -26,7 +28,7 @@ public class ImageUtils {
         try (InputStream in = ImageUtils.class.getResourceAsStream(FileConstant.WATERMARK_FILE_URL)) {
             WATERMARK_IMAGE = ImageIO.read(in);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("水印图读取失败！", e);
         }
     }
 
@@ -54,7 +56,7 @@ public class ImageUtils {
             return builder.watermark(Positions.BOTTOM_RIGHT,
                     Thumbnails.of(WATERMARK_IMAGE).scale(scale).asBufferedImage(), DEFAULT_OPACITY);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("图片添加水印失败！", e);
         }
 
         throw new ErrorCodeException(Code.FAILED);

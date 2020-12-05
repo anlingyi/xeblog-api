@@ -1,12 +1,15 @@
 package cn.xeblog.api.service.impl;
 
+import cn.xeblog.api.constant.FileConstant;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.exception.ErrorCodeException;
+import cn.xeblog.api.service.UploadCallback;
 import cn.xeblog.api.service.UploadService;
 import cn.xeblog.api.util.FileUtils;
 import cn.xeblog.api.util.ImageUtils;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -63,6 +66,21 @@ public abstract class AbstractUploadService implements UploadService {
     }
 
     protected abstract FileInfo getFileInfo(MultipartFile multipartFile);
+
+    @Async
+    @Override
+    public void uploadWithAsync(MultipartFile file, boolean watermarked, UploadCallback callback) {
+        String url;
+
+        try {
+            url = upload(file, watermarked);
+        } catch (Exception e) {
+            url = FileConstant.IMAGE_UPLOAD_FAIL_URL;
+            log.error("异步上传文件出现异常", e);
+        }
+
+        callback.exec(url);
+    }
 
     @Data
     protected static class FileInfo {

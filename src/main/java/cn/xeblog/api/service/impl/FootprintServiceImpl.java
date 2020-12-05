@@ -1,5 +1,6 @@
 package cn.xeblog.api.service.impl;
 
+import cn.xeblog.api.constant.FileConstant;
 import cn.xeblog.api.dao.FootprintMapper;
 import cn.xeblog.api.domain.dto.FootprintListInfoDTO;
 import cn.xeblog.api.domain.model.Footprint;
@@ -12,6 +13,7 @@ import cn.xeblog.api.util.IPUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -40,10 +42,14 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
         footprint.setLongitude(addFootprint.getLongitude());
         footprint.setTag(addFootprint.getTag());
         footprint.setNickname(addFootprint.getNickname());
-        if (addFootprint.getImage() != null) {
-            footprint.setImage(uploadService.upload(addFootprint.getImage(), true));
+        footprint.setImage(FileConstant.IMAGE_UPLOADING_URL);
+        boolean flag = super.save(footprint);
+
+        if (flag && addFootprint.getImage() != null) {
+            asyncUploadImage(footprint.getId(), addFootprint.getImage());
         }
-        return super.save(footprint);
+
+        return flag;
     }
 
     @Override
@@ -58,4 +64,17 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
         }
         return info;
     }
+
+    private void asyncUploadImage(Integer id, MultipartFile multipartFile) {
+        uploadService.uploadWithAsync(multipartFile, true, url -> {
+            Footprint footprint = super.getById(id);
+            if (footprint == null) {
+                return;
+            }
+
+            footprint.setImage(url);
+            super.updateById(footprint);
+        });
+    }
+
 }

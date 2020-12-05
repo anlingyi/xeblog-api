@@ -39,6 +39,16 @@ public interface UploadService {
      */
     String upload(MultipartFile file, boolean watermarked);
 
+    /**
+     * 使用异步的方式上传文件
+     *
+     * @param file
+     * @param watermarked
+     * @param callback
+     * @return
+     */
+    void uploadWithAsync(MultipartFile file, boolean watermarked, UploadCallback callback);
+
     default String createFileName(MultipartFile multipartFile) {
         return createFileName() + "." + FileUtils.getFileType(multipartFile);
     }
