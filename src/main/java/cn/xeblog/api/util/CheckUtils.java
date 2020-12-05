@@ -117,4 +117,13 @@ public class CheckUtils {
             error(Code.UNSUPPORTED_IMAGE_TYPE);
         }
     }
+
+    public static boolean checkLongitude(Double lng) {
+        return lng != null && lng >= -180 && lng <= 180;
+    }
+
+    public static boolean checkLatitude(Double lat) {
+        return lat != null && lat >= -90 && lat <= 90;
+    }
+
 }

@@ -6,6 +6,7 @@ import cn.xeblog.api.domain.model.Footprint;
 import cn.xeblog.api.domain.request.AddFootprint;
 import cn.xeblog.api.service.FootprintService;
 import cn.xeblog.api.service.UploadService;
+import cn.xeblog.api.util.CodeUtils;
 import cn.xeblog.api.util.GeoHashUtils;
 import cn.xeblog.api.util.IPUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -30,6 +31,7 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
     @Override
     public boolean addFootprint(AddFootprint addFootprint) {
         Footprint footprint = new Footprint();
+        footprint.setCode(CodeUtils.generateCode());
         footprint.setAddress(addFootprint.getAddress());
         footprint.setContent(addFootprint.getContent());
         footprint.setGeohash(GeoHashUtils.getHash(addFootprint.getLongitude(), addFootprint.getLatitude()));

@@ -4,7 +4,7 @@
 
     <select id="listFootprint" resultType="cn.xeblog.api.domain.dto.FootprintListDTO">
         SELECT a.* FROM (
-        SELECT id, content, image, tag, address, create_time createTime, nickname,
+        SELECT code, content, image, tag, address, create_time createTime, nickname,
             ROUND(ST_DISTANCE_SPHERE(POINT(longitude, latitude), POINT(#{lng}, #{lat}))) distance
         FROM footprint
         WHERE geohash REGEXP CONCAT('(', #{aroundGeoHash}, ')')

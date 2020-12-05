@@ -31,7 +31,7 @@ public class FootprintController {
     @ApiOperation(value = "添加足迹")
     @PostMapping()
     public Response addFootprint(AddFootprint addFootprint, @RequestParam(value = "image", required = false) MultipartFile image) {
-        if (addFootprint.getLatitude() == null || addFootprint.getLongitude() == null
+        if (!CheckUtils.checkLatitude(addFootprint.getLatitude()) || !CheckUtils.checkLongitude(addFootprint.getLongitude())
                 || StringUtils.isBlank(addFootprint.getContent()) || addFootprint.getContent().length() > 100
                 || StringUtils.isBlank(addFootprint.getAddress())
                 || StringUtils.length(addFootprint.getNickname()) > 8
@@ -39,6 +39,9 @@ public class FootprintController {
             return Response.failed(Code.INVALID_PARAMETERS);
         }
 
+        if (StringUtils.length(addFootprint.getAddress()) > 120) {
+            addFootprint.setAddress(addFootprint.getAddress().substring(0, 120));
+        }
         if (StringUtils.isBlank(addFootprint.getNickname())) {
             addFootprint.setNickname(CommonConstant.DEFAULT_NICKNAME);
         }
@@ -53,7 +56,7 @@ public class FootprintController {
     @ApiOperation(value = "足迹列表")
     @GetMapping("/list")
     public Response listFootprint(Double longitude, Double latitude) {
-        if (longitude == null || latitude == null) {
+        if (!CheckUtils.checkLatitude(latitude) || !CheckUtils.checkLongitude(longitude)) {
             return Response.failed(Code.INVALID_PARAMETERS);
         }
 

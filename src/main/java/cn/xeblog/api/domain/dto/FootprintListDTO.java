@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 public class FootprintListDTO {
 
-    private Integer id;
+    private String code;
     private String content;
     private String image;
     private String tag;
