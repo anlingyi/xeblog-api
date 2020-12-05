@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -41,7 +42,17 @@ public abstract class AbstractUploadService implements UploadService {
     }
 
     protected BufferedImage buildWatermarkImage(MultipartFile multipartFile) {
-        try (InputStream inputStream = multipartFile.getInputStream()) {
+        try {
+            return buildWatermarkImage(multipartFile.getInputStream());
+        } catch (IOException e) {
+            log.error("上传文件出现异常", e);
+        }
+
+        throw new ErrorCodeException(Code.FAILED);
+    }
+
+    protected BufferedImage buildWatermarkImage(InputStream inputStream) {
+        try {
             BufferedImage image = ImageIO.read(inputStream);
             if (null == image) {
                 // 上传的文件不是图片
@@ -54,6 +65,10 @@ public abstract class AbstractUploadService implements UploadService {
         }
 
         throw new ErrorCodeException(Code.FAILED);
+    }
+
+    protected BufferedImage buildWatermarkImage(byte[] bytes) {
+        return buildWatermarkImage(new ByteArrayInputStream(bytes));
     }
 
     protected boolean acceptWatermark(String fileType) {
@@ -69,11 +84,25 @@ public abstract class AbstractUploadService implements UploadService {
 
     @Async
     @Override
-    public void uploadWithAsync(MultipartFile file, boolean watermarked, UploadCallback callback) {
+    public void uploadWithAsync(InputStream inputStream, String fileType, boolean watermarked, UploadCallback callback) {
         String url;
 
         try {
-            url = upload(file, watermarked);
+            url = upload(inputStream, fileType, watermarked);
+        } catch (Exception e) {
+            url = FileConstant.IMAGE_UPLOAD_FAIL_URL;
+            log.error("异步上传文件出现异常", e);
+        }
+
+        callback.exec(url);
+    }
+
+    @Override
+    public void uploadWithAsync(byte[] bytes, String fileType, boolean watermarked, UploadCallback callback) {
+        String url;
+
+        try {
+            url = upload(bytes, fileType, watermarked);
         } catch (Exception e) {
             url = FileConstant.IMAGE_UPLOAD_FAIL_URL;
             log.error("异步上传文件出现异常", e);

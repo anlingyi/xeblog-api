@@ -8,6 +8,7 @@ import cn.xeblog.api.domain.request.AddFootprint;
 import cn.xeblog.api.service.FootprintService;
 import cn.xeblog.api.service.UploadService;
 import cn.xeblog.api.util.CodeUtils;
+import cn.xeblog.api.util.FileUtils;
 import cn.xeblog.api.util.GeoHashUtils;
 import cn.xeblog.api.util.IPUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -17,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author anlingyi
@@ -70,15 +73,20 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
     }
 
     private void asyncUploadImage(Integer id, MultipartFile multipartFile) {
-        uploadService.uploadWithAsync(multipartFile, true, url -> {
-            Footprint footprint = super.getById(id);
-            if (footprint == null) {
-                return;
-            }
+        try {
+            uploadService.uploadWithAsync(multipartFile.getBytes(), FileUtils.getFileType(multipartFile),
+                    true, url -> {
+                        Footprint footprint = super.getById(id);
+                        if (footprint == null) {
+                            return;
+                        }
 
-            footprint.setImage(url);
-            super.updateById(footprint);
-        });
+                        footprint.setImage(url);
+                        super.updateById(footprint);
+                    });
+        } catch (IOException e) {
+            log.error("文件上传失败！", e);
+        }
     }
 
 }
