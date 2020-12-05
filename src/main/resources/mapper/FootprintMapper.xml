@@ -24,4 +24,8 @@
          AND ROUND(ST_DISTANCE_SPHERE(POINT(longitude, latitude), POINT(#{lng}, #{lat}))) &lt; #{range}
     </select>
 
+    <update id="updateImage">
+        UPDATE footprint SET image = #{image} WHERE id = #{id} LIMIT 1
+    </update>
+
 </mapper>

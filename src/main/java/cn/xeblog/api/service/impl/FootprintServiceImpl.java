@@ -56,15 +56,7 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
             try {
                 MultipartFile multipartFile = addFootprint.getImage();
                 uploadService.uploadWithAsync(multipartFile.getBytes(), FileUtils.getFileType(multipartFile),
-                        true, url -> {
-                            Footprint fp = super.getById(footprint.getId());
-                            if (footprint == null) {
-                                return;
-                            }
-
-                            fp.setImage(url);
-                            super.updateById(fp);
-                        });
+                        true, url -> super.baseMapper.updateImage(url, footprint.getId()));
             } catch (IOException e) {
                 log.error("文件上传失败！", e);
             }

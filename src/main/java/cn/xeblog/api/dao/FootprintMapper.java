@@ -23,4 +23,6 @@ public interface FootprintMapper extends BaseMapper<Footprint> {
     int getCurrentTotal(@Param("aroundGeoHash") String aroundGeoHash, @Param("lng") Double lng,
                         @Param("lat") Double lat, @Param("range") int range);
 
+    int updateImage(@Param("image") String image, @Param("id") Integer id);
+
 }
