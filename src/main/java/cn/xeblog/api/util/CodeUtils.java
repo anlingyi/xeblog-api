@@ -51,6 +51,12 @@ public class CodeUtils {
         return getCheck(timestamp, rdm) == Character.getNumericValue(code.charAt(len - 1));
     }
 
+    /**
+     * 10进制转64进制
+     *
+     * @param lng
+     * @return
+     */
     public static String base64(long lng) {
         StringBuilder sb = new StringBuilder();
         do {
@@ -60,6 +66,12 @@ public class CodeUtils {
         return sb.reverse().toString();
     }
 
+    /**
+     * 64进制转10进制
+     *
+     * @param str
+     * @return
+     */
     public static long base64ToDec(String str) {
         long val = 0;
         int len = str.length();

@@ -9,7 +9,6 @@ import cn.xeblog.api.util.FileUtils;
 import cn.xeblog.api.util.ImageUtils;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -42,8 +41,8 @@ public abstract class AbstractUploadService implements UploadService {
     }
 
     protected BufferedImage buildWatermarkImage(MultipartFile multipartFile) {
-        try {
-            return buildWatermarkImage(multipartFile.getInputStream());
+        try (InputStream inputStream = multipartFile.getInputStream()) {
+            return buildWatermarkImage(inputStream);
         } catch (IOException e) {
             log.error("上传文件出现异常", e);
         }
@@ -82,22 +81,6 @@ public abstract class AbstractUploadService implements UploadService {
 
     protected abstract FileInfo getFileInfo(MultipartFile multipartFile);
 
-    @Async
-    @Override
-    public void uploadWithAsync(InputStream inputStream, String fileType, boolean watermarked, UploadCallback callback) {
-        String url;
-
-        try {
-            url = upload(inputStream, fileType, watermarked);
-        } catch (Exception e) {
-            url = FileConstant.IMAGE_UPLOAD_FAIL_URL;
-            log.error("异步上传文件出现异常", e);
-        }
-
-        callback.exec(url);
-    }
-
-    @Async
     @Override
     public void uploadWithAsync(byte[] bytes, String fileType, boolean watermarked, UploadCallback callback) {
         String url;

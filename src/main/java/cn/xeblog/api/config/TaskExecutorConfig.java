@@ -1,6 +1,5 @@
 package cn.xeblog.api.config;
 
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -13,7 +12,6 @@ import java.util.concurrent.Executor;
  * @date 2020/12/6 2:40 上午
  */
 @Configuration
-@ComponentScan("cn.xeblog.api.service.impl")
 @EnableAsync
 public class TaskExecutorConfig implements AsyncConfigurer {
 

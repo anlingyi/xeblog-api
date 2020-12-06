@@ -2,9 +2,9 @@ package cn.xeblog.api.service;
 
 import cn.xeblog.api.util.FileUtils;
 import cn.xeblog.api.util.UUIDUtils;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -42,27 +42,24 @@ public interface UploadService {
     String upload(MultipartFile file, boolean watermarked);
 
     /**
-     * 通过流上传
+     * 通过字节数组上传
      *
-     * @param inputStream
-     * @param fileType
-     * @param watermarked
+     * @param bytes
+     * @param fileType    文件类型
+     * @param watermarked 是否带水印
      * @return
      */
-    String upload(InputStream inputStream, String fileType, boolean watermarked);
-
     String upload(byte[] bytes, String fileType, boolean watermarked);
 
     /**
      * 使用异步的方式上传文件
      *
-     * @param inputStream
-     * @param watermarked
-     * @param callback
-     * @return
+     * @param bytes
+     * @param fileType 文件类型
+     * @param watermarked 是否带水印
+     * @param callback 上传成功后回调接口
      */
-    void uploadWithAsync(InputStream inputStream, String fileType, boolean watermarked, UploadCallback callback);
-
+    @Async
     void uploadWithAsync(byte[] bytes, String fileType, boolean watermarked, UploadCallback callback);
 
     default String createFileName(MultipartFile multipartFile) {
