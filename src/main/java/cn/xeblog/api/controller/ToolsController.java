@@ -80,6 +80,7 @@ public class ToolsController {
             options.setHeadless(true);
             WebDriver driver = new ChromeDriver(options);
             driver.get(url);
+            Thread.sleep(1000);
             html = driver.getPageSource();
             driver.quit();
         } catch (Exception e) {
