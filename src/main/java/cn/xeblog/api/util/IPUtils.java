@@ -1,5 +1,7 @@
 package cn.xeblog.api.util;
 
+import lombok.extern.slf4j.Slf4j;
+
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -8,6 +10,7 @@ import java.net.UnknownHostException;
  * @author anlingyi
  * @date 2020/11/12
  */
+@Slf4j
 public class IPUtils {
 
     private final static String UNKNOWN = "unknown";
@@ -38,6 +41,9 @@ public class IPUtils {
                 }
             }
         }
+
+        log.info("IP -> {}", ip);
+
         if (!isEmpty(ip)) {
             int idx = ip.indexOf(",");
             if (idx > -1) {
