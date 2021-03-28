@@ -33,6 +33,9 @@ public class IPUtils {
         }
         if (isEmpty(ip)) {
             ip = request.getRemoteAddr();
+
+            log.info("RemoteAddr -> {}", ip);
+
             if (LOCALHOST.indexOf(ip) > -1) {
                 try {
                     ip = InetAddress.getLocalHost().getHostAddress();
