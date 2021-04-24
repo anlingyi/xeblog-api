@@ -78,6 +78,7 @@ public class ToolsController {
             System.setProperty("webdriver.chrome.driver", chromeDrive);
             ChromeOptions options = new ChromeOptions();
             options.setHeadless(true);
+            options.addArguments("blink-settings=imagesEnabled=false");
             WebDriver driver = new ChromeDriver(options);
             driver.get(url);
             Thread.sleep(1000);
