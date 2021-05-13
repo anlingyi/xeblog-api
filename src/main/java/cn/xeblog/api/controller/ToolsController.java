@@ -37,6 +37,9 @@ public class ToolsController {
     @Value("${webdriver.chrome.driver}")
     private String chromeDrive;
 
+    @Value("${render.time:1000}")
+    private long renderTime;
+
     /**
      * 图像合成
      *
@@ -81,7 +84,11 @@ public class ToolsController {
             options.addArguments("blink-settings=imagesEnabled=false");
             WebDriver driver = new ChromeDriver(options);
             driver.get(url);
-            Thread.sleep(1000);
+
+            if (renderTime > 0) {
+                Thread.sleep(renderTime);
+            }
+
             html = driver.getPageSource();
             driver.quit();
         } catch (Exception e) {
