@@ -114,4 +114,6 @@ public interface ArticleService {
     AdminArticleDetailsDTO getArticleDetailsAdmin(Integer id) throws Exception;
 
     Article getArticleById(Integer articleId);
+
+    Integer randomArticle();
 }

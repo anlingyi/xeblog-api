@@ -1,6 +1,7 @@
 package cn.xeblog.api.domain.request;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 /**
  * 查询文章列表
@@ -8,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author yanpanyi
  * @date 2018/10/4
  */
+@Data
 public class QueryArticle extends Pagination {
 
     @ApiModelProperty("查询关键字")
@@ -16,37 +18,7 @@ public class QueryArticle extends Pagination {
     private String tag;
     @ApiModelProperty("类目id")
     private Integer categoryId;
+    @ApiModelProperty("排序")
+    private Integer sort;
 
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    @Override
-    public String toString() {
-        return "QueryArticle{" +
-                "query='" + query + '\'' +
-                ", tag='" + tag + '\'' +
-                ", categoryId=" + categoryId +
-                '}';
-    }
 }

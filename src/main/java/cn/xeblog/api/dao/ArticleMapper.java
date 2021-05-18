@@ -117,4 +117,7 @@ public interface ArticleMapper {
      * @throws Exception
      */
     Article getArticle(@Param("id") Integer id);
+
+    Integer randomArticle();
+
 }

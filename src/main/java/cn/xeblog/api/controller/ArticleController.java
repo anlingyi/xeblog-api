@@ -91,4 +91,10 @@ public class ArticleController {
     public Response archives(Pagination pagination) throws Exception {
         return new Response(articleService.listArchives(pagination));
     }
+
+    @ApiOperation(value = "随机文章")
+    @GetMapping("/random")
+    public Response randomArticle() {
+        return new Response(this.articleService.randomArticle());
+    }
 }

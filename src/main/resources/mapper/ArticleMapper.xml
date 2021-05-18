@@ -27,7 +27,19 @@
         <if test="null != page.tag and '' != page.tag">
             AND FIND_IN_SET(#{page.tag}, a.tag)
         </if>
-        ORDER BY a.is_top DESC, a.id DESC
+        ORDER BY
+        <choose>
+            <when test="page.sort == 1">
+                a.id DESC
+            </when>
+            <when test="page.sort == 2">
+                a.pageviews DESC
+            </when>
+            <otherwise>
+                a.is_top DESC, a.id DESC
+            </otherwise>
+        </choose>
+
     </select>
 
     <select id="getArticleById" resultType="article">
@@ -111,4 +123,13 @@
     <select id="getArticle" resultMap="articleDetails">
         SELECT * FROM article WHERE id = #{id} AND delete_flag = 0
     </select>
+
+    <select id="randomArticle" resultType="java.lang.Integer">
+        SELECT a.id
+        FROM article a
+        WHERE a.is_private = 0 AND a.delete_flag = 0
+        ORDER BY rand()
+        LIMIT 1
+    </select>
+
 </mapper>

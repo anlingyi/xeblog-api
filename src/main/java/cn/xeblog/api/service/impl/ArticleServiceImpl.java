@@ -184,4 +184,9 @@ public class ArticleServiceImpl implements ArticleService {
     public Article getArticleById(Integer articleId) {
         return articleMapper.getArticle(articleId);
     }
+
+    @Override
+    public Integer randomArticle() {
+        return articleMapper.randomArticle();
+    }
 }
