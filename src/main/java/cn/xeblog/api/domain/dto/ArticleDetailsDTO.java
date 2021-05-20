@@ -3,6 +3,7 @@ package cn.xeblog.api.domain.dto;
 
 import cn.xeblog.api.domain.model.Article;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 /**
@@ -10,6 +11,7 @@ import org.apache.commons.lang3.time.DateFormatUtils;
  *
  * @author yanpanyi
  */
+@Data
 public class ArticleDetailsDTO {
 
     @ApiModelProperty("文章id")
@@ -36,118 +38,8 @@ public class ArticleDetailsDTO {
     private String cover;
     @ApiModelProperty("文章简述")
     private String brief;
-
-    public String getCover() {
-        return cover;
-    }
-
-    public void setCover(String cover) {
-        this.cover = cover;
-    }
-
-    public String getBrief() {
-        return brief;
-    }
-
-    public void setBrief(String brief) {
-        this.brief = brief;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public Integer getPageviews() {
-        return pageviews;
-    }
-
-    public void setPageviews(Integer pageviews) {
-        this.pageviews = pageviews;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    @Override
-    public String toString() {
-        return "ArticleDetailsDTO{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", categoryName='" + categoryName + '\'' +
-                ", tag='" + tag + '\'' +
-                ", pageviews=" + pageviews +
-                ", author='" + author + '\'' +
-                ", createTime='" + createTime + '\'' +
-                ", content='" + content + '\'' +
-                ", updateTime='" + updateTime + '\'' +
-                ", categoryId=" + categoryId +
-                '}';
-    }
+    @ApiModelProperty("是否置顶")
+    private Boolean top;
 
     public static ArticleDetailsDTO toArticleDetailsDTO(Article article) {
         if (null == article) {
@@ -168,6 +60,7 @@ public class ArticleDetailsDTO {
         articleDetailsDTO.setCategoryId(article.getCategoryId());
         articleDetailsDTO.setCover(article.getCover());
         articleDetailsDTO.setBrief(article.getBrief());
+        articleDetailsDTO.setTop(article.getIsTop() == 1);
 
         return articleDetailsDTO;
     }
