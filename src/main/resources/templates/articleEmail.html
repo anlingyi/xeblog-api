@@ -8,9 +8,13 @@
 <div style="text-align: center;font-size: 1.3rem">
     <div th:text="${articleBrief}" style="margin-bottom: 10px;"></div>
     <a href="#" th:href="@{ https://xeblog.cn/articles/{id}(id=${articleId}) }"
-       style="font-weight: bold;">阅读全文</a>
+       style="font-weight: bold;font-size: 18px">
+        阅读全文
+    </a>
     <div style="margin-top: 10px">
-        <img th:src="${articleCover}"/>
+        <a href="#" th:href="@{ https://xeblog.cn/articles/{id}(id=${articleId}) }">
+            <img th:src="${articleCover}"/>
+        </a>
     </div>
 </div>
 </body>
