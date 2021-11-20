@@ -44,7 +44,8 @@
 
     <select id="getArticleById" resultType="article">
         SELECT a.id, a.title, a.content, a.update_time AS updateTime, c.name AS categoryName, a.tag, a.pageviews,
-        a.author, a.create_time AS createTime, a.category_id AS categoryId, a.cover, a.brief, a.is_top as isTop
+        a.author, a.create_time AS createTime, a.category_id AS categoryId, a.cover, a.brief,
+        a.is_top AS isTop, a.word_count AS wordCount
         FROM article a
         LEFT JOIN category c ON c.id = a.category_id
         WHERE a.id = #{id} AND a.delete_flag = 0
