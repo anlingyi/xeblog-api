@@ -42,6 +42,8 @@ public class AdminUserServiceImpl implements AdminUserService {
         userInfoDTO.setTagCount(this.tagService.getCount());
         // 获取分类数
         userInfoDTO.setCategoryCount(this.categoryService.getCategoryCount());
+        // 获取总字数
+        userInfoDTO.setWordCount(this.articleService.getWordCountTotal());
 
         return userInfoDTO;
     }

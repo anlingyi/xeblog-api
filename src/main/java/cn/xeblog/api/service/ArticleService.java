@@ -8,12 +8,13 @@ import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
 import cn.xeblog.api.domain.request.Pagination;
 import cn.xeblog.api.domain.request.QueryArticle;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * @author yanpanyi
  * @date 2018/10/3
  */
-public interface ArticleService {
+public interface ArticleService extends IService<Article> {
 
     /**
      * 获取公开文章总数
@@ -116,4 +117,12 @@ public interface ArticleService {
     Article getArticleById(Integer articleId);
 
     Integer randomArticle();
+
+    /**
+     * 统计文章字数
+     */
+    void statsArticleWordCount();
+
+    int getWordCountTotal();
+
 }

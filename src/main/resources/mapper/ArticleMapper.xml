@@ -71,15 +71,24 @@
     </select>
 
     <insert id="addArticle">
-      INSERT INTO article (title, content, cover, category_id, tag, author, brief, is_top, is_private)
+        INSERT INTO article (title, content, cover, category_id, tag, author, brief, is_top, is_private, word_count)
         VALUES (#{add.title}, #{add.content}, #{add.cover}, #{add.categoryId}, #{add.tag}, #{add.author}, #{add.brief},
-        #{add.isTop}, #{add.isPrivate})
+                #{add.isTop}, #{add.isPrivate}, #{add.wordCount})
     </insert>
 
     <update id="updateArticle">
-      UPDATE article SET title = #{update.title}, content = #{update.content}, cover = #{update.cover},
-        category_id = #{update.categoryId}, tag = #{update.tag}, author = #{update.author}, brief = #{update.brief},
-        is_top = #{update.isTop}, is_private = #{update.isPrivate}, update_time = NOW()
+        UPDATE article
+        SET title       = #{update.title},
+            content     = #{update.content},
+            cover       = #{update.cover},
+            category_id = #{update.categoryId},
+            tag         = #{update.tag},
+            author      = #{update.author},
+            brief       = #{update.brief},
+            is_top      = #{update.isTop},
+            is_private  = #{update.isPrivate},
+            word_count  = #{update.wordCount},
+            update_time = NOW()
         WHERE id = #{update.id} LIMIT 1
     </update>
 
@@ -121,15 +130,23 @@
     </resultMap>
 
     <select id="getArticle" resultMap="articleDetails">
-        SELECT * FROM article WHERE id = #{id} AND delete_flag = 0
+        SELECT *
+        FROM article
+        WHERE id = #{id}
+          AND delete_flag = 0
     </select>
 
     <select id="randomArticle" resultType="java.lang.Integer">
         SELECT a.id
         FROM article a
-        WHERE a.is_private = 0 AND a.delete_flag = 0
-        ORDER BY rand()
-        LIMIT 1
+        WHERE a.is_private = 0
+          AND a.delete_flag = 0
+        ORDER BY rand() LIMIT 1
+    </select>
+
+    <select id="getWordCountTotal" resultType="java.lang.Integer">
+        SELECT IFNULL(SUM(word_count), 0)
+        FROM article
     </select>
 
 </mapper>

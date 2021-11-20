@@ -3,12 +3,14 @@ package cn.xeblog.api.domain.dto;
 
 import cn.xeblog.api.domain.model.AdminUser;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 /**
  * 个人信息
  *
  * @author yanpanyi
  */
+@Data
 public class UserInfoDTO {
 
     @ApiModelProperty("头像")
@@ -25,75 +27,8 @@ public class UserInfoDTO {
     private Integer tagCount;
     @ApiModelProperty("分类数")
     private Integer categoryCount;
-
-    public Integer getCategoryCount() {
-        return categoryCount;
-    }
-
-    public void setCategoryCount(Integer categoryCount) {
-        this.categoryCount = categoryCount;
-    }
-
-    public Integer getArticleCount() {
-        return articleCount;
-    }
-
-    public void setArticleCount(Integer articleCount) {
-        this.articleCount = articleCount;
-    }
-
-    public Integer getTagCount() {
-        return tagCount;
-    }
-
-    public void setTagCount(Integer tagCount) {
-        this.tagCount = tagCount;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSignature() {
-        return signature;
-    }
-
-    public void setSignature(String signature) {
-        this.signature = signature;
-    }
-
-    public String getGithubUrl() {
-        return githubUrl;
-    }
-
-    public void setGithubUrl(String githubUrl) {
-        this.githubUrl = githubUrl;
-    }
-
-    @Override
-    public String toString() {
-        return "UserInfoDTO{" +
-                "avatar='" + avatar + '\'' +
-                ", name='" + name + '\'' +
-                ", signature='" + signature + '\'' +
-                ", githubUrl='" + githubUrl + '\'' +
-                ", articleCount=" + articleCount +
-                ", tagCount=" + tagCount +
-                ", categoryCount=" + categoryCount +
-                '}';
-    }
+    @ApiModelProperty("总字数")
+    private Integer wordCount;
 
     public static UserInfoDTO toUserInfoDTO(AdminUser adminUser) {
         if (null == adminUser) {

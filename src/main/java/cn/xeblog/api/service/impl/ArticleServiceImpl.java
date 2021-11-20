@@ -12,6 +12,8 @@ import cn.xeblog.api.domain.request.Pagination;
 import cn.xeblog.api.domain.request.QueryArticle;
 import cn.xeblog.api.service.ArticleService;
 import cn.xeblog.api.service.TagService;
+import cn.xeblog.api.util.MarkdownUtils;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +29,7 @@ import java.util.List;
  * @date 2018/10/3
  */
 @Service
-public class ArticleServiceImpl implements ArticleService {
+public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> implements ArticleService {
 
     @Resource
     private ArticleMapper articleMapper;
@@ -117,6 +119,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(rollbackFor = Exception.class)
     public boolean addArticle(AddOrUpdateArticle addOrUpdateArticle) throws Exception {
         this.addTags(addOrUpdateArticle.getTag());
+        addOrUpdateArticle.setWordCount(MarkdownUtils.getWordCount(addOrUpdateArticle.getContent()));
         return 1 == this.articleMapper.addArticle(addOrUpdateArticle);
     }
 
@@ -124,6 +127,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Transactional(rollbackFor = Exception.class)
     public boolean updateArticle(AddOrUpdateArticle addOrUpdateArticle) throws Exception {
         this.addTags(addOrUpdateArticle.getTag());
+        addOrUpdateArticle.setWordCount(MarkdownUtils.getWordCount(addOrUpdateArticle.getContent()));
         return 1 == this.articleMapper.updateArticle(addOrUpdateArticle);
     }
 
@@ -188,5 +192,20 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Integer randomArticle() {
         return articleMapper.randomArticle();
+    }
+
+    @Override
+    public void statsArticleWordCount() {
+        List<Article> list = super.lambdaQuery().select(Article::getId, Article::getContent).list();
+        list.forEach(article -> {
+            article.setWordCount(MarkdownUtils.getWordCount(article.getContent()));
+            article.setContent(null);
+        });
+        super.updateBatchById(list);
+    }
+
+    @Override
+    public int getWordCountTotal() {
+        return super.baseMapper.getWordCountTotal();
     }
 }

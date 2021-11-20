@@ -40,6 +40,8 @@ public class ArticleDetailsDTO {
     private String brief;
     @ApiModelProperty("是否置顶")
     private Boolean top;
+    @ApiModelProperty("文章字数")
+    private Integer wordCount;
 
     public static ArticleDetailsDTO toArticleDetailsDTO(Article article) {
         if (null == article) {
@@ -61,6 +63,7 @@ public class ArticleDetailsDTO {
         articleDetailsDTO.setCover(article.getCover());
         articleDetailsDTO.setBrief(article.getBrief());
         articleDetailsDTO.setTop(article.getIsTop() == 1);
+        articleDetailsDTO.setWordCount(article.getWordCount());
 
         return articleDetailsDTO;
     }

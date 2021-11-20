@@ -2,12 +2,14 @@ package cn.xeblog.api.domain.request;
 
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 /**
  * 添加或更新文章
  *
  * @author yanpanyi
  */
+@Data
 public class AddOrUpdateArticle {
 
     @ApiModelProperty("文章id")
@@ -30,100 +32,7 @@ public class AddOrUpdateArticle {
     private String author;
     @ApiModelProperty("文章简述")
     private String brief;
+    @ApiModelProperty("文章字数")
+    private Integer wordCount;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getCover() {
-        return cover;
-    }
-
-    public void setCover(String cover) {
-        this.cover = cover;
-    }
-
-    public Integer getIsTop() {
-        return isTop;
-    }
-
-    public void setIsTop(Integer isTop) {
-        this.isTop = isTop;
-    }
-
-    public Integer getIsPrivate() {
-        return isPrivate;
-    }
-
-    public void setIsPrivate(Integer isPrivate) {
-        this.isPrivate = isPrivate;
-    }
-
-    public Integer getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Integer categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getBrief() {
-        return brief;
-    }
-
-    public void setBrief(String brief) {
-        this.brief = brief;
-    }
-
-    @Override
-    public String toString() {
-        return "AddOrUpdateArticle{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", cover='" + cover + '\'' +
-                ", isTop=" + isTop +
-                ", isPrivate=" + isPrivate +
-                ", categoryId=" + categoryId +
-                ", tag='" + tag + '\'' +
-                ", author='" + author + '\'' +
-                ", brief='" + brief + '\'' +
-                '}';
-    }
 }

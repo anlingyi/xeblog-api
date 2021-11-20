@@ -3,6 +3,7 @@ package cn.xeblog.api.dao;
 import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
 import cn.xeblog.api.domain.request.Pagination;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @author yanpanyi
  * @date 2018/10/3
  */
-public interface ArticleMapper {
+public interface ArticleMapper extends BaseMapper<Article> {
 
     /**
      * 获取公开文章总数
@@ -119,5 +120,7 @@ public interface ArticleMapper {
     Article getArticle(@Param("id") Integer id);
 
     Integer randomArticle();
+
+    int getWordCountTotal();
 
 }
