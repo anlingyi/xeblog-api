@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  * @date 2021/11/20 11:47 下午
  */
 @Slf4j
-@Component
+//@Component
 public class StartRunner implements ApplicationRunner {
 
     @Resource
