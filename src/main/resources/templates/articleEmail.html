@@ -11,9 +11,9 @@
        style="font-weight: bold;font-size: 18px">
         阅读全文
     </a>
-    <div style="margin-top: 10px">
+    <div style="margin: 10px auto;max-width: 100%;max-height: 100%">
         <a href="#" th:href="@{ https://xeblog.cn/articles/{id}(id=${articleId}) }">
-            <img th:src="${articleCover}"/>
+            <img width="100%" height="100%" th:src="${articleCover}"/>
         </a>
     </div>
 </div>
