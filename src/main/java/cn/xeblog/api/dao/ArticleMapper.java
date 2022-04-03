@@ -3,6 +3,7 @@ package cn.xeblog.api.dao;
 import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
 import cn.xeblog.api.domain.request.Pagination;
+import cn.xeblog.api.domain.request.SetRecommend;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -122,5 +123,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
     Integer randomArticle();
 
     int getWordCountTotal();
+
+    boolean setRecommend(@Param("ro") SetRecommend setRecommend);
 
 }

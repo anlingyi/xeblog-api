@@ -8,6 +8,7 @@ import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
 import cn.xeblog.api.domain.request.Pagination;
 import cn.xeblog.api.domain.request.QueryArticle;
+import cn.xeblog.api.domain.request.SetRecommend;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -124,5 +125,13 @@ public interface ArticleService extends IService<Article> {
     void statsArticleWordCount();
 
     int getWordCountTotal();
+
+    /**
+     * 设置文章推荐
+     *
+     * @param setRecommend
+     * @return
+     */
+    boolean setRecommend(SetRecommend setRecommend);
 
 }

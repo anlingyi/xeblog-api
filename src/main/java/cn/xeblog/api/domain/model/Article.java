@@ -29,5 +29,6 @@ public class Article extends Model<Article> {
     private String brief;
     private String categoryName;
     private Integer wordCount;
+    private Integer isRcmd;
 
 }

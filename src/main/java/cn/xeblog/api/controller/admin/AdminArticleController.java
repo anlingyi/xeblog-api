@@ -2,6 +2,7 @@ package cn.xeblog.api.controller.admin;
 
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
 import cn.xeblog.api.domain.request.Pagination;
+import cn.xeblog.api.domain.request.SetRecommend;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.service.ArticleService;
 import cn.xeblog.api.util.CheckUtils;
@@ -117,6 +118,22 @@ public class AdminArticleController {
         }
 
         return new Response(this.articleService.getArticleDetailsAdmin(id));
+    }
+
+    /**
+     * 设置推荐
+     *
+     * @param setRecommend
+     * @return
+     */
+    @ApiOperation(value = "设置推荐")
+    @PutMapping("/recommend")
+    public Response setRecommend(SetRecommend setRecommend) {
+        if (CheckUtils.checkId(setRecommend.getId())) {
+            return new Response(Code.INVALID_PARAMETERS);
+        }
+
+        return Response.what(this.articleService.setRecommend(setRecommend));
     }
 
 }

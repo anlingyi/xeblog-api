@@ -98,12 +98,18 @@
     </update>
 
     <select id="listArticleAdmin" resultType="article">
-      SELECT a.id, a.title, c.name AS categoryName, a.pageviews, a.create_time AS createTime, a.is_top AS isTop,
-        is_private AS isPrivate
+        SELECT a.id,
+               a.title,
+               c.name        AS categoryName,
+               a.pageviews,
+               a.create_time AS createTime,
+               a.is_top      AS isTop,
+               is_private    AS isPrivate,
+               is_rcmd       AS isRcmd
         FROM article a
-        LEFT JOIN category c ON c.id = a.category_id
+                 LEFT JOIN category c ON c.id = a.category_id
         WHERE a.delete_flag = 0
-        ORDER BY a.id DESC
+        ORDER BY a.is_rcmd DESC, a.id DESC
     </select>
 
     <select id="getAdminArticleById" resultMap="articleDetails">
@@ -149,5 +155,11 @@
         SELECT IFNULL(SUM(word_count), 0)
         FROM article
     </select>
+
+    <update id="setRecommend">
+        UPDATE article
+        SET is_rcmd = #{ro.status}
+        WHERE id = #{ro.id}
+    </update>
 
 </mapper>

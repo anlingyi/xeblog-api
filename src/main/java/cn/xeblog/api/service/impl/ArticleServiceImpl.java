@@ -10,6 +10,7 @@ import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
 import cn.xeblog.api.domain.request.Pagination;
 import cn.xeblog.api.domain.request.QueryArticle;
+import cn.xeblog.api.domain.request.SetRecommend;
 import cn.xeblog.api.service.ArticleService;
 import cn.xeblog.api.service.TagService;
 import cn.xeblog.api.util.MarkdownUtils;
@@ -208,4 +209,10 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public int getWordCountTotal() {
         return super.baseMapper.getWordCountTotal();
     }
+
+    @Override
+    public boolean setRecommend(SetRecommend setRecommend) {
+        return super.baseMapper.setRecommend(setRecommend);
+    }
+
 }

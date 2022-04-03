@@ -1,5 +1,6 @@
 package cn.xeblog.api.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,9 @@ import java.util.List;
 @EnableSwagger2
 @ConfigurationProperties(prefix = "swagger")
 public class SwaggerConfig {
+
+    @Value("${version}")
+    private String version;
 
     /**
      * 是否开启swagger
@@ -67,7 +71,7 @@ public class SwaggerConfig {
                 .title("小毅博客-接口文档")
                 .description("分享的不只是代码更是生活！")
                 .contact(new Contact("小毅", "http://www.xeblog.cn", "1090172196@qq.com"))
-                .version("1.3.0")
+                .version(version)
                 .build();
     }
 
