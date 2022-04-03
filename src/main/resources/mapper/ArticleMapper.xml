@@ -167,7 +167,7 @@
         FROM article a
         WHERE a.is_rcmd = 1
           AND a.is_private = 0
-          AND a.delete_flag = 0 LIMIT 10
+          AND a.delete_flag = 0
     </select>
 
 </mapper>
