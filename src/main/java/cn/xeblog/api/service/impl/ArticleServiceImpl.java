@@ -215,4 +215,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return super.baseMapper.setRecommend(setRecommend);
     }
 
+    @Override
+    public List<RecommendArticleListDTO> listRecommend() {
+        return super.baseMapper.listRecommend();
+    }
+
 }

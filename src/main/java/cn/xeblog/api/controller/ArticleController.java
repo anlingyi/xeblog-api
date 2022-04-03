@@ -97,4 +97,11 @@ public class ArticleController {
     public Response randomArticle() {
         return new Response(this.articleService.randomArticle());
     }
+
+    @ApiOperation(value = "获取推荐文章列表")
+    @GetMapping("/recommend")
+    public Response listRecommend() {
+        return new Response(this.articleService.listRecommend());
+    }
+
 }

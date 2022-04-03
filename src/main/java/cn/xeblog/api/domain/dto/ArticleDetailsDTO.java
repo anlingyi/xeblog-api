@@ -42,6 +42,8 @@ public class ArticleDetailsDTO {
     private Boolean top;
     @ApiModelProperty("文章字数")
     private Integer wordCount;
+    @ApiModelProperty("推荐状态 0.不推荐 1.推荐")
+    private Integer isRcmd;
 
     public static ArticleDetailsDTO toArticleDetailsDTO(Article article) {
         if (null == article) {
@@ -64,6 +66,7 @@ public class ArticleDetailsDTO {
         articleDetailsDTO.setBrief(article.getBrief());
         articleDetailsDTO.setTop(article.getIsTop() == 1);
         articleDetailsDTO.setWordCount(article.getWordCount());
+        articleDetailsDTO.setIsRcmd(article.getIsRcmd());
 
         return articleDetailsDTO;
     }

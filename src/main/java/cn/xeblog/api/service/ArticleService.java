@@ -3,6 +3,7 @@ package cn.xeblog.api.service;
 import cn.xeblog.api.domain.bo.ArticleDetailsBO;
 import cn.xeblog.api.domain.bo.PageList;
 import cn.xeblog.api.domain.dto.ArticleDetailsDTO;
+import cn.xeblog.api.domain.dto.RecommendArticleListDTO;
 import cn.xeblog.api.domain.dto.admin.AdminArticleDetailsDTO;
 import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
@@ -10,6 +11,8 @@ import cn.xeblog.api.domain.request.Pagination;
 import cn.xeblog.api.domain.request.QueryArticle;
 import cn.xeblog.api.domain.request.SetRecommend;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * @author yanpanyi
@@ -133,5 +136,12 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     boolean setRecommend(SetRecommend setRecommend);
+
+    /**
+     * 查询推荐文章列表
+     *
+     * @return
+     */
+    List<RecommendArticleListDTO> listRecommend();
 
 }

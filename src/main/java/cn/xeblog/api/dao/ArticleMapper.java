@@ -1,5 +1,6 @@
 package cn.xeblog.api.dao;
 
+import cn.xeblog.api.domain.dto.RecommendArticleListDTO;
 import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.AddOrUpdateArticle;
 import cn.xeblog.api.domain.request.Pagination;
@@ -125,5 +126,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
     int getWordCountTotal();
 
     boolean setRecommend(@Param("ro") SetRecommend setRecommend);
+
+    List<RecommendArticleListDTO> listRecommend();
 
 }
