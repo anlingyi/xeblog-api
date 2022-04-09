@@ -1,5 +1,6 @@
 package cn.xeblog.api.dao;
 
+import cn.xeblog.api.domain.dto.SitemapConfigDTO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import cn.xeblog.api.domain.model.Sitemap;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,6 +13,8 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface SitemapMapper extends BaseMapper<Sitemap> {
+
+    SitemapConfigDTO getSitemapConfig();
 
 }
 

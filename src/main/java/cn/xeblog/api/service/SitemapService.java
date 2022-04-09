@@ -1,5 +1,6 @@
 package cn.xeblog.api.service;
 
+import cn.xeblog.api.domain.dto.SitemapConfigDTO;
 import cn.xeblog.api.domain.request.UpdateSitemapConfig;
 import com.baomidou.mybatisplus.extension.service.IService;
 import cn.xeblog.api.domain.model.Sitemap;
@@ -26,6 +27,13 @@ public interface SitemapService extends IService<Sitemap> {
      * @return
      */
     boolean generate();
+
+    /**
+     * 获取站点地图配置信息
+     *
+     * @return
+     */
+    SitemapConfigDTO getSitemapConfig();
 
 }
 

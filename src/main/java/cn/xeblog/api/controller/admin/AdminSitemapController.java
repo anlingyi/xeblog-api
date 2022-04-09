@@ -26,7 +26,7 @@ public class AdminSitemapController {
 
     @ApiOperation(value = "站点地图配置")
     @PostMapping("/config")
-    public Response updateConfig(@RequestBody UpdateSitemapConfig updateSitemapConfig) {
+    public Response updateConfig(UpdateSitemapConfig updateSitemapConfig) {
         return Response.what(sitemapService.updateConfig(updateSitemapConfig));
     }
 
@@ -34,6 +34,12 @@ public class AdminSitemapController {
     @PostMapping("/generate")
     public Response generate() {
         return Response.what(sitemapService.generate());
+    }
+
+    @ApiOperation(value = "获取站点地图配置信息")
+    @GetMapping()
+    public Response getInfo() {
+        return Response.ok(sitemapService.getSitemapConfig());
     }
 
 }

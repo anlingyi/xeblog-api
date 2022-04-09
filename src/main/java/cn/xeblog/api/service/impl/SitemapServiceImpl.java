@@ -1,6 +1,7 @@
 package cn.xeblog.api.service.impl;
 
 import cn.xeblog.api.domain.bo.SitemapBO;
+import cn.xeblog.api.domain.dto.SitemapConfigDTO;
 import cn.xeblog.api.domain.model.Article;
 import cn.xeblog.api.domain.request.UpdateSitemapConfig;
 import cn.xeblog.api.service.ArticleService;
@@ -33,22 +34,22 @@ public class SitemapServiceImpl extends ServiceImpl<SitemapMapper, Sitemap> impl
 
     @Override
     public boolean updateConfig(UpdateSitemapConfig updateSitemapConfig) {
-        Sitemap origin = super.lambdaQuery().last("limit 1").one();
+        SitemapConfigDTO config = getSitemapConfig();
         Sitemap sitemap = new Sitemap();
         sitemap.setDomain(updateSitemapConfig.getDomain());
         sitemap.setOutPath(updateSitemapConfig.getOutPath());
-        if (origin == null) {
+        if (config == null) {
             return super.save(sitemap);
         }
 
-        sitemap.setId(origin.getId());
+        sitemap.setId(config.getId());
         return super.updateById(sitemap);
     }
 
     @Override
     public boolean generate() {
-        Sitemap sitemap = super.lambdaQuery().last("limit 1").one();
-        if (sitemap == null) {
+        SitemapConfigDTO config = getSitemapConfig();
+        if (config == null) {
             return false;
         }
 
@@ -69,16 +70,16 @@ public class SitemapServiceImpl extends ServiceImpl<SitemapMapper, Sitemap> impl
             url.setChangefreq("daily");
             url.setLastmod(DateFormatUtils.format(article.getUpdateTime(), "yyyy-MM-dd"));
             url.setPriority("0.8");
-            url.setLoc(sitemap.getDomain() + "/articles/" + article.getId());
+            url.setLoc(config.getDomain() + "/articles/" + article.getId());
             sitemapBO.addUrl(url);
         });
 
         String xml = xStream.toXML(sitemapBO);
-        String filePath = sitemap.getOutPath() + "/sitemap.xml";
+        String filePath = config.getOutPath() + "/sitemap.xml";
         try (BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(filePath))) {
             outputStream.write(xml.getBytes(StandardCharsets.UTF_8));
             Sitemap up = new Sitemap();
-            up.setId(sitemap.getId());
+            up.setId(config.getId());
             up.setLastUpdate(LocalDateTime.now());
             super.updateById(up);
             return true;
@@ -87,6 +88,11 @@ public class SitemapServiceImpl extends ServiceImpl<SitemapMapper, Sitemap> impl
         }
 
         return false;
+    }
+
+    @Override
+    public SitemapConfigDTO getSitemapConfig() {
+        return super.baseMapper.getSitemapConfig();
     }
 
 }
