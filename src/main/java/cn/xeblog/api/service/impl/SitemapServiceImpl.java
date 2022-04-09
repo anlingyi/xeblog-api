@@ -18,6 +18,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,6 +54,16 @@ public class SitemapServiceImpl extends ServiceImpl<SitemapMapper, Sitemap> impl
             return false;
         }
 
+        XStream xStream = new XStream();
+        xStream.processAnnotations(SitemapBO.class);
+        SitemapBO sitemapBO = new SitemapBO();
+        SitemapBO.Url fixedUrl = new SitemapBO.Url();
+        fixedUrl.setChangefreq("daily");
+        fixedUrl.setLastmod(DateFormatUtils.format(new Date(), "yyyy-MM-dd"));
+        fixedUrl.setPriority("0.8");
+        fixedUrl.setLoc(config.getDomain());
+        sitemapBO.addUrl(fixedUrl);
+
         List<Article> articleList = articleService.lambdaQuery()
                 .eq(Article::getDeleteFlag, 0)
                 .eq(Article::getIsPrivate, 0)
@@ -62,9 +73,6 @@ public class SitemapServiceImpl extends ServiceImpl<SitemapMapper, Sitemap> impl
             return false;
         }
 
-        XStream xStream = new XStream();
-        xStream.processAnnotations(SitemapBO.class);
-        SitemapBO sitemapBO = new SitemapBO();
         articleList.forEach(article -> {
             SitemapBO.Url url = new SitemapBO.Url();
             url.setChangefreq("daily");
