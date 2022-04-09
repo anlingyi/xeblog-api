@@ -1,6 +1,7 @@
 package cn.xeblog.api.domain.model;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
@@ -27,8 +28,10 @@ public class Article extends Model<Article> {
     private Date createTime;
     private Date updateTime;
     private String brief;
+    @TableField(exist = false)
     private String categoryName;
     private Integer wordCount;
     private Integer isRcmd;
+    private Integer deleteFlag;
 
 }
