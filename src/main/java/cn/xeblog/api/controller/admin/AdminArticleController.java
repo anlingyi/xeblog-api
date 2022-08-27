@@ -1,8 +1,6 @@
 package cn.xeblog.api.controller.admin;
 
-import cn.xeblog.api.domain.request.AddOrUpdateArticle;
-import cn.xeblog.api.domain.request.Pagination;
-import cn.xeblog.api.domain.request.SetRecommend;
+import cn.xeblog.api.domain.request.*;
 import cn.xeblog.api.enums.Code;
 import cn.xeblog.api.service.ArticleService;
 import cn.xeblog.api.util.CheckUtils;
@@ -134,6 +132,38 @@ public class AdminArticleController {
         }
 
         return Response.what(this.articleService.setRecommend(setRecommend));
+    }
+
+    /**
+     * 设置置顶
+     *
+     * @param setTop
+     * @return
+     */
+    @ApiOperation(value = "设置置顶")
+    @PutMapping("/top")
+    public Response setTop(SetTop setTop) {
+        if (CheckUtils.checkId(setTop.getId())) {
+            return new Response(Code.INVALID_PARAMETERS);
+        }
+
+        return Response.what(this.articleService.setTop(setTop));
+    }
+
+    /**
+     * 设置私有
+     *
+     * @param setPrivate
+     * @return
+     */
+    @ApiOperation(value = "设置私有")
+    @PutMapping("/private")
+    public Response setPrivate(SetPrivate setPrivate) {
+        if (CheckUtils.checkId(setPrivate.getId())) {
+            return new Response(Code.INVALID_PARAMETERS);
+        }
+
+        return Response.what(this.articleService.setPrivate(setPrivate));
     }
 
 }

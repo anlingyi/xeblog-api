@@ -6,10 +6,7 @@ import cn.xeblog.api.domain.dto.ArticleDetailsDTO;
 import cn.xeblog.api.domain.dto.RecommendArticleListDTO;
 import cn.xeblog.api.domain.dto.admin.AdminArticleDetailsDTO;
 import cn.xeblog.api.domain.model.Article;
-import cn.xeblog.api.domain.request.AddOrUpdateArticle;
-import cn.xeblog.api.domain.request.Pagination;
-import cn.xeblog.api.domain.request.QueryArticle;
-import cn.xeblog.api.domain.request.SetRecommend;
+import cn.xeblog.api.domain.request.*;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -143,5 +140,21 @@ public interface ArticleService extends IService<Article> {
      * @return
      */
     List<RecommendArticleListDTO> listRecommend();
+
+    /**
+     * 设置文章置顶
+     *
+     * @param setTop
+     * @return
+     */
+    boolean setTop(SetTop setTop);
+
+    /**
+     * 设置文章私有
+     *
+     * @param setPrivate
+     * @return
+     */
+    boolean setPrivate(SetPrivate setPrivate);
 
 }

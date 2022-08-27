@@ -2,9 +2,7 @@ package cn.xeblog.api.dao;
 
 import cn.xeblog.api.domain.dto.RecommendArticleListDTO;
 import cn.xeblog.api.domain.model.Article;
-import cn.xeblog.api.domain.request.AddOrUpdateArticle;
-import cn.xeblog.api.domain.request.Pagination;
-import cn.xeblog.api.domain.request.SetRecommend;
+import cn.xeblog.api.domain.request.*;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -128,5 +126,9 @@ public interface ArticleMapper extends BaseMapper<Article> {
     boolean setRecommend(@Param("ro") SetRecommend setRecommend);
 
     List<RecommendArticleListDTO> listRecommend();
+
+    boolean setTop(@Param("ro") SetTop setTop);
+
+    boolean setPrivate(@Param("ro") SetPrivate setPrivate);
 
 }

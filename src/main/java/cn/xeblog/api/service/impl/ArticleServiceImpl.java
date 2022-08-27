@@ -7,10 +7,7 @@ import cn.xeblog.api.domain.dto.*;
 import cn.xeblog.api.domain.dto.admin.AdminArticleDetailsDTO;
 import cn.xeblog.api.domain.dto.admin.ArticleAdminDTO;
 import cn.xeblog.api.domain.model.Article;
-import cn.xeblog.api.domain.request.AddOrUpdateArticle;
-import cn.xeblog.api.domain.request.Pagination;
-import cn.xeblog.api.domain.request.QueryArticle;
-import cn.xeblog.api.domain.request.SetRecommend;
+import cn.xeblog.api.domain.request.*;
 import cn.xeblog.api.service.ArticleService;
 import cn.xeblog.api.service.TagService;
 import cn.xeblog.api.util.MarkdownUtils;
@@ -218,6 +215,16 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public List<RecommendArticleListDTO> listRecommend() {
         return super.baseMapper.listRecommend();
+    }
+
+    @Override
+    public boolean setTop(SetTop setTop) {
+        return super.baseMapper.setTop(setTop);
+    }
+
+    @Override
+    public boolean setPrivate(SetPrivate setPrivate) {
+        return super.baseMapper.setPrivate(setPrivate);
     }
 
 }

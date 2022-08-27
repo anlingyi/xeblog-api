@@ -109,7 +109,7 @@
         FROM article a
                  LEFT JOIN category c ON c.id = a.category_id
         WHERE a.delete_flag = 0
-        ORDER BY a.is_rcmd DESC, a.id DESC
+        ORDER BY a.is_top DESC, a.id DESC
     </select>
 
     <select id="getAdminArticleById" resultMap="articleDetails">
@@ -159,6 +159,18 @@
     <update id="setRecommend">
         UPDATE article
         SET is_rcmd = #{ro.status}
+        WHERE id = #{ro.id}
+    </update>
+
+    <update id="setTop">
+        UPDATE article
+        SET is_top = #{ro.status}
+        WHERE id = #{ro.id}
+    </update>
+
+    <update id="setPrivate">
+        UPDATE article
+        SET is_private = #{ro.status}
         WHERE id = #{ro.id}
     </update>
 
