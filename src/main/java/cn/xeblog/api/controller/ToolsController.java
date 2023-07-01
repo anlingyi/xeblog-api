@@ -77,12 +77,15 @@ public class ToolsController {
     @GetMapping("/render")
     public String render(String url, HttpServletResponse response) {
         String html = null;
+        WebDriver driver = null;
+
         try {
             System.setProperty("webdriver.chrome.driver", chromeDrive);
             ChromeOptions options = new ChromeOptions();
             options.setHeadless(true);
+            options.addArguments("--no-sandbox");
             options.addArguments("blink-settings=imagesEnabled=false");
-            WebDriver driver = new ChromeDriver(options);
+            driver = new ChromeDriver(options);
             driver.get(url);
 
             if (renderTime > 0) {
@@ -90,9 +93,12 @@ public class ToolsController {
             }
 
             html = driver.getPageSource();
-            driver.quit();
         } catch (Exception e) {
             LOGGER.error("url: {}, 渲染异常", url, e);
+        } finally {
+            if (driver != null) {
+                driver.quit();
+            }
         }
 
         if (StringUtils.isBlank(html)) {
