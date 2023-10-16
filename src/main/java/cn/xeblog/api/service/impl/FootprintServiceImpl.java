@@ -67,7 +67,7 @@ public class FootprintServiceImpl extends ServiceImpl<FootprintMapper, Footprint
 
     @Override
     public FootprintListInfoDTO getFootprintListInfo(Double longitude, Double latitude) {
-        int range = 1000;
+        int range = 2000;
         FootprintListInfoDTO info = new FootprintListInfoDTO();
         String aroundGeoHash = StringUtils.join(GeoHashUtils.aroundHash(longitude, latitude, 5), "|");
         info.setTotal(super.baseMapper.getTotal());
