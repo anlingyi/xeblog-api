@@ -3,15 +3,12 @@
 <mapper namespace="cn.xeblog.api.dao.FootprintMapper">
 
     <select id="listFootprint" resultType="cn.xeblog.api.domain.dto.FootprintListDTO">
-        SELECT a.* FROM (
         SELECT code, content, image, tag, address, create_time createTime, nickname,
-            ROUND(ST_DISTANCE_SPHERE(POINT(longitude, latitude), POINT(#{lng}, #{lat}))) distance
+               ROUND(ST_DISTANCE_SPHERE(POINT(longitude, latitude), POINT(#{lng}, #{lat}))) distance
         FROM footprint
         WHERE geohash REGEXP CONCAT('(', #{aroundGeoHash}, ')')
-        HAVING distance &lt; #{range}
-        ORDER BY RAND()
-        LIMIT 10) a
-        ORDER BY a.distance, a.createTime desc
+        HAVING distance &lt;= #{range}
+        ORDER BY distance, id desc
     </select>
 
     <select id="getTotal" resultType="java.lang.Integer">
@@ -21,7 +18,10 @@
     <select id="getCurrentTotal" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM footprint
         WHERE geohash REGEXP CONCAT('(', #{aroundGeoHash}, ')')
-         AND ROUND(ST_DISTANCE_SPHERE(POINT(longitude, latitude), POINT(#{lng}, #{lat}))) &lt; #{range}
+          AND ROUND(ST_DISTANCE_SPHERE(POINT(longitude
+            , latitude)
+            , POINT(#{lng}
+            , #{lat}))) &lt;= #{range}
     </select>
 
     <update id="updateImage">
