@@ -9,7 +9,9 @@ import cn.xeblog.api.util.Response;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -27,6 +29,9 @@ public class FootprintController {
 
     @Resource
     private FootprintService footprintService;
+
+    @Value("${amap.key}")
+    private String amapKey;
 
     @ApiOperation(value = "添加足迹")
     @PostMapping()
@@ -61,6 +66,11 @@ public class FootprintController {
         }
 
         return Response.ok(footprintService.getFootprintListInfo(longitude, latitude));
+    }
+
+    @GetMapping("/geocode/regeo")
+    public String regeo(String location) {
+        return new RestTemplate().getForObject(String.format("https://restapi.amap.com/v3/geocode/regeo?key=%s&location=%s", amapKey, location), String.class);
     }
 
 }
