@@ -8,7 +8,7 @@
         FROM footprint
         WHERE geohash REGEXP CONCAT('(', #{aroundGeoHash}, ')')
         HAVING distance &lt;= #{range}
-        ORDER BY distance, id desc
+        ORDER BY id desc
     </select>
 
     <select id="getTotal" resultType="java.lang.Integer">
